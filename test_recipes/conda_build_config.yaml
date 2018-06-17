@@ -1,0 +1,14 @@
+c_compiler:
+  - vs2017   # [win]
+cxx_compiler:
+  - vs2017   # [win]
+python:
+  - 3.6
+vc:
+  -14        # [win]
+zip_keys:
+  -                             # [win]
+    - vc                        # [win]
+    - c_compiler                # [win]
+    - cxx_compiler              # [win]
+    - python                    # [win]
