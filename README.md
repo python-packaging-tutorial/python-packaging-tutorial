@@ -8,7 +8,7 @@ Tutorial on python packaging at SciPy 2018
 
 * Install Miniconda3: https://conda.io/docs/user-guide/install/windows.html
 * Install conda-build using conda: https://conda.io/docs/user-guide/tasks/build-packages/install-conda-build.html
-* install Visual Studio 2017:
+* install Visual Studio 2017: https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15&utm_source=vscom&utm_medium=clickbutton&utm_campaign=tailored_featurepgcppsp&rid=34346
 * Install Docker for Windows: https://www.docker.com/docker-windows
 * create a conda environment for playing with scikit-build: ``conda create -n skbuild -c conda-forge cmake scikit-build cython``
 
