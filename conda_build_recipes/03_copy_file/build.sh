@@ -1,0 +1,1 @@
+cp somefile.txt $PREFIX

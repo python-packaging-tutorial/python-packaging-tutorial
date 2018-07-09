@@ -1,0 +1,12 @@
+package:
+  name: abc
+  version: 1.2.3
+
+source:
+  path: .
+
+requirements:
+  host:
+    - python
+  run:
+    - python
