@@ -752,31 +752,31 @@ Requirements
 Requirements: build vs. host
 ----------------------------
 
-Historically, only build
+* Historically, only build
 
-Still fine to use only build
+* Still fine to use only build
 
-host introduced for cross compiling
+* host introduced for cross compiling
 
-host also useful for separating build tools from packaging environment
+* host also useful for separating build tools from packaging environment
 
 
 .. nextslide::
 
-If in doubt, put everything in host
+**If in doubt, put everything in host**
 
-build is treated same as host for old-style recipes
-(only build, no {{ compiler() }})
+* build is treated same as host for old-style recipes
+(only build, no ``{{ compiler() }}``)
 
-packages are bundled from host env, not build env
+* packages are bundled from host env, not build env
 
 
-Post-build tests
+Post-build Tests
 ----------------
 
-Help ensure that you didn’t make a packaging mistake
+* Help ensure that you didn’t make a packaging mistake
 
-Ideally checks that necessary shared libraries are included as dependencies
+* Ideally checks that necessary shared libraries are included as dependencies
 
 
 
@@ -797,31 +797,28 @@ Describe dependencies that are required for the tests
 Post-build tests: test files
 ----------------------------
 
-::
 
-  run_test.pl, run_test.py, run_test.r, run_test.lua
++----------------------+----------------------------------------------+
+| Windows              |    Linux / Mac                               +
++======================+==============================================+
+|  ``run_test.pl``, ``run_test.py``, ``run_test.r``, ``run_test.lua`` |
++----------------------+----------------------------------------------+
+|  ``run_test.bat``    |  ``run_test.sh``                             |
++----------------------+----------------------------------------------+
 
-Windows::
-
-  run_test.bat
-
-
-Linux/Mac::
-
-  run_test.sh
 
 
 Post-build tests
 ----------------
 
-May have specific requirements
+* May have specific requirements
 
-May specify files that must be bundled for tests (source_files)
+* May specify files that must be bundled for tests (``source_files``)
 
-imports:
+* ``imports:``
   language specific imports to try, to verify correct installation
 
-commands:
+* ``commands:``
   sequential shell-based commands to run (not OS-specific)
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#test-section
@@ -833,15 +830,10 @@ Import Tests
 .. code-block:: yaml
 
 	test:
-
 	  imports:
-
 		- dateutil
-
 		- dateutil.rrule
-
 		- dateutil.parser
-
 		- dateutil.tz
 
 
@@ -850,12 +842,12 @@ Test commands
 
 .. code-block:: yaml
 
-test:
-  commands:
-      - curl --version
-      - curl-config --features  # [not win]
-      - curl-config --protocols  # [not win]
-      - curl https://some.website.com
+    test:
+      commands:
+          - curl --version
+          - curl-config --features  # [not win]
+          - curl-config --protocols  # [not win]
+          - curl https://some.website.com
 
 
 Outputs - more than one pkg per recipe
@@ -869,7 +861,6 @@ Outputs - more than one pkg per recipe
 
 	outputs:
 	  - name: subpkg
-
 	  - name: subpkg2
 
 
@@ -892,14 +883,14 @@ Outputs rules
 
 * list of dicts
 
-* each list must have name or type key
+* each list must have ``name`` or ``type`` key
 
-* May use all entries from build, requirements, test, about sections
+* May use all entries from ``build``, ``requirements``, ``test``, ``about`` sections
 
 * May specify files to bundle either using globs or by running a script
 
 
-Outputs examples
+Outputs Examples
 ----------------
 
 https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
@@ -908,21 +899,22 @@ https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
 https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml
 
 
-Exercise: split a package
+Exercise: Split a Package
 -------------------------
 
 Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
 
-Starting point:
+**Starting point:**
 
 https://github.com/conda-forge/curl-feedstock/tree/master/recipe
 
 
 .. nextslide::
 
-Solution:
+**Solution:**
 
 https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe
+
 
 
 About section
@@ -962,15 +954,15 @@ Conditional lines (selectors)
   some_content    # [some expression]
 
 
-content inside ``[...]`` is eval’ed
+* content inside ``[...]`` is eval’ed
 
-namespace includes OS info, python info, and a few others
+* namespace includes OS info, python info, and a few others
 
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#preprocessing-selectors
 
 
-Exercise: limit a recipe to only Linux
+Exercise: Limit a Recipe to Only Linux
 --------------------------------------
 
 .. code-block:: yaml
@@ -994,7 +986,7 @@ Exercise: limit a recipe to only Linux
 	  skip: True# [not linux]
 
 
-Intro to templating with Jinja2
+Intro to Templating with Jinja2
 --------------------------------
 
 * Fill in information dynamically
@@ -1007,7 +999,7 @@ Intro to templating with Jinja2
 
 	- string manipulation
 
-How does templating save you time?
+How does Templating Save You Time?
 ----------------------------------
 
 .. code-block:: yaml
@@ -1021,8 +1013,8 @@ How does templating save you time?
 	  url: https://site/{{version}}.tgz
 
 
-Jinja2 templating in meta.yaml
-------------------------------
+Jinja2 Templating in ``meta.yaml``
+----------------------------------
 
 Set variables::
 
@@ -1038,8 +1030,7 @@ Expressions in ``{{ }}`` are roughly python
 Jinja2 conditionals
 -------------------
 
-Selectors are one line only.  When you want to toggle a block,
-use jinja2::
+Selectors are one line only.  When you want to toggle a block, use jinja2::
 
   {%- if foo -%}
 
@@ -1056,14 +1047,24 @@ Exercise: use Jinja2 to reduce edits
 .. code-block:: yaml
 
 	package:
-
 	  name: abc
-
 	  version: 1.2.3
 
 	source:
-
 	  url: http://my.web/abc-1.2.3.tgz
+
+
+.. nextslide::
+
+.. code-block:: yaml
+
+    {% set version=”1.2.3” %}
+    package:
+      name: abc
+      version: {{ version }}
+
+    source:
+      url: http://w/abc-{{version}}.tgz
 
 
 Variants: Jinja2 on steroids
@@ -1074,13 +1075,10 @@ Matrix specification in yaml files
 .. code-block:: yaml
 
 	somevar:
-
 	  - 1.0
-
 	  - 2.0
 
 	anothervar:
-
 	  - 1.0
 
 
@@ -1124,19 +1122,14 @@ meta.yaml:
 .. code-block:: yaml
 
 	package:
-
 	  name: abc
-
 	  version: 1.2.3
 
 	requirements:
-
 	  build:
-
 	    - python {{ python }}
 
 	  run:
-
 	    - python {{ python }}
 
 conda_build_config.yaml:
@@ -1144,10 +1137,8 @@ conda_build_config.yaml:
 .. code-block:: yaml
 
 	python:
-
-			- 2.7
-
-	- 3.6
+	  - 2.7
+	  - 3.6
 
 .. nextslide::
 
@@ -1156,19 +1147,13 @@ meta.yaml:
 .. code-block:: yaml
 
 	package:
-
 	  name: abc
-
 	  version: 1.2.3
 
 	requirements:
-
 	  build:
-
 	    - python
-
 	  run:
-
 	    - python
 
 .. nextslide::
@@ -1177,11 +1162,9 @@ conda_build_config.yaml:
 
 .. code-block:: yaml
 
-	python:
-
-			- 2.7
-
-	- 3.6
+    python:
+      - 2.7
+      - 3.6
 
 
 Jinja2 functions
@@ -1220,7 +1203,8 @@ Loading setup.py data
 
 * Primarily a development recipe tool - release recipes specify version instead, and template source download link
 
-* Centralizing version info is very nice - see also versioneer, setuptools_scm, autover, and many other auto-version tools
+* Centralizing version info is very nice - see also ``versioneer``, ``setuptools_scm``, ``autover``, and many other auto-version tools
+
 
 Loading arbitrary data
 ----------------------
@@ -1247,17 +1231,12 @@ Use in meta.yaml, generally in requirements section:
 .. code-block:: yaml
 
 	requirements:
-
 	  host:
-
 	    - numpy
-
 	  run:
-
 	    - {{ pin_compatible(‘numpy’) }}
 
 .. nextslide::
-
 
 Use in meta.yaml, generally in requirements section:
 
@@ -1280,6 +1259,7 @@ Used a lot with numpy:
 
 https://github.com/AnacondaRecipes/scikit-image-feedstock/blob/master/recipe/meta.yaml
 
+
 Dynamic pinning within recipes
 ------------------------------
 
@@ -1299,7 +1279,6 @@ Use in meta.yaml in requirements section:
 
 .. code-block:: yaml
 
-
      requirements:
          build:
              - {{ compiler(‘c’) }}
@@ -1310,6 +1289,14 @@ Use in meta.yaml in requirements section:
 
 * Compiler packages utilize run_exports to add necessary runtime dependencies automatically
 
+
+Why put compilers into Conda?
+-----------------------------
+
+* Explicitly declaring language needs makes reproducing packages with recipe simpler
+* Binary compatibility can be versioned and tracked better
+* No longer care what the host OS used to build packages is
+* Can still use system compilers - just need to give conda-build information on metadata about them.  Opportunity for version check enforcement.
 
 ``run_exports``
 ---------------
