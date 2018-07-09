@@ -699,9 +699,9 @@ Exercise: let’s make a patch
 
 .. nextslide::
 
-copy that patch back alongside meta.yaml
+* copy that patch back alongside meta.yaml
 
-modify meta.yaml to include the patch
+* modify meta.yaml to include the patch
 
 
 Multiple sources
@@ -719,34 +719,34 @@ Multiple sources
 	  - git_url: https://github.com/conda/conda-build
 	    folder: conda-build
 
+`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
 
 Build options
 -------------
 
-number: version reference of recipe (as opposed to version of source code)
+``number``:
+  version reference of recipe (as opposed to version of source code)
 
-script: quick build steps, avoid separate build.sh/bld.bat files
+``script``:
+  quick build steps, avoid separate build.sh/bld.bat files
 
-skip: skip building recipe on some platforms
+``skip``:
+  skip building recipe on some platforms
 
-entry_points: python code locations to create executables for
+``entry_points``:
+  python code locations to create executables for
 
-run_exports: add dependencies to downstream consumers to ensure compatibility
+``run_exports``:
+  add dependencies to downstream consumers to ensure compatibility
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-section
-
+`meta.yaml build section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-section>`_
 
 
 Requirements
 ------------
 
-build
-
-host
-
-run
+.. image:: images/build_host_run.png
 
 
 Requirements: build vs. host
