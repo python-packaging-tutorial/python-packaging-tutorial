@@ -1,86 +1,95 @@
-###################
-Tutorial: Packaging
-###################
+####################
+The Joy of Packaging
+####################
 
-Michael Sarahan
-
-Conda-build tech lead
-
-© 2018 Anaconda
----------------
+Scipy 2018 Tutorial
 
 
-Michael Sarahan, PhDConda-build tech lead, Anaconda, Inc.
+Instructors
+===========
 
-Chemistry, Materials Science PhD
+Michael Sarahan, PhD: Conda-build tech lead, Anaconda, Inc.
 
-Data analysis of electron microscope (STEM) data
+Matt McCormick (thewtex): Maintainer of dockcross, of Python packages for the Insight Toolkit (ITK)
 
-Python user since 2005
+Jean-Christophe Fillion-Robin (jcfr): Maintainer of scikit-build, scikit-ci, scikit-ci-addons and python-cmake-buildsystem
 
-Hired especially for Windows knowledge, branched out into build automation and enhancing binary compatibility
+Filipe Fernandes (ocefpaf): Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
 
-Helped Continuum (now Anaconda) embrace Conda-forge
+Matt Craig (mwcraig): Maintainer of ccdproc, reducer, astropy, lead on conda packaging for astropy, Conda-forge core team.
+
+Chris Barker (PythonCHB): Python instructor for the Univ. Washington Continuing Education Program, Contributor to conda-forge project.
+
+Ray Donnelly (mingwandroid): Anaconda employee, working on Anaconda Distribution. MSYS2 co-founder, Likes build systems too much.
+
+Jonathan Helmus (jjhelmus): Anaconda employee, working on Anaconda Distribution Builds tensorflow for fun, conda-forge core team member
+Contributor to various open source packages in the scientific Python ecosystem.
 
 
 Outline
 -------
-Packaging fundamentals
 
+Packaging fundamentals
 
 Conda packaging
 
 Compatibility and automation
 
+
 What is a “package”?
 --------------------
+
 In a broad sense, anything you install using your package manager
 
 some kinds of packages have implied behavior and requirements
-
-
 
 Unfortunate overloading: python “package”: a folder that python imports
 
 
 Package Managers and Repos
 --------------------------
+
 NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
 
 PyPI, anaconda.org, CRAN, CPAN
 
+Some form of dependency management
 
-
-some form of dependency management
-
-artifact and/or source repository
+Artifact and/or source repository
 
 
 Implicit behavior & Requirements
 --------------------------------
+
 Folder structure
 
 Directly usable, or must be unpacked/installed?
 
-
-
-
 Python packages
 
-sound/    __init__.py    formats/        __init__.py        wavwrite.py    effects/        __init__.py        echo.py
+::
+
+  sound/
+      __init__.py
+  formats/
+      __init__.py
+      wavwrite.py
+  effects/
+      __init__.py
+      echo.py
 
 
-https://docs.python.org/3/tutorial/modules.html#packages
+``https://docs.python.org/3/tutorial/modules.html#packages``
 
-Folders must have __init__.py file to make Python able to import them
+Folders must have ``__init__.py`` file to make Python able to import them
 
-__init__.py can be empty (and is, most of the time)
+``__init__.py`` can be empty (and is, most of the time)
 
 
+``from sound.effects.echo import somefunc``
 
-from sound.effects.echo import somefunc
----------------------------------------
 Python packages - why?
+----------------------
 
 # import nested module
 
@@ -93,16 +102,14 @@ from sound.effects import echo
 
 https://docs.python.org/3/tutorial/modules.html#packages
 
-mypkg/    __init__.py    subpkg/        __init__.py        a.py
--------------------------------------------------------------------
-Let’s make a package
-
-
-
+::
+    mypkg/    __init__.py    subpkg/        __init__.py        a.py
 
 Let’s make a package
+--------------------
 
 Windows
+.......
 
 mkdir mypkg/subpkg
 
@@ -113,63 +120,80 @@ echo . > mypkg/subpkg/__init__.py
 echo . > mypkg/subpkg/a.py
 
 Mac/Linux
+.........
 
-mkdir -p mypkg/subpkg
+.. code-block:: bash
 
-touch mypkg/__init__.py
+	mkdir -p mypkg/subpkg
 
-touch mypkg/subpkg/__init__.py
+	touch mypkg/__init__.py
 
-touch mypkg/subpkg/a.py
+	touch mypkg/subpkg/__init__.py
+
+	touch mypkg/subpkg/a.py
 
 
 How Python finds packages
 -------------------------
-In python interpreter:import sysfrom pprint import pprintpprint(sys.path)
+
+In python interpreter:
+
+.. code-block: python
+
+	import sys
+	from pprint import pprint
+	pprint(sys.path)
 
 
 
-sys.path explanation: https://stackoverflow.com/a/38403654/1170370
+``sys.path`` explanation: https://stackoverflow.com/a/38403654/1170370
 
+
+
+How to get things on sys.path
+-----------------------------
 
 .pth files in sys.path locations
---------------------------------
-How to get things on sys.path
 
-PYTHONPATH environment variable (fragile)
+``PYTHONPATH`` environment variable (fragile)
 
 Installing packages (destination: site-packages folder)
 
 
-Mac/Linux: (install root)/lib/pythonX.Y/site-packages
-------------------------------------------------------
 Find your site-packages folder
+------------------------------
 
-Windows: (install root)\Lib\site-packages
+Mac/Linux: (install root)/lib/pythonX.Y/site-packages
 
+
+Windows: (install root)\Lib\site-packages
+
+
+Installing packages
+-------------------
 
 pip install -e .
-----------------
-Installing packages
+
 
 Installing:
 
-python setup.py install
+.. code-block:: python
 
-pip install .
+	python setup.py install
 
-Development installs:
+	pip install .
 
-python setup.py develop
+	Development installs:
+
+	python setup.py develop
 
 
-93
---
-15
 
 Install
+-------
 
 Development install
+-------------------
 
 Copies package into site-packages
 
@@ -185,25 +209,28 @@ End of sys.path (only found if nothing else comes first)
 
 https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
 
-15
-
-
 
 What about setup.py?
+--------------------
 
-#!/usr/bin/env pythonfrom setuptools import setupsetup(name='Distutils',      version='1.0',      description='Python Distribution Utilities',      author='Greg Ward',      author_email='gward@python.net',      url='https://www.python.org/sigs/distutils-sig/',      packages=['distutils', 'distutils.command'],     )
+.. code-block:: python
 
+	#!/usr/bin/env
 
+	pythonfrom setuptools import setups
 
-16
+	setup(name='Distutils',
+	      version='1.0',
+	      description='Python Distribution Utilities',
+	      author='Greg Ward',
+	      author_email='gward@python.net',
+	      url='https://www.python.org/sigs/distutils-sig/',      packages=['distutils', 'distutils.command'],
+	      )
 
-https://docs.python.org/2/distutils/setupscript.html
-
-16
-
-
+``https://docs.python.org/2/distutils/setupscript.html``
 
 What does setup.py do?
+----------------------
 
 Version & package metadata
 
@@ -215,23 +242,24 @@ Lists of dependencies
 
 Lists of extensions to be compiled
 
-17
-
-17
-
-
 
 Let’s write setup.py
+--------------------
 
-#!/usr/bin/env pythonfrom setuptools import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],     )
+.. code-block:: python
 
-18
+    #!/usr/bin/env python
 
-18
+    from setuptools import setup
 
+    setup(name='mypkg',
+          version='1.0', # list folders, not files
+          packages=['mypkg', 'mypkg.subpkg'],
+          )
 
 
 Setuptools
+----------
 
 Separate library (ships with Python by default, though)
 
@@ -241,21 +269,18 @@ provides find_packages function (use with caution)
 
 creates eggs by default (people spend time fighting this later in the process)
 
-19
-
-19
-
 
 
 Where does setup.py go?
+-----------------------
 
-mypkg-src
+::
 
-setup.py
+	mypkg-src
 
-mypkg/    __init__.py    subpkg/        __init__.py        a.py
+	setup.py
 
-20
+	mypkg/    __init__.py    subpkg/        __init__.py        a.py
 
 New outer folder
 
@@ -265,79 +290,54 @@ mypkg is what will get installed
 
 mypkg-src is what gets linked to by develop
 
-20
-
-
 
 Try installing your package
+---------------------------
 
-cd mypkg-src
+.. code-block:: python
 
-python setup.py install
+	cd mypkg-src
 
-python -c “import mypkg.subpkg.a”
+	python setup.py install
+
+	python -c “import mypkg.subpkg.a”
 
 
 
 Go look in your site-packages folder
 
-21
-
-21
-
-
 
 Making packages the easy way
+----------------------------
 
 https://github.com/audreyr/cookiecutter
 
 
-
-
-
-conda install -c conda-forge cookiecutter
-
-
-
-22
-
-22
-
+``conda install -c conda-forge cookiecutter``
 
 
 Let’s make a project
+--------------------
 
-cookiecutter https://goo.gl/Jge1g8
-
+cookiecutter: ``https://goo.gl/Jge1g8``
 
 
 That’s a shortened link to:
 
-https://github.com/conda/cookiecutter-conda-python
-
-23
-
-23
-
+``https://github.com/conda/cookiecutter-conda-python``
 
 
 What did we get?
-
-24
-
-24
-
-
+----------------
 
 Adding requirements in setup.py
 
-#!/usr/bin/env pythonfrom distutils.core import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],
+.. code-block:: python
 
-      install_requires=['click'],     )
+	#!/usr/bin/env pythonfrom distutils.core import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],
 
-25
+	      install_requires=['click'],     )
 
-25
 
 
 
@@ -347,7 +347,7 @@ common mistake
 
 requirements.txt often from pip freeze
 
-Pinned way too tightly.  OK for env creation, bad for packaging.
+Pinned way too tightly.  OK for env creation, bad for packaging.
 
 Donald Stufft (PyPA): Abstract vs. Concrete dependencies
 
@@ -361,7 +361,7 @@ https://caremad.io/posts/2013/07/setup-vs-requirement/
 
 Requirements in setup.cfg (ideal)
 
-[metadata]name = my_packageversion = attr: src.VERSION[options]packages = find:install_requires =  click
+[metadata]name = my_packageversion = attr: src.VERSION[options]packages = find:install_requires =  click
 
 
 
@@ -455,7 +455,7 @@ Can build conda packages and/or wheels
 
 Separate project from conda, but very tightly integrated
 
-Open-source, actively developedhttps://github.com/conda/conda-build
+Open-source, actively developedhttps://github.com/conda/conda-build
 
 32
 
@@ -465,7 +465,7 @@ Open-source, actively developedhttps://github.com/conda/conda-build
 
 Getting conda-build to work for you
 
-Input: meta.yaml files
+Input: meta.yaml files
 
 package:
 
@@ -619,7 +619,7 @@ conda skeleton cran --recursive biwt
 
 When all else fails, write a recipe
 
-Only required section:
+Only required section:
 
 package:
 
@@ -693,7 +693,7 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#sourc
 
 Builds that fail leave their build folders in place
 
-look in output for source tree in: */conda-bld/test-patch_<numbers>/work
+look in output for source tree in: */conda-bld/test-patch_<numbers>/work
 
 cd there
 
@@ -751,7 +751,7 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#sourc
 
 Multiple sources
 
-source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
+source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
 
 
 
@@ -917,7 +917,7 @@ test:
 
 Test commands
 
-test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
+test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
 
 59
 
@@ -929,7 +929,7 @@ Outputs - more than one pkg per recipe
 
 package:
 
-  name: some-split  version: 1.0
+  name: some-split  version: 1.0
 
 outputs:
 
@@ -1001,7 +1001,7 @@ https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activati
 
 Exercise: split a package
 
-Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
+Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
 
 Starting point:
 
@@ -1361,7 +1361,7 @@ Centralizing version info is very nice - see also versioneer, setuptools_scm, au
 
 Loading arbitrary data
 
-{% set data = load_file_regex(load_file='meta.yaml',                    regex_pattern='git_tag: ([\\d.]+)') %}
+{% set data = load_file_regex(load_file='meta.yaml',                    regex_pattern='git_tag: ([\\d.]+)') %}
 
 package:
 
@@ -1455,7 +1455,7 @@ Compilers
 
 Use in meta.yaml in requirements section:
 
-requirements:  build:    - {{ compiler(‘c’) }}
+requirements:  build:    - {{ compiler(‘c’) }}
 
 explicitly declare language needs
 
@@ -1594,7 +1594,7 @@ https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
 
 What about setup.py?
 
-#!/usr/bin/env pythonfrom setuptools import setupsetup(name='Distutils',      version='1.0',      description='Python Distribution Utilities',      author='Greg Ward',      author_email='gward@python.net',      url='https://www.python.org/sigs/distutils-sig/',      packages=['distutils', 'distutils.command'],     )
+#!/usr/bin/env pythonfrom setuptools import setupsetup(name='Distutils',      version='1.0',      description='Python Distribution Utilities',      author='Greg Ward',      author_email='gward@python.net',      url='https://www.python.org/sigs/distutils-sig/',      packages=['distutils', 'distutils.command'],     )
 
 
 https://docs.python.org/2/distutils/setupscript.html
@@ -1612,7 +1612,7 @@ List of other files to include
 Lists of dependencies
 
 
-#!/usr/bin/env pythonfrom setuptools import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],     )
+#!/usr/bin/env pythonfrom setuptools import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],     )
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Let’s write setup.py
 
@@ -1628,7 +1628,7 @@ Adds entry point capability
 provides find_packages function (use with caution)
 
 
-mypkg/    __init__.py    subpkg/        __init__.py        a.py
+mypkg/    __init__.py    subpkg/        __init__.py        a.py
 -------------------------------------------------------------------
 Where does setup.py go?
 
@@ -1685,11 +1685,11 @@ That’s a shortened link to:
 What did we get?
 ----------------
 
-install_requires=['click'],     )
+install_requires=['click'],     )
 ----------------------------------
 Adding requirements in setup.py
 
-#!/usr/bin/env pythonfrom distutils.core import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],
+#!/usr/bin/env pythonfrom distutils.core import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],
 
 
 Donald Stufft (PyPA): Abstract vs. Concrete dependencies
@@ -1700,7 +1700,7 @@ common mistake
 
 requirements.txt often from pip freeze
 
-Pinned way too tightly.  OK for env creation, bad for packaging.
+Pinned way too tightly.  OK for env creation, bad for packaging.
 
 
 https://caremad.io/posts/2013/07/setup-vs-requirement/
@@ -1709,7 +1709,7 @@ https://caremad.io/posts/2013/07/setup-vs-requirement/
 
 Requirements in setup.cfg (ideal)
 
-[metadata]name = my_packageversion = attr: src.VERSION[options]packages = find:install_requires =  click
+[metadata]name = my_packageversion = attr: src.VERSION[options]packages = find:install_requires =  click
 
 
 http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files
@@ -1768,7 +1768,7 @@ Depends on static linking or other system package managers to provide core libra
 
 Can bundle core system-level shared libraries as packages, and resolve dependencies
 
-Open-source, actively developedhttps://github.com/conda/conda-build
+Open-source, actively developedhttps://github.com/conda/conda-build
 --------------------------------------------------------------------
 Introducing conda-build
 
@@ -1783,7 +1783,7 @@ version: 1.0
 ------------
 Getting conda-build to work for you
 
-Input: meta.yaml files
+Input: meta.yaml files
 
 package:
 
@@ -1892,7 +1892,7 @@ version: 1.2.3
 --------------
 When all else fails, write a recipe
 
-Only required section:
+Only required section:
 
 package:
 
@@ -1946,7 +1946,7 @@ Exercise: let’s make a patch
 ----------------------------
 Builds that fail leave their build folders in place
 
-look in output for source tree in: */conda-bld/test-patch_<numbers>/work
+look in output for source tree in: */conda-bld/test-patch_<numbers>/work
 
 cd there
 
@@ -1989,7 +1989,7 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#sourc
 
 Multiple sources
 
-source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
+source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
 
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
@@ -2101,7 +2101,7 @@ test:
 	- dateutil.parser
 
 
-test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
+test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 Test commands
 
@@ -2112,7 +2112,7 @@ Outputs - more than one pkg per recipe
 
 package:
 
-  name: some-split  version: 1.0
+  name: some-split  version: 1.0
 
 outputs:
 
@@ -2164,7 +2164,7 @@ https://github.com/conda-forge/curl-feedstock/tree/master/recipe
 ----------------------------------------------------------------
 Exercise: split a package
 
-Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
+Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
 
 Starting point:
 
@@ -2434,7 +2434,7 @@ Primarily a development recipe tool - release recipes specify version instead, a
 ----------------------------------------------------------------------------------------------------------------
 Loading arbitrary data
 
-{% set data = load_file_regex(load_file='meta.yaml',                    regex_pattern='git_tag: ([\\d.]+)') %}
+{% set data = load_file_regex(load_file='meta.yaml',                    regex_pattern='git_tag: ([\\d.]+)') %}
 
 package:
 
@@ -2503,7 +2503,7 @@ Compilers
 
 Use in meta.yaml in requirements section:
 
-requirements:  build:    - {{ compiler(‘c’) }}
+requirements:  build:    - {{ compiler(‘c’) }}
 
 explicitly declare language needs
 
