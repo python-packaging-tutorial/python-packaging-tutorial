@@ -9,30 +9,19 @@ Scipy 2018 Tutorial
 Instructors
 -----------
 
-Michael Sarahan, PhD: Conda-build tech lead, Anaconda, Inc.
-
-Matt McCormick (thewtex): Maintainer of dockcross, of Python packages for the Insight Toolkit (ITK)
-
-Jean-Christophe Fillion-Robin (jcfr): Maintainer of scikit-build, scikit-ci, scikit-ci-addons and python-cmake-buildsystem
-
-Filipe Fernandes (ocefpaf): Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
-
-Matt Craig (mwcraig): Maintainer of ccdproc, reducer, astropy, lead on conda packaging for astropy, Conda-forge core team.
-
-Chris Barker (PythonCHB): Python instructor for the Univ. Washington Continuing Education Program, Contributor to conda-forge project.
-
-Ray Donnelly (mingwandroid): Anaconda employee, working on Anaconda Distribution. MSYS2 co-founder, Likes build systems too much.
-
-Jonathan Helmus (jjhelmus): Anaconda employee, working on Anaconda Distribution Builds tensorflow for fun, conda-forge core team member
-Contributor to various open source packages in the scientific Python ecosystem.
+Michael Sarahan, Matt McCormick, Jean-Christophe Fillion-Robin, Filipe Fernandes Matt Craig, Chris Barker, Ray Donnelly, Jonathan Helmus
 
 
 Outline
 -------
 
-Packaging fundamentals
+Python Package
 
-Conda packaging
+Installing
+
+PyPi
+
+Conda
 
 Compatibility and automation
 
@@ -62,11 +51,12 @@ Artifact and/or source repository
 Implicit behavior & Requirements
 --------------------------------
 
-Folder structure
+* Folder structure
 
-Directly usable, or must be unpacked/installed?
+* Directly usable, or must be unpacked/installed?
 
 Python packages
+---------------
 
 ::
 
@@ -79,31 +69,36 @@ Python packages
       __init__.py
       echo.py
 
-
-``https://docs.python.org/3/tutorial/modules.html#packages``
-
 Folders must have ``__init__.py`` file to make Python able to import them
 
 ``__init__.py`` can be empty (and is, most of the time)
 
 
-``from sound.effects.echo import somefunc``
+
 
 Python packages - why?
 ----------------------
 
-.. code-block:: python
 
-	# import nested module
+import nested module
+
+.. code-block:: python
 
 	import sound.effects.echo
 
 	from sound.effects import echo
 
-	# import function or variable from nested module
+.. code-block:: python
+
+    from sound.effects.echo import somefunc
 
 
-https://docs.python.org/3/tutorial/modules.html#packages
+``https://docs.python.org/3/tutorial/modules.html#packages``
+
+
+Let’s Make a Package
+--------------------
+
 
 ::
 
@@ -115,12 +110,9 @@ https://docs.python.org/3/tutorial/modules.html#packages
 
 
 
-Let’s make a package
---------------------
+.. nextslide::
 
-Windows
-.......
-
+**Windows:**
 
 .. code-block:: bash
 
@@ -133,8 +125,7 @@ Windows
 	echo . > mypkg/subpkg/a.py
 
 
-Mac/Linux
-.........
+**Mac/Linux:**
 
 .. code-block:: bash
 
@@ -147,80 +138,77 @@ Mac/Linux
 	touch mypkg/subpkg/a.py
 
 
-How Python finds packages
+How Python Finds Packages
 -------------------------
 
-In python interpreter:
+* In python interpreter:
 
-.. code-block: python
+  .. code-block:: python
 
-	import sys
-	from pprint import pprint
-	pprint(sys.path)
-
-
-
-``sys.path`` explanation: https://stackoverflow.com/a/38403654/1170370
+  	import sys
+  	from pprint import pprint
+  	pprint(sys.path)
 
 
 
-How to get things on sys.path
------------------------------
+* ``sys.path`` explanation:
 
-.pth files in sys.path locations
+  ``https://stackoverflow.com/a/38403654/1170370``
 
-``PYTHONPATH`` environment variable (fragile)
 
-Installing packages (destination: site-packages folder)
+How to Get Things on ``sys.path``
+---------------------------------
+
+* ``PYTHONPATH`` environment variable (fragile)
+
+* Installing packages (destination: site-packages folder)
+
+* ``.pth`` files in ``sys.path`` locations
 
 
 Find your site-packages folder
 ------------------------------
 
-Mac/Linux: ``(install root)/lib/pythonX.Y/site-packages``
+* Windows:
+  ``(install root)\Lib\site-packages``
 
 
-Windows: ``(install root)\Lib\site-packages``
+* Mac/Linux:
+  ``(install root)/lib/pythonX.Y/site-packages``
 
 
 Installing packages
--------------------
-
-pip install -e .
+===================
 
 
 Installing:
 
-.. code-block:: python
+.. code-block:: bash
 
 	python setup.py install
 
 	pip install .
 
-	Development installs:
+Development installs:
 
-	python setup.py develop
+.. code-block:: bash
+
+    python setup.py develop
+
+    pip install -e .
 
 
-
-Installing
-==========
-
-
-Development install
--------------------
-
-Copies package into site-packages
-
-Adds a ``.pth`` file to site-packages, pointed at package source root
-
-Used when creating conda packages
-
-Used when developing software locally
-
-Normal priority in sys.path
-
-End of ``sys.path`` (only found if nothing else comes first)
++--------------------------------------+----------------------------------------+
+| Install                              | Development Install                    |
++======================================+========================================+
+| Copies package into site-packages    | Adds a ``.pth`` file to site-packages, |
+|                                      | pointed at package source root         |
++--------------------------------------+----------------------------------------+
+| Used when creating conda packages    | Used when developing software locally  |
++--------------------------------------+----------------------------------------+
+| Normal priority in sys.path          | End of ``sys.path`` (only found if     |
+|                                      | nothing else comes first)              |
++======================================+========================================+
 
 https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
 
@@ -244,22 +232,22 @@ What about setup.py?
 
 ``https://docs.python.org/2/distutils/setupscript.html``
 
-What does setup.py do?
-----------------------
+What Does ``setup.py`` Do?
+--------------------------
 
-Version & package metadata
+* Version & package metadata
 
-List of packages to include
+* List of packages to include
 
-List of other files to include
+* List of other files to include
 
-Lists of dependencies
+* Lists of dependencies
 
-Lists of extensions to be compiled
+* Lists of extensions to be compiled
 
 
-Let’s write setup.py
---------------------
+Let’s Write a ``setup.py``
+--------------------------
 
 .. code-block:: python
 
@@ -268,44 +256,43 @@ Let’s write setup.py
     from setuptools import setup
 
     setup(name='mypkg',
-          version='1.0', # list folders, not files
+          version='1.0',
+          # list folders, not files
           packages=['mypkg', 'mypkg.subpkg'],
           )
 
+(remember that a "package" is a folder with a ``__init__.py__`` file)
 
-Setuptools
+
+setuptools
 ----------
 
-Separate library (ships with Python by default, though)
+* Separate library (ships with Python by default, though)
 
-Adds entry point capability
+* Adds entry point capability
 
-provides find_packages function (use with caution)
+* Provides find_packages function (use with caution)
 
-creates eggs by default (people spend time fighting this later in the process)
-
+* Creates eggs by default (people spend time fighting this later in the process)
 
 
 Where does setup.py go?
 -----------------------
 
-::
++--------------------------+-----------------------------------------------------+
+|  Folder Structure        |                                                     |
++==========================+=====================================================+
+|  .. code-block:: python  |                                                     |
+|                          | * New outer folder                                  |
+|    mypkg-src             | * ``setup.py`` alongside package to be installed    |
+|    setup.py              | * ``mypkg`` is what will get installed              |
+|    mypkg/                | * ``mypkg-src`` is what gets linked to by develop   |
+|        __init__.py       |                                                     |
+|        subpkg/           |                                                     |
+|            __init__.py   |                                                     |
+|            a.py          |                                                     |
++--------------------------+-----------------------------------------------------+
 
-	mypkg-src
-	setup.py
-	mypkg/
-	    __init__.py
-	    subpkg/
-	        __init__.py
-	        a.py
-
-New outer folder
-
-``setup.py`` alongside package to be installed
-
-``mypkg`` is what will get installed
-
-``mypkg-src`` is what gets linked to by develop
 
 
 Try installing your package
@@ -319,19 +306,26 @@ Try installing your package
 
 	python -c “import mypkg.subpkg.a”
 
-
-
 Go look in your ``site-packages`` folder
 
 
-Making packages the easy way
+Making Packages the Easy Way
 ----------------------------
 
-``https://github.com/audreyr/cookiecutter``
+.. image:: images/cookiecutter.png
+
+
+`github.com/audreyr/cookiecutter <https://github.com/audreyr/cookiecutter>`_
 
 .. code-block:: bash
 
     conda install -c conda-forge cookiecutter
+
+or
+
+.. code-block:: bash
+
+    pip install  cookiecutter
 
 
 Let’s make a project
@@ -344,55 +338,80 @@ That’s a shortened link to:
 
 ``https://github.com/conda/cookiecutter-conda-python``
 
+::
+
+    full_name [Full Name]: Mike Sarahan
+    email [Email Address]: msarahan@anaconda.com
+    github_username [github_username]: msarahan
+    repo_name [repository_name]: acon_demo
+    package_name [acon_demo]:
+    project_short_description [Short description]: acon demo
+    version [0.1.0]:
+
 
 What did we get?
 ----------------
 
-Adding requirements in ``setup.py``
+.. code-block:: bash
+
+    ls -R acon_demo
+
+    README.rst   acon_demo  conda.recipe setup.py   tests
+    acon_demo/acon_demo:
+    __init__.py __main__.py cli.py
+    acon_demo/conda.recipe:
+    meta.yaml
+    acon_demo/tests:
+    __init__.py test_cli.py
+
+
+Requirements in ``setup.py``
+----------------------------
 
 .. code-block:: python
 
-	#!/usr/bin/env python
-	from distutils.core import setup
+    #!/usr/bin/env python
+    from distutils.core import setup
 
-	setup(name='mypkg',
-	      version='1.0',
-	      # list folders, not files
-	      packages=['mypkg', 'mypkg.subpkg'],
+    setup(name='mypkg',
+          version='1.0',
+          # list folders, not files
+          packages=['mypkg', 'mypkg.subpkg'],
           install_requires=['click'],
           )
 
 
 Requirements in ``requirements.txt``
+------------------------------------
 
-**common mistake:**
+**Common Mistake:**
 
-``requirements.txt`` often from pip freeze
+* ``requirements.txt`` often from pip freeze
 
-Pinned way too tightly.  OK for env creation, bad for packaging.
-
-Donald Stufft (PyPA): Abstract vs. Concrete dependencies
-
-
-``https://caremad.io/posts/2013/07/setup-vs-requirement/``
+* Pinned way too tightly.  OK for env creation, bad for packaging.
+|
+* Donald Stufft (PyPA): `Abstract vs. Concrete dependencies <https://caremad.io/posts/2013/07/setup-vs-requirement>`_
 
 
 
 Requirements in ``setup.cfg`` (ideal)
+-------------------------------------
 
-[metadata]name = my_package
-version = attr:
-src.VERSION[options]
-packages = find:
-install_requires =  click
+::
 
+    [metadata]
+    name = my_package
+    version = attr:
+    src.VERSION
 
-``http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files``
+    [options]
+    packages = find:
+    install_requires =  click
+
 
 Parseable without execution, unlike setup.py
 
-
-
+`configuring setup using setup cfg files <http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files>`_
 
 Break time!
 -----------
@@ -401,22 +420,23 @@ Up next: producing redistributable artifacts
 
 
 Redistributable artifacts
--------------------------
+=========================
 
+* sdists
 
-sdists
+* wheels
 
-wheels
+* conda packages
 
-conda packages
-
-eggs (deprecated)
+* eggs (deprecated)
 
 
 When/how to use an sdist
 ------------------------
 
-Pure python (no build requirements)
+* Pure python (no compilation requirements)
+
+* Or, distributing source code that must be compiled prior to usage
 
 .. code-block:: bash
 
@@ -448,35 +468,45 @@ Wheels vs. Conda packages
 Introducing conda-build
 -----------------------
 
-Orchestrates environment creation, activation, and build/test processes
+* Orchestrates environment creation, activation, and build/test processes
 
-Can build conda packages and/or wheels
+* Can build conda packages and/or wheels
 
-Separate project from conda, but very tightly integrated
+* Separate project from conda, but very tightly integrated
 
-Open-source, actively developedhttps://github.com/conda/conda-build
+* Open-source, actively developed:
+
+  https://github.com/conda/conda-build
 
 
-Getting conda-build to work for you
------------------------------------
+Getting ``conda-build`` to work for you
+---------------------------------------
 
-Input: meta.yaml files
+Input: ``meta.yaml`` files
 
-::
+.. code-block:: yaml
 
 	package:
-
 	  name: mypkg
-
 	  version: 1.0
 
 
-Let’s use conda-build
----------------------
+Let’s Use ``conda-build``
+-------------------------
 
 .. code-block:: bash
 
 	conda install conda-build
+
+* Windows only:
+
+  ::
+
+    conda install m2-patch posix
+
+* All platforms:
+
+.. code-block:: bash
 
 	conda build mypkg-src
 
@@ -484,77 +514,81 @@ Let’s use conda-build
 What happened?
 --------------
 
-templates filled in, recipe interpreted
+* Templates filled in, recipe interpreted
 
-build environment created (isolated)
+* Build environment created (isolated)
 
-build script run
+* Build script run
 
-new files in build environment bundled into package
+* New files in build environment bundled into package
 
-test environment created (isolated)
+* Test environment created (isolated)
 
-tests run on new package
+* Tests run on new package
 
-cleanup
+* cleanup
 
 
 Obtaining recipes
 ------------------
 
-Existing recipes (best)
+* Existing recipes (best)
 
-https://github.com/AnacondaRecipes
+   - https://github.com/AnacondaRecipes
 
-https://github.com/conda-forge
+   - https://github.com/conda-forge
 
-Skeletons from other repositories (PyPI, CRAN, CPAN, RPM)
+* Skeletons from other repositories (PyPI, CRAN, CPAN, RPM)
 
-DIY
+|
+
+* DIY
 
 
 Anaconda Recipes
 ----------------
 
-Official recipes that Anaconda uses for building packages
+* Official recipes that Anaconda uses for building packages
 
-Since Anaconda 5.0, forked from conda-forge recipes.
+* Since Anaconda 5.0, forked from conda-forge recipes.
 
-Intended to be compatible with conda-forge long-term
+* Intended to be compatible with conda-forge long-term
 
-Presently, ahead of conda-forge on use of conda-build 3 features
+* Presently, ahead of conda-forge on use of conda-build 3 features
 
 
 Conda-forge
 -----------
 
-Numfocus-affiliated community organization made up of volunteers
+.. image:: images/conda-forge.png
 
-One github repository per recipe
+* Numfocus-affiliated community organization made up of volunteers
 
-Fine granularity over permissions
+* One github repository per recipe
 
-Heavy use of automation for building, deploying, and updating recipes
+  - Fine granularity over permissions
 
-Free builds on public CI services (TravisCI, CircleCI, Appveyor)
+* Heavy use of automation for building, deploying, and updating recipes
+
+* Free builds on public CI services (TravisCI, CircleCI, Appveyor)
 
 
 Skeletons
 ---------
 
-Read metadata from upstream repository
+* Read metadata from upstream repository
 
-Translate that into a recipe
+* Translate that into a recipe
+|
+* **Will** save you some boilerplate work
 
-Will save you some boilerplate work
+* **Might** work out of the box (should not assume automatic, though)
 
-Might work out of the box (should not assume automatic, though)
 
-.. nextslide::
+conda skeleton pypi
+-------------------
 
 .. code-block:: bash
-
-	conda skeleton pypi
 
 	conda skeleton pypi <package name on pypi>
 
@@ -563,7 +597,10 @@ Might work out of the box (should not assume automatic, though)
 	conda skeleton pypi --recursive pyinstrument
 
 
-	conda skeleton cran
+conda skeleton cran
+-------------------
+
+.. code-block:: bash
 
 	conda skeleton cran <name of pkg on cran>
 
@@ -582,70 +619,68 @@ Only required section:
 .. code-block:: yaml
 
 	package:
-
 	  name: abc
-
 	  version: 1.2.3
 
 
 Source types
 ------------
 
-url
+* url
 
-git
+* git
 
-hg
+* hg
 
-svn
+* svn
 
-local path
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
+* local path
 
 
-Source patches
+`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
+
+
+Source Patches
 --------------
 
-patch files live alongside meta.yaml
+* patch files live alongside meta.yaml
 
-create patches with diff, git diff, or git format-patch
+* create patches with:
+  - ``diff``
+  - ``git diff``
+  - ``git format-patch``
 
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
+`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
 
-
-.. code-block:: yaml
-
-	package:
-
-	  name: test-patch
-
-	  version: 1.2.3
-
-	source:
-
-	  url: https://zlib.net/zlib-1.2.11.tar.gz
-
-	build:
-
-	  script: exit 1
 
 Exercise: let’s make a patch
 ----------------------------
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
+.. code-block:: yaml
 
-Builds that fail leave their build folders in place
+	package:
+	  name: test-patch
+	  version: 1.2.3
 
-look in output for source tree in: ``*/conda-bld/test-patch_<numbers>/work``
+	source:
+	  url: https://zlib.net/zlib-1.2.11.tar.gz
 
-cd there
+	build:
+	  script: exit 1
 
 
 .. nextslide::
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
+* Builds that fail leave their build folders in place
+
+* look in output for source tree in:
+
+  ``*/conda-bld/test-patch_<numbers>/work``
+
+* ``cd`` there
+
+.. nextslide::
 
 .. code-block:: bash
 
@@ -661,13 +696,12 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#sourc
 
 	git format-patch HEAD~1
 
-.. nextslide::
 
+.. nextslide::
 
 copy that patch back alongside meta.yaml
 
 modify meta.yaml to include the patch
-
 
 
 Multiple sources
@@ -752,7 +786,7 @@ Post-build tests: dependencies
 Describe dependencies that are required for the tests
 (but not for normal package usage)
 
-..code-block:: yaml
+.. code-block:: yaml
 
 	test:
 	  requires:
@@ -763,17 +797,18 @@ Describe dependencies that are required for the tests
 Post-build tests: test files
 ----------------------------
 
+::
 
-run_test.pl, run_test.py, run_test.r, run_test.lua
+  run_test.pl, run_test.py, run_test.r, run_test.lua
 
-Windows
+Windows::
 
-Linux/Mac
+  run_test.bat
 
-run_test.bat
 
-run_test.sh
+Linux/Mac::
 
+  run_test.sh
 
 
 Post-build tests
@@ -783,15 +818,16 @@ May have specific requirements
 
 May specify files that must be bundled for tests (source_files)
 
-imports: language specific imports to try, to verify correct installation
+imports:
+  language specific imports to try, to verify correct installation
 
-commands: sequential shell-based commands to run (not OS-specific)
-
+commands:
+  sequential shell-based commands to run (not OS-specific)
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#test-section
 
 
-Import tests
+Import Tests
 ------------
 
 .. code-block:: yaml
@@ -977,6 +1013,7 @@ How does templating save you time?
 .. code-block:: yaml
 
 	{% set version = "3.0.2" %}
+
 	package:
 	  name: example
 	  version: {{ version }}
@@ -1065,22 +1102,20 @@ meta.yaml:
 .. code-block:: yaml
 
 	package:
-
 	  name: abc
-
 	  version: 1.2.3
 
 	build:
-
 	  skip: True # [skipvar]
 
-	conda_build_config.yaml:
+conda_build_config.yaml:
+
+.. code-block:: yaml
 
 	skipvar:
-
 			- True
-
 	- False
+
 
 .. nextslide::
 
@@ -1193,7 +1228,7 @@ Loading arbitrary data
 .. code-block:: yaml
 
 	{% set data = load_file_regex(load_file='meta.yaml',
-	    regex_pattern='git_tag: ([\\d.]+)') %}
+	              regex_pattern='git_tag: ([\\d.]+)') %}
 
 	package:
 	  name: conda-build-test-get-regex-data
@@ -1789,7 +1824,7 @@ modify meta.yaml to include the patch
 Multiple sources
 ----------------
 
-.. .code-block:: yaml
+.. code-block:: yaml
 
 source:
   - url: https://package1.com/a.tar.bz2
@@ -1915,7 +1950,7 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#test-
 Import tests
 ------------
 
-..code-block:: yaml
+.. code-block:: yaml
 
 	test:
 	  imports:
