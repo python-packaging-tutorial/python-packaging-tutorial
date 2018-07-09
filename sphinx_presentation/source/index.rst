@@ -7,9 +7,10 @@ Welcome to The Joy of Packaging's documentation!
 ================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
+   overview
    package_building
 
 

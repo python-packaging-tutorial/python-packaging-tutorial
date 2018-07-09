@@ -2,11 +2,12 @@
 The Joy of Packaging
 ####################
 
-Scipy 2018 Tutorial
 
+Scipy 2018 Tutorial
+===================
 
 Instructors
-===========
+-----------
 
 Michael Sarahan, PhD: Conda-build tech lead, Anaconda, Inc.
 
@@ -91,19 +92,28 @@ Folders must have ``__init__.py`` file to make Python able to import them
 Python packages - why?
 ----------------------
 
-# import nested module
+.. code-block:: python
 
-import sound.effects.echo
+	# import nested module
 
-from sound.effects import echo
+	import sound.effects.echo
 
-# import function or variable from nested module
+	from sound.effects import echo
+
+	# import function or variable from nested module
 
 
 https://docs.python.org/3/tutorial/modules.html#packages
 
 ::
-    mypkg/    __init__.py    subpkg/        __init__.py        a.py
+
+    mypkg/
+        __init__.py
+        subpkg/
+            __init__.py
+            a.py
+
+
 
 Let’s make a package
 --------------------
@@ -111,13 +121,17 @@ Let’s make a package
 Windows
 .......
 
-mkdir mypkg/subpkg
 
-echo. > mypkg/__init__.py
+.. code-block::
 
-echo . > mypkg/subpkg/__init__.py
+	mkdir mypkg/subpkg
 
-echo . > mypkg/subpkg/a.py
+	echo. > mypkg/__init__.py
+
+	echo . > mypkg/subpkg/__init__.py
+
+	echo . > mypkg/subpkg/a.py
+
 
 Mac/Linux
 .........
@@ -163,10 +177,10 @@ Installing packages (destination: site-packages folder)
 Find your site-packages folder
 ------------------------------
 
-Mac/Linux: (install root)/lib/pythonX.Y/site-packages
+Mac/Linux: ``(install root)/lib/pythonX.Y/site-packages``
 
 
-Windows: (install root)\Lib\site-packages
+Windows: ``(install root)\Lib\site-packages``
 
 
 Installing packages
@@ -189,15 +203,16 @@ Installing:
 
 
 
-Install
--------
+Installing
+==========
+
 
 Development install
 -------------------
 
 Copies package into site-packages
 
-Adds a .pth file to site-packages, pointed at package source root
+Adds a ``.pth`` file to site-packages, pointed at package source root
 
 Used when creating conda packages
 
@@ -205,7 +220,7 @@ Used when developing software locally
 
 Normal priority in sys.path
 
-End of sys.path (only found if nothing else comes first)
+End of ``sys.path`` (only found if nothing else comes first)
 
 https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
 
@@ -274,27 +289,29 @@ creates eggs by default (people spend time fighting this later in the process)
 Where does setup.py go?
 -----------------------
 
-::
+.. code-block::
 
 	mypkg-src
-
 	setup.py
-
-	mypkg/    __init__.py    subpkg/        __init__.py        a.py
+	mypkg/
+	    __init__.py
+	    subpkg/
+	        __init__.py
+	        a.py
 
 New outer folder
 
-setup.py alongside package to be installed
+``setup.py`` alongside package to be installed
 
-mypkg is what will get installed
+``mypkg`` is what will get installed
 
-mypkg-src is what gets linked to by develop
+``mypkg-src`` is what gets linked to by develop
 
 
 Try installing your package
 ---------------------------
 
-.. code-block:: python
+.. code-block:: bash
 
 	cd mypkg-src
 
@@ -304,16 +321,17 @@ Try installing your package
 
 
 
-Go look in your site-packages folder
+Go look in your ``site-packages`` folder
 
 
 Making packages the easy way
 ----------------------------
 
-https://github.com/audreyr/cookiecutter
+``https://github.com/audreyr/cookiecutter``
 
+.. code-block:: bash
 
-``conda install -c conda-forge cookiecutter``
+    conda install -c conda-forge cookiecutter
 
 
 Let’s make a project
@@ -330,62 +348,61 @@ That’s a shortened link to:
 What did we get?
 ----------------
 
-Adding requirements in setup.py
+Adding requirements in ``setup.py``
 
 .. code-block:: python
 
-	#!/usr/bin/env pythonfrom distutils.core import setupsetup(name='mypkg',      version='1.0',      # list folders, not files      packages=['mypkg', 'mypkg.subpkg'],
+	#!/usr/bin/env python
+	from distutils.core import setup
 
-	      install_requires=['click'],     )
+	setup(name='mypkg',
+	      version='1.0',
+	      # list folders, not files
+	      packages=['mypkg', 'mypkg.subpkg'],
+          install_requires=['click'],
+          )
 
 
+Requirements in ``requirements.txt``
 
+**common mistake:**
 
-Requirements in requirements.txt
-
-common mistake
-
-requirements.txt often from pip freeze
+``requirements.txt`` often from pip freeze
 
 Pinned way too tightly.  OK for env creation, bad for packaging.
 
 Donald Stufft (PyPA): Abstract vs. Concrete dependencies
 
-26
 
-https://caremad.io/posts/2013/07/setup-vs-requirement/
-
-26
+``https://caremad.io/posts/2013/07/setup-vs-requirement/``
 
 
 
-Requirements in setup.cfg (ideal)
+Requirements in ``setup.cfg`` (ideal)
 
-[metadata]name = my_packageversion = attr: src.VERSION[options]packages = find:install_requires =  click
+[metadata]name = my_package
+version = attr:
+src.VERSION[options]
+packages = find:
+install_requires =  click
 
 
-
-27
-
-http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files
+``http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files``
 
 Parseable without execution, unlike setup.py
 
-27
 
 
 
 Break time!
+-----------
 
 Up next: producing redistributable artifacts
 
-28
-
-28
-
-
 
 Redistributable artifacts
+-------------------------
+
 
 sdists
 
@@ -395,59 +412,41 @@ conda packages
 
 eggs (deprecated)
 
-29
-
-29
-
-
 
 When/how to use an sdist
+------------------------
 
 Pure python (no build requirements)
 
-python setup.py sdist
+.. code-block:: bash
 
-30
-
-30
-
+    python setup.py sdist
 
 
 Wheels vs. Conda packages
+-------------------------
 
-31
-
-Wheels
-
-Conda packages
-
-Employed by pip, blessed by PyPA
-
-Foundation of Anaconda ecosystem
-
-Used by any python installation
-
-Used by conda python installations
-
-Mostly specific to Python ecosystem
-
- General purpose (any ecosystem)
-
-Good mechanism for specifying range of python compatibility
-
- Primitive support for multiple python
-
-     versions (noarch)
-
-Depends on static linking or other system package managers to provide core libraries
-
-Can bundle core system-level shared libraries as packages, and resolve dependencies
-
-31
++-------------------------------------+-------------------------------------+
+|  Wheels                             |    Conda packages                   |
++=====================================+=====================================+
+| Employed by pip, blessed by PyPA    |  Foundation of Anaconda ecosystem   |
++-------------------------------------+-------------------------------------+
+| Used by any python installation     |  Used by conda python installations |
++-------------------------------------+-------------------------------------+
+| Mostly specific to Python ecosystem |  General purpose (any ecosystem)    |
++-------------------------------------+-------------------------------------+
+| Good mechanism for specifying range |  Primitive support for multiple     |
+| of python compatibility             |  python versions (noarch)           |
++-------------------------------------+-------------------------------------+
+| Depends on static linking or other  | Can bundle core system-level shared |
+| system package managers to provide  | libraries as packages, and resolve  |
+| core libraries                      | dependencies                        |
++-------------------------------------+-------------------------------------+
 
 
 
 Introducing conda-build
+-----------------------
 
 Orchestrates environment creation, activation, and build/test processes
 
@@ -457,41 +456,33 @@ Separate project from conda, but very tightly integrated
 
 Open-source, actively developedhttps://github.com/conda/conda-build
 
-32
-
-32
-
-
 
 Getting conda-build to work for you
+-----------------------------------
 
 Input: meta.yaml files
 
-package:
+::
 
-  name: mypkg
+	package:
 
-  version: 1.0
+	  name: mypkg
 
-33
-
-33
-
+	  version: 1.0
 
 
 Let’s use conda-build
+---------------------
 
-conda install conda-build
+.. code-block:: bash
 
-conda build mypkg-src
+	conda install conda-build
 
-34
-
-34
-
+	conda build mypkg-src
 
 
 What happened?
+--------------
 
 templates filled in, recipe interpreted
 
@@ -507,13 +498,9 @@ tests run on new package
 
 cleanup
 
-35
-
-35
-
-
 
 Obtaining recipes
+------------------
 
 Existing recipes (best)
 
@@ -523,17 +510,11 @@ https://github.com/conda-forge
 
 Skeletons from other repositories (PyPI, CRAN, CPAN, RPM)
 
-
-
 DIY
 
-36
 
-36
-
-
-
-AnacondaRecipes
+Anaconda Recipes
+----------------
 
 Official recipes that Anaconda uses for building packages
 
@@ -543,13 +524,9 @@ Intended to be compatible with conda-forge long-term
 
 Presently, ahead of conda-forge on use of conda-build 3 features
 
-37
-
-37
-
-
 
 Conda-forge
+-----------
 
 Numfocus-affiliated community organization made up of volunteers
 
@@ -561,79 +538,58 @@ Heavy use of automation for building, deploying, and updating recipes
 
 Free builds on public CI services (TravisCI, CircleCI, Appveyor)
 
-38
-
-38
-
-
 
 Skeletons
+---------
 
 Read metadata from upstream repository
 
 Translate that into a recipe
 
-
-
 Will save you some boilerplate work
 
 Might work out of the box (should not assume automatic, though)
 
-39
+.. nextslide::
 
-39
+.. code-block:: bash
 
+	conda skeleton pypi
 
+	conda skeleton pypi <package name on pypi>
 
-conda skeleton pypi
+	conda skeleton pypi click
 
-conda skeleton pypi <package name on pypi>
-
-conda skeleton pypi click
-
-
-
-conda skeleton pypi --recursive pyinstrument
-
-40
-
-40
+	conda skeleton pypi --recursive pyinstrument
 
 
+	conda skeleton cran
 
-conda skeleton cran
+	conda skeleton cran <name of pkg on cran>
 
-conda skeleton cran <name of pkg on cran>
+	conda skeleton cran acs
 
-conda skeleton cran acs
-
-
-
-conda skeleton cran --recursive biwt
-
-41
-
-41
+	conda skeleton cran --recursive biwt
 
 
 
 When all else fails, write a recipe
+-----------------------------------
 
 Only required section:
 
-package:
 
-  name: abc
+.. code-block:: yaml
 
-  version: 1.2.3
+	package:
 
-42
+	  name: abc
 
-42
-
+	  version: 1.2.3
 
 
 Source types
+------------
 
 url
 
@@ -645,92 +601,67 @@ svn
 
 local path
 
-43
-
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-43
-
 
 
 Source patches
+--------------
 
 patch files live alongside meta.yaml
 
 create patches with diff, git diff, or git format-patch
 
-44
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
 
-44
 
+.. code-block:: yaml
 
+	package:
 
-package:
+	  name: test-patch
 
-  name: test-patch
+	  version: 1.2.3
 
-  version: 1.2.3
+	source:
 
-source:
+	  url: https://zlib.net/zlib-1.2.11.tar.gz
 
-  url: https://zlib.net/zlib-1.2.11.tar.gz
+	build:
 
-build:
-
-  script: exit 1
+	  script: exit 1
 
 Exercise: let’s make a patch
-
-45
+----------------------------
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-45
-
-
 
 Builds that fail leave their build folders in place
 
-look in output for source tree in: */conda-bld/test-patch_<numbers>/work
+look in output for source tree in: ``*/conda-bld/test-patch_<numbers>/work``
 
 cd there
 
 
-
-Exercise: let’s make a patch
-
-46
+.. nextslide::
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
 
-46
+.. code-block:: bash
 
+	git init
 
+	git add *
 
-git init
+	git commit -am “init”
 
-git add *
+	edit file of choice
 
-git commit -am “init”
+	git commit -m “changing file because …”
 
-edit file of choice
+	git format-patch HEAD~1
 
-git commit -m “changing file because …”
-
-git format-patch HEAD~1
-
-
-
-Exercise: let’s make a patch
-
-47
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-47
-
+.. nextslide::
 
 
 copy that patch back alongside meta.yaml
@@ -739,33 +670,26 @@ modify meta.yaml to include the patch
 
 
 
-Exercise: let’s make a patch
-
-48
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-48
-
-
-
 Multiple sources
+----------------
 
-source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
+.. code-block:: yaml
 
+	source:
+	  - url: https://package1.com/a.tar.bz2
+	    folder: stuff
+	  - url: https://package1.com/b.tar.bz2
+	    folder: stuff
+	    patches:
+	      - something.patch
+	  - git_url: https://github.com/conda/conda-build
+	    folder: conda-build
 
-
-49
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-49
-
-
 
 Build options
-
-50
+-------------
 
 number: version reference of recipe (as opposed to version of source code)
 
@@ -779,13 +703,10 @@ run_exports: add dependencies to downstream consumers to ensure compatibility
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-section
 
-50
-
 
 
 Requirements
-
-51
+------------
 
 build
 
@@ -793,11 +714,9 @@ host
 
 run
 
-51
-
-
 
 Requirements: build vs. host
+----------------------------
 
 Historically, only build
 
@@ -807,29 +726,19 @@ host introduced for cross compiling
 
 host also useful for separating build tools from packaging environment
 
-52
 
-52
-
-
-
-Requirements: build vs. host
+.. nextslide::
 
 If in doubt, put everything in host
 
-
-
-build is treated same as host for old-style recipes (only build, no {{ compiler() }})
+build is treated same as host for old-style recipes
+(only build, no {{ compiler() }})
 
 packages are bundled from host env, not build env
 
-53
-
-53
-
-
 
 Post-build tests
+----------------
 
 Help ensure that you didn’t make a packaging mistake
 
@@ -837,31 +746,23 @@ Ideally checks that necessary shared libraries are included as dependencies
 
 
 
-54
-
-54
-
-
-
 Post-build tests: dependencies
+------------------------------
 
-Describe dependencies that are required for the tests (but not for normal package usage)
+Describe dependencies that are required for the tests
+(but not for normal package usage)
 
-test:
+..code-block:: yaml
 
-  requires:
-
-    - pytest
-
-55
-
-55
+	test:
+	  requires:
+	    - pytest
 
 
 
 Post-build tests: test files
+----------------------------
 
-56
 
 run_test.pl, run_test.py, run_test.r, run_test.lua
 
@@ -873,11 +774,10 @@ run_test.bat
 
 run_test.sh
 
-56
-
 
 
 Post-build tests
+----------------
 
 May have specific requirements
 
@@ -887,119 +787,93 @@ imports: language specific imports to try, to verify correct installation
 
 commands: sequential shell-based commands to run (not OS-specific)
 
-57
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#test-section
 
-57
-
-
 
 Import tests
+------------
 
-test:
+.. code-block:: yaml
 
-  imports:
+	test:
 
-	- dateutil
+	  imports:
 
-	- dateutil.rrule
+		- dateutil
 
-	- dateutil.parser
+		- dateutil.rrule
 
-	- dateutil.tz
+		- dateutil.parser
 
-58
-
-58
-
+		- dateutil.tz
 
 
 Test commands
+-------------
 
-test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
+.. code-block:: yaml
 
-59
-
-59
-
-
-
-Outputs - more than one pkg per recipe
-
-package:
-
-  name: some-split  version: 1.0
-
-outputs:
-
-  - name: subpkg
-
-  - name: subpkg2
-
-60
-
-subpkg
-
-subpkg2
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
-
-60
-
+test:
+  commands:
+      - curl --version
+      - curl-config --features  # [not win]
+      - curl-config --protocols  # [not win]
+      - curl https://some.website.com
 
 
 Outputs - more than one pkg per recipe
+--------------------------------------
 
-Useful for consolidating related recipes that share (large) source
+.. code-block:: yaml
 
-Reduce update burden
+	package:
+	  name: some-split
+	  version: 1.0
 
-Reduce build time by keeping some parts of the build, while looping over other parts
+	outputs:
+	  - name: subpkg
 
-Also output different types of packages from one recipe (wheels)
+	  - name: subpkg2
 
-61
+
+.. nextslide::
+
+* Useful for consolidating related recipes that share (large) source
+
+* Reduce update burden
+
+* Reduce build time by keeping some parts of the build, while looping over other parts
+
+* Also output different types of packages from one recipe (wheels)
+
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
-
-61
-
 
 
 Outputs rules
+-------------
 
-list of dicts
+* list of dicts
 
-each list must have name or type key
+* each list must have name or type key
 
-May use all entries from build, requirements, test, about sections
+* May use all entries from build, requirements, test, about sections
 
-May specify files to bundle either using globs or by running a script
-
-62
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
-
-62
-
+* May specify files to bundle either using globs or by running a script
 
 
 Outputs examples
+----------------
 
 https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
 
 
-
 https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml
-
-63
-
-63
-
 
 
 Exercise: split a package
+-------------------------
 
 Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
 
@@ -1007,307 +881,281 @@ Starting point:
 
 https://github.com/conda-forge/curl-feedstock/tree/master/recipe
 
-64
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
 
-64
 
 
-
-Exercise: split a package
+.. nextslide::
 
 Solution:
 
 https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe
 
-65
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
-
-65
-
-
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#about-section
 
 About section
-
-66
+-------------
 
 Provide this stuff
 
-66
-
+[insert image here!]
 
 
 Extra section: free-for-all
+---------------------------
 
-Used for external tools or state management
+* Used for external tools or state management
 
-No schema
+* No schema
 
-Conda-forge’s maintainer list
+* Conda-forge’s maintainer list
 
-Conda-build’s notion of whether a recipe is “final”
+* Conda-build’s notion of whether a recipe is “final”
 
-67
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#extra-section
 
-67
-
-
 
 Break time!
+-----------
 
 Advanced recipe tricks coming next
-
-68
-
-68
 
 
 
 Conditional lines (selectors)
+-----------------------------
 
-some_content    # [some expression]
+::
 
+  some_content    # [some expression]
 
 
 content inside [] is eval’ed
 
 namespace includes OS info, python info, and a few others
 
-69
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#preprocessing-selectors
-
-69
-
 
 
 Exercise: limit a recipe to only Linux
+--------------------------------------
 
-70
+.. code-block:: yaml
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#preprocessing-selectors
+	package:
+	  name: example_skip_recipe
+	  version: 1.0
 
-70
+	  build:
+	  skip: True
 
+.. nextslide::
+
+.. code-block:: yaml
+
+	package:
+	  name: example_skip_recipe
+	  version: 1.0
+
+	  build:
+	  skip: True# [not linux]
 
 
 Intro to templating with Jinja2
+--------------------------------
 
-Fill in information dynamically
+* Fill in information dynamically
 
-git tag info
+	- git tag info
 
-setup.py recipe data
+	- setup.py recipe data
 
-centralized version numbering
+	- centralized version numbering
 
-string manipulation
+	- string manipulation
 
+How does templating save you time?
+----------------------------------
 
+.. code-block:: yaml
 
-71
-
-71
-
+	{% set version = "3.0.2" %}
+	package:
+	  name: example
+	  version: {{ version }}
+	source:
+	  url: https://site/{{version}}.tgz
 
 
 Jinja2 templating in meta.yaml
+------------------------------
 
-Set variables:
+Set variables::
 
-{% set somevar=”someval” %}
+  {% set somevar=”someval” %}
 
-Use variables:
+Use variables::
 
-{{ somevar }}
+  {{ somevar }}
 
-Expressions in {{ }} are roughly python
-
-72
-
-72
-
+Expressions in ``{{ }}`` are roughly python
 
 
 Jinja2 conditionals
+-------------------
 
-Selectors are one line only.  When you want to toggle a block, use jinja2:
+Selectors are one line only.  When you want to toggle a block,
+use jinja2::
 
-{%- if foo -%}
+  {%- if foo -%}
 
-toggled content
+  toggled content
 
-on many lines
+  on many lines
 
-{% endif %}
-
-
-
-73
-
-73
-
+  {% endif %}
 
 
 Exercise: use Jinja2 to reduce edits
+------------------------------------
 
-package:
+.. code-block:: yaml
 
-  name: abc
+	package:
 
-  version: 1.2.3
+	  name: abc
 
-source:
+	  version: 1.2.3
 
-  url: http://my.web/abc-1.2.3.tgz
+	source:
 
-74
-
-74
-
+	  url: http://my.web/abc-1.2.3.tgz
 
 
 Variants: Jinja2 on steroids
+----------------------------
 
 Matrix specification in yaml files
 
-somevar:
+.. code-block:: yaml
 
-  - 1.0
+	somevar:
 
-  - 2.0
+	  - 1.0
 
-anothervar:
+	  - 2.0
 
-  - 1.0
+	anothervar:
 
-75
-
-75
-
+	  - 1.0
 
 
 All variant variables exposed in jinja2
+---------------------------------------
 
 In meta.yaml,
 
-
-
-{{ somevar }}
-
-
+``{{ somevar }}``
 
 And this loops over values
 
-76
-
-76
-
-
 
 Exercise: try looping
+---------------------
 
 meta.yaml:
 
-package:
+.. code-block:: yaml
 
-  name: abc
+	package:
 
-  version: 1.2.3
+	  name: abc
 
-build:
+	  version: 1.2.3
 
-  skip: True # [skipvar]
+	build:
 
-77
+	  skip: True # [skipvar]
 
-conda_build_config.yaml:
+	conda_build_config.yaml:
 
-skipvar:
+	skipvar:
 
-		- True
+			- True
 
-- False
+	- False
 
-77
-
-
-
-Exercise: try looping
+.. nextslide::
 
 meta.yaml:
 
-package:
+.. code-block:: yaml
 
-  name: abc
+	package:
 
-  version: 1.2.3
+	  name: abc
 
-requirements:
+	  version: 1.2.3
 
-  build:
+	requirements:
 
-    - python {{ python }}
+	  build:
 
-  run:
+	    - python {{ python }}
 
-    - python {{ python }}
+	  run:
 
-78
+	    - python {{ python }}
 
 conda_build_config.yaml:
 
-python:
+.. code-block:: yaml
 
-		- 2.7
+	python:
 
-- 3.6
+			- 2.7
 
-78
+	- 3.6
 
-
-
-Exercise: try looping
+.. nextslide::
 
 meta.yaml:
 
-package:
+.. code-block:: yaml
 
-  name: abc
+	package:
 
-  version: 1.2.3
+	  name: abc
 
-requirements:
+	  version: 1.2.3
 
-  build:
+	requirements:
 
-    - python
+	  build:
 
-  run:
+	    - python
 
-    - python
+	  run:
 
-79
+	    - python
+
+.. nextslide::
 
 conda_build_config.yaml:
 
-python:
+.. code-block:: yaml
 
-		- 2.7
+	python:
 
-- 3.6
+			- 2.7
 
-79
-
+	- 3.6
 
 
 Jinja2 functions
+----------------
 
 load_setup_py_data
 
@@ -1321,7 +1169,6 @@ compiler
 
 cdt
 
-80
 
 Dynamic pinning
 
@@ -1329,26 +1176,17 @@ Loading source data
 
 Compatibility control
 
-80
-
-
 
 Loading setup.py data
+---------------------
 
-81
+.. code-block:: yaml
 
-{% set setup_data = load_setup_py_data() %}
+	{% set setup_data = load_setup_py_data() %}
 
-
-
-package:
-
-  name: abc
-
-  version: {{ setup_data[‘version’] }}
-
-
-
+	package:
+	  name: abc
+	  version: {{ setup_data[‘version’] }}
 
 
 Primarily a development recipe tool - release recipes specify version instead, and template source download link
