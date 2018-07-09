@@ -882,10 +882,6 @@ Starting point:
 https://github.com/conda-forge/curl-feedstock/tree/master/recipe
 
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
-
-
-
 .. nextslide::
 
 Solution:
@@ -896,9 +892,8 @@ https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe
 About section
 -------------
 
-Provide this stuff
+.. image:: images/about_section.png
 
-[insert image here!]
 
 
 Extra section: free-for-all
@@ -931,7 +926,7 @@ Conditional lines (selectors)
   some_content    # [some expression]
 
 
-content inside [] is eval’ed
+content inside ``[...]`` is eval’ed
 
 namespace includes OS info, python info, and a few others
 
@@ -1157,24 +1152,23 @@ conda_build_config.yaml:
 Jinja2 functions
 ----------------
 
-load_setup_py_data
+loading source data:
 
-load_file_regex
+	``load_setup_py_data``
 
-pin_compatible
+	``load_file_regex``
 
-pin_subpackage
+Dynamic Pinning:
 
-compiler
+	``pin_compatible``
 
-cdt
+	``pin_subpackage``
 
+Compatibility Control:
 
-Dynamic pinning
+	``compiler``
 
-Loading source data
-
-Compatibility control
+	``cdt``
 
 
 Loading setup.py data
@@ -1189,225 +1183,201 @@ Loading setup.py data
 	  version: {{ setup_data[‘version’] }}
 
 
-Primarily a development recipe tool - release recipes specify version instead, and template source download link
+* Primarily a development recipe tool - release recipes specify version instead, and template source download link
 
-Centralizing version info is very nice - see also versioneer, setuptools_scm, autover, and many other auto-version tools
-
-81
-
-
+* Centralizing version info is very nice - see also versioneer, setuptools_scm, autover, and many other auto-version tools
 
 Loading arbitrary data
+----------------------
 
-{% set data = load_file_regex(load_file='meta.yaml',                    regex_pattern='git_tag: ([\\d.]+)') %}
+.. code-block:: yaml
 
-package:
+	{% set data = load_file_regex(load_file='meta.yaml',
+	    regex_pattern='git_tag: ([\\d.]+)') %}
 
-  name: conda-build-test-get-regex-data
+	package:
+	  name: conda-build-test-get-regex-data
+	  version: {{ data.group(1) }}
 
-  version: {{ data.group(1) }}
+* Useful when software provides version in some arbitrary file
 
-Useful when software provides version in some arbitrary file
-
-Primarily a development recipe tool - release recipes specify version instead, and template source download link
-
-82
-
-82
-
+* Primarily a development recipe tool - release recipes specify version instead, and template source download link
 
 
 Dynamic pinning
+---------------
 
 Use in meta.yaml, generally in requirements section:
 
-requirements:
+.. code-block:: yaml
 
-  host:
+	requirements:
 
-    - numpy
+	  host:
 
-  run:
+	    - numpy
 
-    - {{ pin_compatible(‘numpy’) }}
+	  run:
 
-83
+	    - {{ pin_compatible(‘numpy’) }}
 
-83
+.. nextslide::
 
-
-
-Dynamic pinning
 
 Use in meta.yaml, generally in requirements section:
 
-requirements:
+.. code-block:: yaml
 
-  host:
+	requirements:
+	  host:
+	    - numpy
+	  run:
+	    - {{ pin_compatible(‘numpy’) }}
 
-    - numpy
 
-  run:
-
-    - {{ pin_compatible(‘numpy’) }}
-
-84
-
-Pin run req based on what is present at build time
-
-84
-
+* Pin run req based on what is present at build time
 
 
 Dynamic pinning in practice
+---------------------------
 
 Used a lot with numpy:
 
 https://github.com/AnacondaRecipes/scikit-image-feedstock/blob/master/recipe/meta.yaml
 
-85
-
-85
-
-
-
 Dynamic pinning within recipes
+------------------------------
 
 Refer to other outputs within the same recipe
 
-when intradependencies exist
+ - When intradependencies exist
 
-when shared libraries are consumed by other libraries
+ - When shared libraries are consumed by other libraries
 
 https://github.com/AnacondaRecipes/aggregate/blob/master/clang/meta.yaml
 
 
-
-86
-
-86
-
-
-
 Compilers
+---------
 
 Use in meta.yaml in requirements section:
 
-requirements:  build:    - {{ compiler(‘c’) }}
-
-explicitly declare language needs
-
-compiler packages can be actual compilers, or just activation scripts
-
-Compiler packages utilize run_exports to add necessary runtime dependencies automatically
-
-87
-
-87
+.. code-block:: yaml
 
 
+     requirements:
+         build:
+             - {{ compiler(‘c’) }}
 
-run_exports
+* explicitly declare language needs
 
-88
+* compiler packages can be actual compilers, or just activation scripts
 
-package:
-
-  name: abc
-
-  version: 1.0
-
+* Compiler packages utilize run_exports to add necessary runtime dependencies automatically
 
 
-build:
+``run_exports``
+---------------
 
-  run_exports:
+“if you build and link against library abc, you need a runtime dependency on library abc”
 
-    - abc 1.0.*
+This is annoying to keep track of in recipes.
+
 
 Upstream package “abc” (already built)
 
+.. code-block:: yaml
+
+
+	package:
+	  name: abc
+	  version: 1.0
+
+	build:
+	  run_exports:
+	    - abc 1.0.*
+
+
 Downstream recipe
 
-requirements:
+.. code-block:: yaml
 
-  host:
-
-    - abc
-
-
-
-requirements:
-
-  host:
-
-    - abc 1.0 0
-
-  run:
-
-    - abc 1.0.*
-
+	requirements:
+	  host:
+	    - abc
 
 
 Downstream package
 
-88
+.. code-block:: yaml
+
+	requirements:
+	  host:
+	    - abc 1.0 0
+	  run:
+	    - abc 1.0.*
+
+.. nextslide::
+
+.. image:: images/run_exports.png
 
 
+.. nextslide::
 
-run_exports
+* Add host or run dependencies for downstream packages that depend on upstream that specifies run_exports
 
-Add host or run dependencies for downstream packages that depend on upstream that specifies run_exports
+* Expresses idea that “if you build and link against library abc, you need a runtime dependency on library abc”
 
-expresses idea that “if you build and link against library abc, you need a runtime dependency on library abc”
-
-Simplifies version tracking
-
-89
-
-89
-
+* Simplifies version tracking
 
 
 Requirements: run_exports
+-------------------------
 
-90
+.. image:: images/req_run_exports.png
 
-build
-
-host
-
-run
-
-“Strong” run_exports
-
-“Weak” run_exports
-
-90
 
 
 
 Uploading packages: anaconda.org
+--------------------------------
 
-91
+* Sign-up:
 
-91
+  - ``https://anaconda.org/``
+
+* Requirement:
+
+  - ``conda install anaconda-client``
+
+* CLI: anaconda upload path-to-package
+
+* conda-build auto-upload:
+
+  - ``conda config --set anaconda_upload True``
 
 
 
 Uploading packages: PyPI
+------------------------
 
-92
 
-92
+* Sign-up: ``https://pypi.org/account/register/``
 
+* Twine: ``pip install twine``
+
+* Upload with twine to Test PyPI:
+
+  - ``twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+* Upload to PyPI: ``twine upload dist/*``
 
 
 Anaconda Survey
+---------------
 
 https://www.surveymonkey.com/r/conda
 
-93
 
 
 Install
