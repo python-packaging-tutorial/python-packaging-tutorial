@@ -122,7 +122,7 @@ Windows
 .......
 
 
-.. code-block::
+.. code-block:: bash
 
 	mkdir mypkg/subpkg
 
@@ -289,7 +289,7 @@ creates eggs by default (people spend time fighting this later in the process)
 Where does setup.py go?
 -----------------------
 
-.. code-block::
+::
 
 	mypkg-src
 	setup.py
@@ -1782,68 +1782,76 @@ https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#sourc
 
 Exercise: let’s make a patch
 ----------------------------
+
 Builds that fail leave their build folders in place
 
-look in output for source tree in: */conda-bld/test-patch_<numbers>/work
+look in output for source tree in: ``*/conda-bld/test-patch_<numbers>/work``
 
-cd there
-
-
+``cd there``
 
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
 
 Exercise: let’s make a patch
 ----------------------------
-git init
 
-git add *
+.. code-block:: bash
 
-git commit -am “init”
+	git init
 
-edit file of choice
+	git add *
 
-git commit -m “changing file because …”
+	git commit -am “init”
 
-git format-patch HEAD~1
+	edit file of choice
+
+	git commit -m “changing file because …”
+
+	git format-patch HEAD~1
 
 
+.. nextslide::
 
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-Exercise: let’s make a patch
-----------------------------
-copy that patch back alongside meta.yaml
+copy that patch back alongside ``meta.yaml``
 
 modify meta.yaml to include the patch
 
 
-
-
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
-
-
-
 Multiple sources
+----------------
 
-source:  - url: https://package1.com/a.tar.bz2    folder: stuff  - url: https://package1.com/b.tar.bz2    folder: stuff    patches:      - something.patch  - git_url: https://github.com/conda/conda-build    folder: conda-build
+.. .code-block:: yaml
+
+source:
+  - url: https://package1.com/a.tar.bz2
+    folder: stuff
+  - url: https://package1.com/b.tar.bz2
+    folder: stuff
+    patches:
+       - something.patch
+  - git_url:  https://github.com/conda/conda-build
+    folder:  conda-build
 
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section
+
 
 Build options
 -------------
 
-number: version reference of recipe (as opposed to version of source code)
+number:
+  version reference of recipe (as opposed to version of source code)
 
-script: quick build steps, avoid separate build.sh/bld.bat files
+script:
+  quick build steps, avoid separate build.sh/bld.bat files
 
-skip: skip building recipe on some platforms
+skip:
+  skip building recipe on some platforms
 
-entry_points: python code locations to create executables for
+entry_points:
+  python code locations to create executables for
 
-run_exports: add dependencies to downstream consumers to ensure compatibility
+run_exports:
+  add dependencies to downstream consumers to ensure compatibility
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-section
 
@@ -1858,6 +1866,7 @@ run
 
 host also useful for separating build tools from packaging environment
 ----------------------------------------------------------------------
+
 Requirements: build vs. host
 
 Historically, only build
@@ -1869,84 +1878,97 @@ host introduced for cross compiling
 
 packages are bundled from host env, not build env
 -------------------------------------------------
+
 Requirements: build vs. host
 
 If in doubt, put everything in host
 
-
-
-build is treated same as host for old-style recipes (only build, no {{ compiler() }})
-
-
+build is treated same as host for old-style recipes
+(only build, no ``{{ compiler() }}``)
 
 
 Post-build tests
+----------------
 
 Help ensure that you didn’t make a packaging mistake
 
 Ideally checks that necessary shared libraries are included as dependencies
 
 
-- pytest
 --------
 Post-build tests: dependencies
+------------------------------
 
 Describe dependencies that are required for the tests (but not for normal package usage)
 
-test:
+.. code-block:: yaml
 
-  requires:
+	test:
+
+	  requires:
+
+    	- pytest
 
 
 Post-build tests: test files
 ----------------------------
 
-run_test.pl, run_test.py, run_test.r, run_test.lua
+::
 
-Windows
+  run_test.pl, run_test.py, run_test.r, run_test.lua
 
-Linux/Mac
+Windows::
 
-run_test.bat
+  run_test.bat
 
-run_test.sh
 
-commands: sequential shell-based commands to run (not OS-specific)
-------------------------------------------------------------------
+Linux/Mac::
+
+  run_test.sh
+
+
 Post-build tests
+----------------
 
 May have specific requirements
 
 May specify files that must be bundled for tests (source_files)
 
-imports: language specific imports to try, to verify correct installation
+imports:
+  language specific imports to try, to verify correct installation
 
+commands:
+  sequential shell-based commands to run (not OS-specific)
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#test-section
 
-- dateutil.tz
--------------
 Import tests
+------------
 
-test:
+..code-block:: yaml
 
-  imports:
+	test:
+	  imports:
+		- dateutil
+		- dateutil.rrule
+		- dateutil.parser
+	    - dateutil.tz
 
-	- dateutil
-
-	- dateutil.rrule
-
-	- dateutil.parser
-
-
-test:  commands:    - curl --version    - curl-config --features  # [not win]    - curl-config --protocols  # [not win]    - curl https://some.website.com
----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Test commands
+-------------
+
+.. code-block:: yaml
+
+	test:
+	  commands:
+	      - curl --version
+	      - curl-config --features  # [not win]
+	      - curl-config --protocols  # [not win]
+	      - curl https://some.website.com
 
 
-- name: subpkg2
----------------
 Outputs - more than one pkg per recipe
+--------------------------------------
 
 package:
 
@@ -1955,17 +1977,14 @@ package:
 outputs:
 
   - name: subpkg
-
+  - name: subpkg2
 
 subpkg
 
 subpkg2
 
-https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
 
-Also output different types of packages from one recipe (wheels)
-----------------------------------------------------------------
-Outputs - more than one pkg per recipe
+.. nextslide::
 
 Useful for consolidating related recipes that share (large) source
 
@@ -1973,12 +1992,14 @@ Reduce update burden
 
 Reduce build time by keeping some parts of the build, while looping over other parts
 
+Also output different types of packages from one recipe (wheels)
+
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
 
-May specify files to bundle either using globs or by running a script
----------------------------------------------------------------------
+
 Outputs rules
+-------------
 
 list of dicts
 
@@ -1986,21 +2007,22 @@ each list must have name or type key
 
 May use all entries from build, requirements, test, about sections
 
+May specify files to bundle either using globs or by running a script
+
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
 
 https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml
--------------------------------------------------------------------------------------------------------------
+
 Outputs examples
+----------------
 
 https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
 
-
-
-
 https://github.com/conda-forge/curl-feedstock/tree/master/recipe
-----------------------------------------------------------------
+
 Exercise: split a package
+-------------------------
 
 Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
 
