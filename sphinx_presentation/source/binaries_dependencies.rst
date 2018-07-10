@@ -102,8 +102,43 @@ computing include:
 - Cython
 - Rust
 
-Build Requirements
-------------------
+Build Components and Requirements
+---------------------------------
+
+Build component categories:
+
+build tools
+  Tools use in the build process, such as the compiler, linker, makefile,
+  system introspection tool, and package manager
+
+.. nextslide::
+
+build host artifacts
+  These are files required on the *host* system performing the build. This
+  includes header files, `*.h` files, which define the C program *symbols*,
+  i.e. variable and function names, for the native binary with which we want
+  to integrate. This also usually includes the native binaries themselves,
+  i.e. the executable or shared library. An important exception to this rule
+  is *libpython*, which we do not need on some platforms due to `weak linking
+  rules
+  <https://scikit-build.readthedocs.io/en/latest/cmake-modules/targetLinkLibrariesWithDynamicLookup.html>`_.
+
+.. nextslide::
+
+target system artifacts
+  These are artifacts intended to be run on the *target* system, typically the
+  shared library C-extension.
+
+.. nextslide::
+
+When the build *host* system is different from the *target* system, we are
+**cross-compiling**.
+
+.. nextslide::
+
+Python packaging guide
+
+scikit-build C-runtime compatibility
 
 Scientific Python Build Tools
 -----------------------------
