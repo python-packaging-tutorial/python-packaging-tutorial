@@ -5,26 +5,21 @@ Building and Uploading to PyPi
 Learning Objectives
 ===================
 
-In this section we will ...
----------------------------
+In the following section we will ...
+------------------------------------
 
 * Review the packaging terminology
-* Understand how to build and package a python package
-
-
-Tutorial
-========
-
-Introduction
-------------
-
-This section discusses how to build python packages (or distributions) and publish
-them in a central repository to streamline their installation. Finally, we conclude
-with an exercise where we publish a package with the `Test Python Package Index <http://test.pypi.org/>`_.
+* Understand how to build, package and publish a python package
 
 
 Packaging Terminology 101
 =========================
+
+Introduction
+------------
+
+This section reviews the python packaging concepts and terminology.
+
 
 Source distribution
 -------------------
@@ -115,51 +110,87 @@ Wheels vs. Conda packages
 +-------------------------------------+-------------------------------------+
 
 
-Tools and package types
-=======================
+PyPi
+----
+
+**To be done**
+
+.. Copy from https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Packaging.html#pypi
 
 
-**flit:** great for simple packages
+Virtual Environment
+-------------------
 
-**twine:** the secure way to upload to PyPI
-
-* Building a source distribution
-
-* Building a wheel
-
-* Multibuild - https://github.com/matthew-brett/multibuild
-
-* Manylinux docker image - https://github.com/pypa/manylinux
-
-* Delocate - https://github.com/matthew-brett/delocate
-
-* Auditwheel - https://github.com/pypa/auditwheel
+**To be done**
 
 
-Redistributable artifacts
-=========================
+Build system
+------------
 
-* sdists
+**To be done**
 
-* wheels
+.. describe setuptools and flit
 
-* conda packages
+Tutorial
+========
 
-* eggs (deprecated)
+Introduction
+------------
+
+This section discusses how to build python packages (or distributions) and publish
+them in a central repository to streamline their installation. Finally, we conclude
+with an exercise where we publish a package with the `Test Python Package Index <http://test.pypi.org/>`_.
 
 
-When/how to use an sdist
-------------------------
+Creating an environment
+-----------------------
 
-* Pure python (no compilation requirements)
+**To be done**
 
-* Or, distributing source code that must be compiled prior to usage
+Building a source distribution
+------------------------------
+
+**To be done**
 
 .. code-block:: bash
 
     python setup.py sdist
 
+Building a wheel
+----------------
+
+**To be done**
+
+.. code-block:: bash
+
+    python setup.py bdist_wheel
+
+
+Building a wheel
+----------------
+
+**To be done**
+
+
+Registering to PyPI
+-------------------
+
+**To be done**
+
+
+Publishing to PyPI
+------------------
+
+**To be done**
+
+
+An other approach: filt
+-----------------------
+
+**To be done**
 
 
 
+Exercises
+=========
 
