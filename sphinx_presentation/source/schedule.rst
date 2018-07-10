@@ -61,32 +61,29 @@ How are we spending our afternoon?
 * Introduce the idea of .post releases (it will happen to everyone who uploads)
 
 
-1:30-1:45 Binaries and dependencies:
+1:30-2:00 Binaries and dependencies:
 ------------------------------------
 
 .. ifnotslides::
 
   :ref:`binaries`
 
-
-How scikit-build and conda-build can make life easier
-
-1:45-2:00 Scikit-build overview:
---------------------------------
-
-* Why + Motivations
-
-* From ``[distutils.core.Extension]`` to ``[scikit-build + CMake]`` in few lines
-
-* Support for developer mode (bonus)
-
+* Understand why we build Python packages with native binaries: 1)
+  **performance** and 2) **library integration**
+* Understand different components of the binary build process and their role:
+  *headers, libraries, compilers, linkers, build systems, system introspection
+  tools, package managers*
+* Understand basic requirements for binary compatibility: a) **C-runtime library
+  compatibility** and b) **shared library compatibilty**
+* Understand **scikit-build**'s role in coordinating components of the binary
+  build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
 2:00-2:45 Exercise:
 -------------------
 
-* Add CMake project that generates python extension.  Tie it into previous python project.
+* Build a Python package with a C++-based C-extension.
+* Build a Python package with a Cython-based C-extension.
 
-* Cookie cutter template integrating conda, pypi, etc. will be provided.
 
 2:45-3:00 Break
 ---------------

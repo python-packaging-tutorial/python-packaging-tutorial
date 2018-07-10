@@ -1,3 +1,5 @@
+.. _conda_build:
+
 ##############
 Conda Packages
 ##############
@@ -45,20 +47,8 @@ Introducing conda-build
   https://github.com/conda/conda-build
 
 
-Getting ``conda-build`` to work for you
----------------------------------------
-
-Input: ``meta.yaml`` files
-
-.. code-block:: yaml
-
-	package:
-	  name: mypkg
-	  version: 1.0
-
-
-Let’s Use ``conda-build``
--------------------------
+Excercise: let’s use ``conda-build``
+------------------------------------
 
 .. code-block:: bash
 
@@ -66,15 +56,16 @@ Let’s Use ``conda-build``
 
 * Windows only:
 
-  ::
+.. code-block:: bash
 
-    conda install m2-patch posix
+  conda install m2-patch posix
 
 * All platforms:
 
 .. code-block:: bash
 
-	conda build mypkg-src
+  cd python-packaging-tutorial/conda_build_recipes
+  conda build 01_minimum
 
 
 What happened?
@@ -113,6 +104,8 @@ Obtaining recipes
 Anaconda Recipes
 ----------------
 
+* https://github.com/AnacondaRecipes
+
 * Official recipes that Anaconda uses for building packages
 
 * Since Anaconda 5.0, forked from conda-forge recipes.
@@ -127,7 +120,11 @@ Conda-forge
 
 .. image:: images/conda-forge.png
 
+https://conda-forge.org
+
 .. nextslide::
+
+* https://conda-forge.org
 
 * Numfocus-affiliated community organization made up of volunteers
 
@@ -195,6 +192,11 @@ Only required section:
 	  name: abc
 	  version: 1.2.3
 
+Exercise: create a basic recipe
+-------------------------------
+
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/01_minimum
+
 
 Source types
 ------------
@@ -214,88 +216,46 @@ Source types
 `meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
 
 
-Source Patches
---------------
+Exercise: point your recipe at local files
+------------------------------------------
 
-* patch files live alongside meta.yaml
-
-* create patches with:
-
-  - ``diff``
-
-  - ``git diff``
-
-  - ``git format-patch``
-
-|
-
-`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/02_local_source
 
 
-Exercise: let’s make a patch
-----------------------------
 
-.. code-block:: yaml
+Building packages
+-----------------
 
-	package:
-	  name: test-patch
-	  version: 1.2.3
+Lots of ways, but let’s start simple:
 
-	source:
-	  url: https://zlib.net/zlib-1.2.11.tar.gz
+* build.sh (unix)
+* bld.bat (windows)
 
-	build:
-	  script: exit 1
+Filenames are of paramount importance here
 
 
-.. nextslide::
+build.sh: stuff to run on mac/linux
+-----------------------------------
 
-* Builds that fail leave their build folders in place
-
-* look in output for source tree in:
-
-  ``*/conda-bld/test-patch_<numbers>/work``
-
-* ``cd`` there
-
-.. nextslide::
-
-.. code-block:: bash
-
-	git init
-
-	git add *
-
-	git commit -am “init”
-
-	edit file of choice
-
-	git commit -m “changing file because …”
-
-	git format-patch HEAD~1
+* It’s a shell script: do what you want
+* Snapshot files in $PREFIX before running script; again after
+* Files that are new in $PREFIX are what make up your package
+* Several useful env vars for use in build.sh: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
 
 
-* copy that patch back alongside meta.yaml
+bld.bat: stuff to run on mac/linux
+-----------------------------------
 
-* modify meta.yaml to include the patch
+* It’s a batch script: do what you want
+* Snapshot files in %PREFIX% before running script; again after
+* Files that are new in %PREFIX% are what make up your package
+* Several useful env vars for use in bld.bat: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
 
 
-Multiple sources
-----------------
+Exercise: Copy a file into the package
+--------------------------------------
 
-.. code-block:: yaml
-
-	source:
-	  - url: https://package1.com/a.tar.bz2
-	    folder: stuff
-	  - url: https://package1.com/b.tar.bz2
-	    folder: stuff
-	    patches:
-	      - something.patch
-	  - git_url: https://github.com/conda/conda-build
-	    folder: conda-build
-
-`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/03_copy_file
 
 
 Build options
@@ -325,6 +285,33 @@ Requirements
 .. image:: images/build_host_run.png
 
 
+Build requirements
+------------------
+
+* Tools to build packages with; things that don’t directly go into headers or linking
+* Compilers
+* autotools, pkg-config, m4, cmake
+* archive tools
+
+
+Host requirements
+-----------------
+
+* External dependencies for the package that need to be present at build time
+* Headers, libraries, python/R/perl
+* Python deps used in setup.py
+* Not available at runtime, unless also specified in run section
+
+
+Run requirements
+----------------
+
+* Things that need to be present when the package is installed on the end-user system
+* Runtime libraries
+* Python dependencies at runtime
+* Not available at build time unless also specified in build/host section
+
+
 Requirements: build vs. host
 ----------------------------
 
@@ -343,6 +330,12 @@ Requirements: build vs. host
   (only build, no ``{{ compiler() }}``)
 
 * packages are bundled from host env, not build env
+
+
+Exercise: use Python in a build script
+--------------------------------------
+
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/04_python_in_build
 
 
 Post-build Tests
@@ -427,6 +420,12 @@ Test commands
           - curl https://some.website.com
 
 
+Exercise: add some tests
+------------------------
+
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/05_test_python
+
+
 Outputs - more than one pkg per recipe
 --------------------------------------
 
@@ -455,42 +454,6 @@ Outputs - more than one pkg per recipe
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section
 
 
-Outputs rules
--------------
-
-* List of dicts
-
-* Each list must have ``name`` or ``type`` key
-
-* May use all entries from ``build``, ``requirements``, ``test``, ``about`` sections
-
-* May specify files to bundle either using globs or by running a script
-
-
-**Outputs Examples**
-
-https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
-
-
-https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml
-
-
-Exercise: Split a Package
--------------------------
-
-Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
-
-**Starting point:**
-
-https://github.com/conda-forge/curl-feedstock/tree/master/recipe
-
-
-**Solution:**
-
-https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe
-
-
-
 About section
 -------------
 
@@ -513,12 +476,6 @@ Extra section: free-for-all
 
 
 https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#extra-section
-
-
-Break time!
------------
-
-Advanced recipe tricks coming next
 
 
 
@@ -882,44 +839,9 @@ Why put compilers into Conda?
 This is annoying to keep track of in recipes.
 
 
-Upstream package “abc” (already built)
-
-.. code-block:: yaml
-
-
-	package:
-	  name: abc
-	  version: 1.0
-
-	build:
-	  run_exports:
-	    - abc 1.0.*
-
-
-Downstream recipe
------------------
-
-.. code-block:: yaml
-
-	requirements:
-	  host:
-	    - abc
-
-
-**Downstream package**
-
-.. code-block:: yaml
-
-	requirements:
-	  host:
-	    - abc 1.0 0
-	  run:
-	    - abc 1.0.*
-
 .. nextslide::
 
 .. image:: images/run_exports.png
-
 
 .. nextslide::
 
@@ -929,11 +851,16 @@ Downstream recipe
 
 * Simplifies version tracking
 
+Exercise: make a run_exports package
+------------------------------------
 
-Requirements: run_exports
--------------------------
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/06_has_run_exports
 
-.. image:: images/req_run_exports.png
+
+Exercise: use a run_exports package
+------------------------------------
+
+https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/07_uses_run_exports
 
 
 Uploading packages: anaconda.org
@@ -953,3 +880,126 @@ Uploading packages: anaconda.org
 
   - ``conda config --set anaconda_upload True``
 
+Fin
+===
+
+Extra slides
+============
+
+Source Patches
+--------------
+
+* patch files live alongside meta.yaml
+
+* create patches with:
+
+  - ``diff``
+
+  - ``git diff``
+
+  - ``git format-patch``
+
+|
+
+`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
+
+
+Exercise: let’s make a patch
+----------------------------
+
+.. code-block:: yaml
+
+	package:
+	  name: test-patch
+	  version: 1.2.3
+
+	source:
+	  url: https://zlib.net/zlib-1.2.11.tar.gz
+
+	build:
+	  script: exit 1
+
+
+.. nextslide::
+
+* Builds that fail leave their build folders in place
+
+* look in output for source tree in:
+
+  ``*/conda-bld/test-patch_<numbers>/work``
+
+* ``cd`` there
+
+.. nextslide::
+
+.. code-block:: bash
+
+	git init
+
+	git add *
+
+	git commit -am “init”
+
+	edit file of choice
+
+	git commit -m “changing file because …”
+
+	git format-patch HEAD~1
+
+
+* copy that patch back alongside meta.yaml
+
+* modify meta.yaml to include the patch
+
+
+Multiple sources
+----------------
+
+.. code-block:: yaml
+
+	source:
+	  - url: https://package1.com/a.tar.bz2
+	    folder: stuff
+	  - url: https://package1.com/b.tar.bz2
+	    folder: stuff
+	    patches:
+	      - something.patch
+	  - git_url: https://github.com/conda/conda-build
+	    folder: conda-build
+
+`meta.yaml source section <https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section>`_
+
+
+Outputs rules
+-------------
+
+* List of dicts
+
+* Each list must have ``name`` or ``type`` key
+
+* May use all entries from ``build``, ``requirements``, ``test``, ``about`` sections
+
+* May specify files to bundle either using globs or by running a script
+
+
+**Outputs Examples**
+
+https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml
+
+
+https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml
+
+
+Exercise: Split a Package
+-------------------------
+
+Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.
+
+**Starting point:**
+
+https://github.com/conda-forge/curl-feedstock/tree/master/recipe
+
+
+**Solution:**
+
+https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe
