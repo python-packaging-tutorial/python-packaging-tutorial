@@ -4,7 +4,7 @@
 A really simple script just to demonstrate packaging
 """
 
-import main
+from capitalize import main
 
 
 if __name__ == "__main__":
