@@ -431,6 +431,8 @@ http://python-packaging.readthedocs.io/en/latest/
 
 **Follow one of them**
 
+.. nextslide::
+
 There is a sample project here:
 
 https://github.com/pypa/sampleproject
@@ -439,13 +441,19 @@ https://github.com/pypa/sampleproject
 
 You can use this as a template for your own packages.
 
+.. nextslide::
+
 Here is an opinionated update -- a little more fancy, but some good ideas:
 
 https://blog.ionelmc.ro/2014/05/25/python-packaging/
 
+.. nextslide::
+
 Rather than doing it by hand, you can use the nifty "cookie cutter" project:
 
 https://cookiecutter.readthedocs.io/en/latest/
+
+.. nextslide::
 
 And there are a few templates that can be used with that.
 
