@@ -1,0 +1,20 @@
+package:
+  name: abc
+  version: 1.2.3
+
+source:
+  path: .
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+
+test:
+  commands:
+    - test -e $SP_DIR/somefile.py               # [unix]
+    - IF NOT EXIST %SP_DIR%/somefile.py exit 1  # [win]
+    - python -m somefile
+  imports:
+    - somefile
