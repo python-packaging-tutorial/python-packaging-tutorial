@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="setup.py" href="setup_py.html" />
+    <link rel="next" title="Making a Python Package" href="setup_py.html" />
     <link rel="prev" title="The Joy of Packaging!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -37,6 +37,7 @@
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="outline">
 <h2>Outline:<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<p>How are we spending our afternoon?</p>
 <div class="section" id="overview-of-packaging">
 <h3>0:00-00:20 Overview of packaging<a class="headerlink" href="#overview-of-packaging" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -56,24 +57,26 @@
 <li>In setup.py vs requirements file</li>
 <li>When and how to “pin” requirements</li>
 </ul>
-<div class="section" id="exercise">
-<h4>Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h4>
-<p>Fill in the missing pieces in a setup.py for a sample package
-Build a source distribution for the package</p>
 </div>
+<div class="section" id="exercise">
+<h3>Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fill in the missing pieces in a setup.py for a sample package</li>
+<li>Do a development install for the package</li>
+</ul>
 </div>
 <div class="section" id="building-and-uploading-to-pypi">
 <h3>0:45-1:00 Building and uploading to PyPI:<a class="headerlink" href="#building-and-uploading-to-pypi" title="Permalink to this headline">¶</a></h3>
 <p>Tools and package types</p>
-<p><strong>flit:</strong> great for simple packages</p>
-<p><strong>twine:</strong> the secure way to upload to PyPI</p>
 <ul class="simple">
-<li>Building a source distribution</li>
-<li>Building a wheel</li>
+<li><strong>flit:</strong> great for simple packages - <a class="reference external" href="https://github.com/takluyver/flit">https://github.com/takluyver/flit</a></li>
+<li><strong>twine:</strong> the secure way to upload to PyPI - <a class="reference external" href="https://github.com/pypa/twine">https://github.com/pypa/twine</a></li>
 <li>Multibuild - <a class="reference external" href="https://github.com/matthew-brett/multibuild">https://github.com/matthew-brett/multibuild</a></li>
 <li>Manylinux docker image - <a class="reference external" href="https://github.com/pypa/manylinux">https://github.com/pypa/manylinux</a></li>
 <li>Delocate - <a class="reference external" href="https://github.com/matthew-brett/delocate">https://github.com/matthew-brett/delocate</a></li>
 <li>Auditwheel - <a class="reference external" href="https://github.com/pypa/auditwheel">https://github.com/pypa/auditwheel</a></li>
+<li>Building a source distribution</li>
+<li>Building a wheel</li>
 </ul>
 </div>
 <div class="section" id="break">
@@ -81,12 +84,14 @@ Build a source distribution for the package</p>
 </div>
 <div class="section" id="worked-example-exercise">
 <h3>1:10-1:30 Worked example/exercise:<a class="headerlink" href="#worked-example-exercise" title="Permalink to this headline">¶</a></h3>
-<p>Building a package and uploading to pypi</p>
-<p>Continuing from the the previous exercise, build a wheel for the package</p>
-<p>Register the package on the pypi testing server</p>
-<p>Upload the built distributions using twine</p>
-<p>Delete one of the uploaded files on pypi and try re-uploading (will fail)</p>
-<p>Introduce the idea of .post releases (it will happen to everyone who uploads)</p>
+<ul class="simple">
+<li>Building a package and uploading to pypi</li>
+<li>Continuing from the the previous exercise, build a wheel for the package</li>
+<li>Register the package on the pypi testing server</li>
+<li>Upload the built distributions using twine</li>
+<li>Delete one of the uploaded files on pypi and try re-uploading (will fail)</li>
+<li>Introduce the idea of .post releases (it will happen to everyone who uploads)</li>
+</ul>
 </div>
 <div class="section" id="binaries-and-dependencies">
 <h3>1:30-1:45 Binaries and dependencies:<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h3>
@@ -98,8 +103,9 @@ Support for developer mode (bonus)</p>
 </div>
 <div class="section" id="id1">
 <h3>2:00-2:45 Exercise:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Add CMake project that generates python extension.  Tie
-it into previous python project.</p>
+<ul class="simple">
+<li>Add CMake project that generates python extension.  Tie it into previous python project.</li>
+</ul>
 <p>Cookie cutter template integrating conda, pypi, etc. will be provided.</p>
 </div>
 <div class="section" id="id2">
@@ -110,20 +116,24 @@ it into previous python project.</p>
 </div>
 <div class="section" id="id3">
 <h3>3:15-3:30 Exercise:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>Write a conda recipe for the sample package from previous exercises (pure python)</p>
-<p>noarch packages</p>
-<p>Upload to anaconda cloud</p>
+<ul class="simple">
+<li>Write a conda recipe for the sample package from previous exercises (pure python)</li>
+<li>noarch packages</li>
+<li>Upload to anaconda cloud</li>
+</ul>
 </div>
 <div class="section" id="id4">
 <h3>3:15-3:45 Exercise:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>Recipe for package with compiled extensions</p>
-<p>Add compiled extension (source will be provided to students) to sample package</p>
-<p>Modify recipe, if needed</p>
-<p>Rebuild the package</p>
-<p>Version pinning (python, numpy)</p>
-<p>Split packages - multi-ecosystem ones</p>
-<p>Compiler packages + pin_downstream</p>
-<p>Interoperation with scikit-build</p>
+<ul class="simple">
+<li>Recipe for package with compiled extensions</li>
+<li>Add compiled extension (source will be provided to students) to sample package</li>
+<li>Modify recipe, if needed</li>
+<li>Rebuild the package</li>
+<li>Version pinning (python, numpy)</li>
+<li>Split packages - multi-ecosystem ones</li>
+<li>Compiler packages + pin_downstream</li>
+<li>Interoperation with scikit-build</li>
+</ul>
 </div>
 <div class="section" id="automated-building-with-cloud-based-ci-services">
 <h3>3:45-4:00 Automated building with cloud-based CI services:<a class="headerlink" href="#automated-building-with-cloud-based-ci-services" title="Permalink to this headline">¶</a></h3>
@@ -131,19 +141,21 @@ it into previous python project.</p>
 <p><a class="reference external" href="http://scikit-ci.readthedocs.io">http://scikit-ci.readthedocs.io</a></p>
 <p><a class="reference external" href="http://scikit-ci-addons.readthedocs.io">http://scikit-ci-addons.readthedocs.io</a></p>
 <p>CI service overview &amp; Conda-forge – what are the pieces and how do they fit together?</p>
-<p>Recipe format</p>
-<p>staged-recipes</p>
-<p>feedstocks</p>
-<p>Re-rendering and conda-smithy</p>
-<p>Updating package when new version released</p>
-<p>Future direction/community needs</p>
-<p>Invitation to sprints</p>
-<p>Contributing to Conda-forge</p>
-<p>Intro to conda-forge: staged-recipes, maintainer role, contributing to an existing package</p>
-<p>conda-smithy lint/rerender</p>
-<p>Example to go from the conda-skeleton to a PR on staged-recipes</p>
-<p>Comment on some special cases: cython extensions,  non-python pkgs, the use of the CIs, etc.</p>
-<p>Exercise: put a package on staged-recipes</p>
+<ul class="simple">
+<li>Recipe format</li>
+<li>staged-recipes</li>
+<li>feedstocks</li>
+<li>Re-rendering and conda-smithy</li>
+<li>Updating package when new version released</li>
+<li>Future direction/community needs</li>
+<li>Invitation to sprints</li>
+<li>Contributing to Conda-forge</li>
+<li>Intro to conda-forge: staged-recipes, maintainer role, contributing to an existing package</li>
+<li>conda-smithy lint/rerender</li>
+<li>Example to go from the conda-skeleton to a PR on staged-recipes</li>
+<li>Comment on some special cases: cython extensions,  non-python pkgs, the use of the CIs, etc.</li>
+<li>Exercise: put a package on staged-recipes</li>
+</ul>
 </div>
 <div class="section" id="tutorial-code-base-layout">
 <h3>Tutorial code base layout:<a class="headerlink" href="#tutorial-code-base-layout" title="Permalink to this headline">¶</a></h3>
@@ -184,10 +196,8 @@ it into previous python project.</p>
 <li><a class="reference internal" href="#">Overview</a><ul>
 <li><a class="reference internal" href="#outline">Outline:</a><ul>
 <li><a class="reference internal" href="#overview-of-packaging">0:00-00:20 Overview of packaging</a></li>
-<li><a class="reference internal" href="#setup-py">0:20-0:45 setup.py</a><ul>
+<li><a class="reference internal" href="#setup-py">0:20-0:45 setup.py</a></li>
 <li><a class="reference internal" href="#exercise">Exercise:</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#building-and-uploading-to-pypi">0:45-1:00 Building and uploading to PyPI:</a></li>
 <li><a class="reference internal" href="#break">1:00-1:10 Break</a></li>
 <li><a class="reference internal" href="#worked-example-exercise">1:10-1:30 Worked example/exercise:</a></li>
@@ -209,7 +219,7 @@ it into previous python project.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">The Joy of Packaging!</a></li>
-      <li>Next: <a href="setup_py.html" title="next chapter">setup.py</a></li>
+      <li>Next: <a href="setup_py.html" title="next chapter">Making a Python Package</a></li>
   </ul></li>
 </ul>
 </div>

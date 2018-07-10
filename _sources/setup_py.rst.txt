@@ -1,6 +1,519 @@
-********
-setup.py
-********
+***********************
+Making a Python Package
+***********************
 
 Specifying how to build your python package
+
+Packages
+========
+
+
+What is a “package”?
+--------------------
+
+* In a broad sense, anything you install using your package manager
+
+* Some kinds of packages have implied behavior and requirements
+
+* Unfortunate overloading: python “package”: a folder that python imports
+
+
+Package Managers and Repos
+--------------------------
+
+* Many package managers: some OS specific -- some language specific:
+
+* NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
+
+* PyPI, anaconda.org, CRAN, CPAN
+
+
+But they all contain:
+
+* Some form of dependency management
+
+* Artifact and/or source repository
+
+The idea is that you install something, and have it "just work".
+
+
+Package types:
+--------------
+
+Focusing now on the Python world:
+
+A package can be essentially in two forms:
+
+* source
+* binary
+
+As Python is a dynamic language, this distinction can get a bit blurred:
+
+There is little difference between a source and binary package *for a pure python package*
+
+But if there is any compiled code in there, building from source can be a challenge:
+
+ - binary packages are very helpful
+
+Source Packages
+---------------
+
+A source package is all the source required to build the package.
+
+Package managers (like pip) can automatically build your package from source.
+
+**But:**
+
+ - Your system needs to be set up to build (compiler)
+ - You need to have the dependencies, etc available
+ - Sometimes it take time
+
+Binary Packages
+---------------
+
+A collection of code all ready to run.
+
+ - Everything is already compiled and ready to go
+
+**But:**
+
+ - It's likely to be platform dependent
+ - Maybe require dependencies to be installed
+
+
+Python Packaging
+----------------
+
+There are essentially two package managers widely used for Python.
+
+**pip:**
+
+  - Pulls packages from PyPI
+
+  - Handles both source and binary packages (wheels)
+
+  - Python only
+
+**conda:**
+
+  - Pulls packages from anaconda.org
+
+  - Binary only
+
+  - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
+
+  - Manages Python itself
+
+OS package managers:
+--------------------
+
+  - System package managers:
+
+	  - Linux
+
+	    - rpm
+
+	    - apt-get, homebrew
+
+	  - OS-X
+
+	    - homebrew
+
+	    - macports
+
+	  - Windows
+
+	  	- chocolatey
+
+Also sometimes handle python packages -- but we won't talk about those here.
+
+
+
+
+Python Packages
+===============
+
+What is a "package" in Python ?
+
+
+Implicit behavior & Requirements
+--------------------------------
+
+* Folder structure
+
+* Directly usable, or must be unpacked/installed?
+
+
+Python packages
+---------------
+
+::
+
+  sound/
+      __init__.py
+  formats/
+      __init__.py
+      wavwrite.py
+  effects/
+      __init__.py
+      echo.py
+
+Folders must have ``__init__.py`` file to make Python able to import them
+
+``__init__.py`` can be empty (and is, most of the time)
+
+
+
+
+Python packages - why?
+----------------------
+
+
+import nested module
+
+.. code-block:: python
+
+	import sound.effects.echo
+
+	from sound.effects import echo
+
+.. code-block:: python
+
+    from sound.effects.echo import somefunc
+
+
+``https://docs.python.org/3/tutorial/modules.html#packages``
+
+
+Let’s Make a Package
+--------------------
+
+
+::
+
+    mypkg/
+        __init__.py
+        subpkg/
+            __init__.py
+            a.py
+
+
+
+.. nextslide::
+
+**Windows:**
+
+.. code-block:: bash
+
+	mkdir mypkg/subpkg
+
+	echo. > mypkg/__init__.py
+
+	echo . > mypkg/subpkg/__init__.py
+
+	echo . > mypkg/subpkg/a.py
+
+
+**Mac/Linux:**
+
+.. code-block:: bash
+
+	mkdir -p mypkg/subpkg
+
+	touch mypkg/__init__.py
+
+	touch mypkg/subpkg/__init__.py
+
+	touch mypkg/subpkg/a.py
+
+
+How Python Finds Packages
+-------------------------
+
+* In python interpreter:
+
+  .. code-block:: python
+
+  	import sys
+  	from pprint import pprint
+  	pprint(sys.path)
+
+
+
+* ``sys.path`` explanation:
+
+  ``https://stackoverflow.com/a/38403654/1170370``
+
+
+How to Get Things on ``sys.path``
+---------------------------------
+
+* ``PYTHONPATH`` environment variable (fragile)
+
+* Installing packages (destination: site-packages folder)
+
+* ``.pth`` files in ``sys.path`` locations
+
+
+Find your site-packages folder
+------------------------------
+
+* Windows:
+  ``(install root)\Lib\site-packages``
+
+
+* Mac/Linux:
+  ``(install root)/lib/pythonX.Y/site-packages``
+
+
+Installing packages
+===================
+
+
+Installing:
+
+.. code-block:: bash
+
+	python setup.py install
+
+	pip install .
+
+Development installs:
+
+.. code-block:: bash
+
+    python setup.py develop
+
+    pip install -e .
+
+
++--------------------------------------+----------------------------------------+
+| Install                              | Development Install                    |
++======================================+========================================+
+| Copies package into site-packages    | Adds a ``.pth`` file to site-packages, |
+|                                      | pointed at package source root         |
++--------------------------------------+----------------------------------------+
+| Used when creating conda packages    | Used when developing software locally  |
++--------------------------------------+----------------------------------------+
+| Normal priority in sys.path          | End of ``sys.path`` (only found if     |
+|                                      | nothing else comes first)              |
++--------------------------------------+----------------------------------------+
+
+
+https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
+
+
+What about setup.py?
+--------------------
+
+.. code-block:: python
+
+	#!/usr/bin/env
+
+	pythonfrom setuptools import setups
+
+	setup(name='Distutils',
+	      version='1.0',
+	      description='Python Distribution Utilities',
+	      author='Greg Ward',
+	      author_email='gward@python.net',
+	      url='https://www.python.org/sigs/distutils-sig/',      packages=['distutils', 'distutils.command'],
+	      )
+
+``https://docs.python.org/2/distutils/setupscript.html``
+
+What Does ``setup.py`` Do?
+--------------------------
+
+* Version & package metadata
+
+* List of packages to include
+
+* List of other files to include
+
+* Lists of dependencies
+
+* Lists of extensions to be compiled
+
+
+Let’s Write a ``setup.py``
+--------------------------
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+
+    from setuptools import setup
+
+    setup(name='mypkg',
+          version='1.0',
+          # list folders, not files
+          packages=['mypkg', 'mypkg.subpkg'],
+          )
+
+(remember that a "package" is a folder with a ``__init__.py__`` file)
+
+
+setuptools
+----------
+
+* Separate library (ships with Python by default, though)
+
+* Adds entry point capability
+
+* Provides find_packages function (use with caution)
+
+* Creates eggs by default (people spend time fighting this later in the process)
+
+
+Where does setup.py go?
+-----------------------
+
++--------------------------+-----------------------------------------------------+
+|  Folder Structure        |                                                     |
++==========================+=====================================================+
+|  .. code-block:: python  |                                                     |
+|                          | * New outer folder                                  |
+|    mypkg-src             | * ``setup.py`` alongside package to be installed    |
+|    setup.py              | * ``mypkg`` is what will get installed              |
+|    mypkg/                | * ``mypkg-src`` is what gets linked to by develop   |
+|        __init__.py       |                                                     |
+|        subpkg/           |                                                     |
+|            __init__.py   |                                                     |
+|            a.py          |                                                     |
++--------------------------+-----------------------------------------------------+
+
+
+
+Try installing your package
+---------------------------
+
+.. code-block:: bash
+
+	cd mypkg-src
+
+	python setup.py install
+
+	python -c “import mypkg.subpkg.a”
+
+Go look in your ``site-packages`` folder
+
+
+Making Packages the Easy Way
+----------------------------
+
+.. image:: images/cookiecutter.png
+
+
+`github.com/audreyr/cookiecutter <https://github.com/audreyr/cookiecutter>`_
+
+.. code-block:: bash
+
+    conda install -c conda-forge cookiecutter
+
+or
+
+.. code-block:: bash
+
+    pip install  cookiecutter
+
+
+Let’s make a project
+--------------------
+
+cookiecutter: ``https://goo.gl/Jge1g8``
+
+
+That’s a shortened link to:
+
+``https://github.com/conda/cookiecutter-conda-python``
+
+::
+
+    full_name [Full Name]: Mike Sarahan
+    email [Email Address]: msarahan@anaconda.com
+    github_username [github_username]: msarahan
+    repo_name [repository_name]: acon_demo
+    package_name [acon_demo]:
+    project_short_description [Short description]: acon demo
+    version [0.1.0]:
+
+
+What did we get?
+----------------
+
+.. code-block:: bash
+
+    ls -R acon_demo
+
+    README.rst   acon_demo  conda.recipe setup.py   tests
+    acon_demo/acon_demo:
+    __init__.py __main__.py cli.py
+    acon_demo/conda.recipe:
+    meta.yaml
+    acon_demo/tests:
+    __init__.py test_cli.py
+
+
+Requirements in ``setup.py``
+----------------------------
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+    from distutils.core import setup
+
+    setup(name='mypkg',
+          version='1.0',
+          # list folders, not files
+          packages=['mypkg', 'mypkg.subpkg'],
+          install_requires=['click'],
+          )
+
+
+Requirements in ``requirements.txt``
+------------------------------------
+
+**Common Mistake:**
+
+* ``requirements.txt`` often from pip freeze
+
+* Pinned way too tightly.  OK for env creation, bad for packaging.
+
+|
+
+* Donald Stufft (PyPA): `Abstract vs. Concrete dependencies <https://caremad.io/posts/2013/07/setup-vs-requirement>`_
+
+
+
+Requirements in ``setup.cfg`` (ideal)
+-------------------------------------
+
+::
+
+    [metadata]
+    name = my_package
+    version = attr:
+    src.VERSION
+
+    [options]
+    packages = find:
+    install_requires =  click
+
+
+Parseable without execution, unlike setup.py
+
+`configuring setup using setup cfg files <http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files>`_
+
+Exercise:
+---------
+
+* Fill in the missing pieces in a setup.py for a sample package
+* Do a development install for the package
+
+Break time!
+-----------
+
+Up next: producing redistributable artifacts
+
 
