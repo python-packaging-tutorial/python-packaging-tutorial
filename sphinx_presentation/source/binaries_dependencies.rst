@@ -13,7 +13,7 @@ In this section we will ...
 * Understand why we build Python packages with native binaries: 1)
   **performance** and 2) **library integration**
 * Understand different components of the binary build process and their role:
-  *headers, libraries, compilers, linkers, makefiles, system introspection
+  *headers, libraries, compilers, linkers, build systems, system introspection
   tools, package managers*
 * Understand basic requirements for binary compatibility: a) **C-runtime library
   compatibility** and b) **shared library compatibilty**
@@ -110,7 +110,7 @@ Build Components and Requirements
 Build component categories:
 
 build tools
-  Tools use in the build process, such as the compiler, linker, makefile,
+  Tools use in the build process, such as the compiler, linker, build systems,
   system introspection tool, and package manager
 
 .. nextslide::
@@ -121,7 +121,7 @@ Example compilers:
 - Clang
 - Visual Studio
 
-*Compilers translated source code from a human readable to a machine readable
+*Compilers translate source code from a human readable to a machine readable
 form.*
 
 .. nextslide::
@@ -149,6 +149,18 @@ flags, and only out-of-date build targets are built.*
 
 .. nextslide::
 
+Example system introspection tools:
+
+- CMake
+- GNU Autotools
+- Meson
+
+*System introspection tools examine the host system for available build tools,
+the location of build dependencies, and properties of the build target to
+generate the appropriate build system configuration files.*
+
+.. nextslide::
+
 Example package managers:
 
 - conda
@@ -158,7 +170,7 @@ Example package managers:
 - chocolatey
 - homebrew
 
-*Package manager resolve dependencies so the required build host artifacts are
+*Package managers resolve dependencies so the required build host artifacts are
 available for the build.*
 
 .. nextslide::
@@ -273,7 +285,7 @@ extensions.
 
 .. nextslide::
 
-It provides better support for additional compilers, build
+**scikit-build** provides better support for additional compilers, build
 systems, cross compilation, and locating dependencies and their associated
 build requirements.
 
@@ -288,11 +300,11 @@ the `setuptools` Python module and `CMake <https://cmake.org/>`_.
 
 .. nextslide::
 
-Conda quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer.
+**Conda** quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer.
 
 .. nextslide::
 
-It was created for Python programs, but it can package and distribute software for any language.
+**Conda** was created for Python programs, but it can package and distribute software for any language.
 
 .. nextslide::
 
@@ -304,5 +316,24 @@ Exercises
 Exercise 1: Build a Python Package with a C++ Extension Module
 ---------------------------------------------------------------
 
+Download the `hello-cpp <https://github.com/python-packaging-tutorial/hello-cpp>`_ example C++ project and build a wheel package
+with the commands::
+
+  cd hello-cpp
+  pip wheel -w dist --verbose .
+
+Examine files referenced in the build output. What is the purpose of all
+referenced files?
+
 Exercise 2: Build a Python Package with a Cython Extension Module
 -----------------------------------------------------------------
+
+Download the `hello-cython
+<https://github.com/python-packaging-tutorial/hello-cython>`_ example C++ project and build a wheel package
+with the commands::
+
+  cd hello-cython
+  pip wheel -w dist --verbose .
+
+Examine files referenced in the build output. What is the purpose of all
+referenced files?
