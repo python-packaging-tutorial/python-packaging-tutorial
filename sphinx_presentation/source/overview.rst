@@ -5,6 +5,8 @@ Overview
 Outline:
 ========
 
+How are we spending our afternoon?
+
 
 0:00-00:20 Overview of packaging
 --------------------------------
@@ -13,8 +15,8 @@ Outline:
  * Wheel vs conda packages
  * PyPI/anaconda.org
 
-0:20-0:45 setup.py
-------------------
+0:20-0:45 python packages: the setup.py file
+--------------------------------------------
 
 * Essential specifications
 * Optional specifications
@@ -22,11 +24,6 @@ Outline:
 * In setup.py vs requirements file
 * When and how to "pin" requirements
 
-Exercise:
-.........
-
-* Fill in the missing pieces in a setup.py for a sample package
-* Do a development install for the package
 
 0:45-1:00 Building and uploading to PyPI:
 -----------------------------------------
@@ -57,6 +54,7 @@ Tools and package types
 * Delete one of the uploaded files on pypi and try re-uploading (will fail)
 * Introduce the idea of .post releases (it will happen to everyone who uploads)
 
+
 1:30-1:45 Binaries and dependencies:
 ------------------------------------
 
@@ -69,6 +67,7 @@ Why + Motivations
 From [distutils.core.Extension] to [scikit-build + CMake] in few lines
 Support for developer mode (bonus)
 
+
 2:00-2:45 Exercise:
 -------------------
 
@@ -79,8 +78,10 @@ Cookie cutter template integrating conda, pypi, etc. will be provided.
 2:45-3:00 Break
 ---------------
 
+
 3:00-3:15 Conda-build overview
 ------------------------------
+
 
 3:15-3:30 Exercise:
 -------------------
@@ -88,6 +89,7 @@ Cookie cutter template integrating conda, pypi, etc. will be provided.
 * Write a conda recipe for the sample package from previous exercises (pure python)
 * noarch packages
 * Upload to anaconda cloud
+
 
 3:15-3:45 Exercise:
 -------------------
@@ -100,6 +102,7 @@ Cookie cutter template integrating conda, pypi, etc. will be provided.
 * Split packages - multi-ecosystem ones
 * Compiler packages + pin_downstream
 * Interoperation with scikit-build
+
 
 3:45-4:00 Automated building with cloud-based CI services:
 ----------------------------------------------------------
@@ -127,46 +130,127 @@ CI service overview & Conda-forge -- what are the pieces and how do they fit tog
 * Exercise: put a package on staged-recipes
 
 
-Tutorial code base layout:
+Packages
+========
+
+
+What is a “package”?
+--------------------
+
+* In a broad sense, anything you install using your package manager
+
+* Some kinds of packages have implied behavior and requirements
+
+* Unfortunate overloading: python “package”: a folder that python imports
+
+
+Package Managers and Repos
 --------------------------
 
-Name of the organization: python-packaging-tutorial
+* Many package managers: some OS specific -- some language specific:
 
-All projects should be associated with a cookiecutter template
+* NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
 
-One organization with multiple repos (or multiple branches ?)
+* PyPI, anaconda.org, CRAN, CPAN
 
-0_readme
-1_helloworld_pure
 
-Install python
+But they all contain:
 
-Work with virtual env
+* Some form of dependency management
 
-Include pytest, documentation building, …
+* Artifact and/or source repository
 
-2_helloworld_c
+The idea is that you install something, and have it "just work".
 
-Show how C extensions are included in setup.py, and how they are made available to python
 
-3_helloworld_with_ci
+Package types:
+--------------
 
-Introduce Appveyor, CircleCi, Travis
+Focusing now on the Python world:
 
-Difference between CI for testing and CI for creating packages (CD)
+A package can be essentially in two forms:
 
-4_helloworld_skbuild
+* source
+* binary
 
-Introduce C extensions with cmake
+As Python is a dynamic language, this distinction can get a bit blurred:
 
-Show how scikitbuild can help tie python and cmake together nicely
+There is little difference between a source and binary package *for a pure python package*
 
-5_helloworld_skbuild_ci
+But if there is any compiled code in there, building from source can be a challenge:
 
-Show how scikitbuild-ci can be used to simplify and unify CI scripts
+ - binary packages are very helpful
 
-6_helloworld_skbuild_conda
+Source Packages
+---------------
 
-Show how conda-build can be used to produce conda packages and wheels, using the build files we’ve already used from previous exercises.
+A source package is all the source required to build the package.
 
-7_Uploading_to_PyPI_&_anaconda.org
+Package managers (like pip) can automatically build your package from source.
+
+**But:**
+
+ - Your system needs to be set up to build (compiler)
+ - You need to have the dependencies, etc available
+ - Sometimes it take time
+
+Binary Packages
+---------------
+
+A collection of code all ready to run.
+
+ - Everything is already compiled and ready to go
+
+**But:**
+
+ - It's likely to be platform dependent
+ - Maybe require dependencies to be installed
+
+
+Python Packaging
+----------------
+
+There are essentially two package managers widely used for Python.
+
+**pip:**
+
+  - Pulls packages from PyPI
+
+  - Handles both source and binary packages (wheels)
+
+  - Python only
+
+**conda:**
+
+  - Pulls packages from anaconda.org
+
+  - Binary only
+
+  - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
+
+  - Manages Python itself
+
+
+OS package managers:
+--------------------
+
+  - System package managers:
+
+	  - Linux
+
+	    - rpm
+
+	    - apt-get, homebrew
+
+	  - OS-X
+
+	    - homebrew
+
+	    - macports
+
+	  - Windows
+
+	  	- chocolatey
+
+Also sometimes handle python packages -- but we won't talk about those here.
+
