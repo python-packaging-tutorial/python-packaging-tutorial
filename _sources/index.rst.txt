@@ -28,6 +28,7 @@ Topics
    conda_packages
    conda_forge
 
+   conda
 
 ..  package_building
 
