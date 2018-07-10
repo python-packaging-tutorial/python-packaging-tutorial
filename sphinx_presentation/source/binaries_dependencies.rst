@@ -115,20 +115,67 @@ build tools
 
 .. nextslide::
 
+Example compilers:
+
+- GCC
+- Clang
+- Visual Studio
+
+*Compilers translated source code from a human readable to a machine readable
+form.*
+
+.. nextslide::
+
+Example linkers:
+
+- ld
+- ld.gold
+- link.exe
+
+*Linkers combine the results of compilers into a shared library that is
+executed at program runtime.*
+
+.. nextslide::
+
+Example build systems:
+
+- distutils.build_ext
+- Unix Makefiles
+- Ninja
+- MSBuild in Visual Studio
+
+*Builds systems coordinate invocation of the compiler and linker, passing
+flags, and only out-of-date build targets are built.*
+
+.. nextslide::
+
+Example package managers:
+
+- conda
+- pip
+- apt
+- yum
+- chocolatey
+- homebrew
+
+*Package manager resolve dependencies so the required build host artifacts are
+available for the build.*
+
+.. nextslide::
+
 build host artifacts
   These are files required on the *host* system performing the build. This
-  includes header files, `*.h` files, which define the C program *symbols*,
+  includes **header files**, `*.h` files, which define the C program **symbols**,
   i.e. variable and function names, for the native binary with which we want
   to integrate. This also usually includes the native binaries themselves,
-  i.e. the executable or shared library. An important exception to this rule
+  i.e. the **executable or shared library**. An important exception to this rule
   is *libpython*, which we do not need on some platforms due to `weak linking
-  rules
-  <https://scikit-build.readthedocs.io/en/latest/cmake-modules/targetLinkLibrariesWithDynamicLookup.html>`_.
+  rules <https://scikit-build.readthedocs.io/en/latest/cmake-modules/targetLinkLibrariesWithDynamicLookup.html>`_.
 
 .. nextslide::
 
 target system artifacts
-  These are artifacts intended to be run on the *target* system, typically the
+  These are artifacts intended to be run on the **target** system, typically the
   shared library C-extension.
 
 .. nextslide::
@@ -136,14 +183,120 @@ target system artifacts
 When the build *host* system is different from the *target* system, we are
 **cross-compiling**.
 
+For example, when we are building a Linux Python package on macOS is
+cross-compiling. In this case macOS is the *host* system and Linux is the
+*target* system.
+
 .. nextslide::
 
-Python packaging guide
+Distributable binaries must use a **compatible C-runtime**.
 
-scikit-build C-runtime compatibility
+The table below lists the different C runtime implementations, compilers and
+their usual distribution mechanisms for each operating systems.
+
+.. table::
+
+    +------------------+---------------------------+-------------------------+-----------------------------------+
+    |                  | Linux                     | MacOSX                  | Windows                           |
+    +==================+===========================+=========================+===================================+
+    | **C runtime**    | `GNU C Library (glibc)`_  | `libSystem library`_    | `Microsoft C run-time library`_   |
+    +------------------+---------------------------+-------------------------+-----------------------------------+
+    | **Compiler**     | `GNU compiler (gcc)`_     | `clang`_                | Microsoft C/C++ Compiler (cl.exe) |
+    +------------------+---------------------------+-------------------------+-----------------------------------+
+    | **Provenance**   | `Package manager`_        | OSX SDK within `XCode`_ | - `Microsoft Visual Studio`_      |
+    |                  |                           |                         | - `Microsoft Windows SDK`_        |
+    +------------------+---------------------------+-------------------------+-----------------------------------+
+
+.. _GNU C Library (glibc): https://en.wikipedia.org/wiki/GNU_C_Library
+.. _Package manager: https://en.wikipedia.org/wiki/Package_manager
+.. _Microsoft C run-time library: https://en.wikipedia.org/wiki/Microsoft_Windows_library_files#Runtime_libraries
+.. _libSystem library: https://www.safaribooksonline.com/library/view/mac-os-x/0596003560/ch05s02.html
+.. _XCode: https://en.wikipedia.org/wiki/Xcode#Version_comparison_table
+.. _Microsoft Windows SDK: https://en.wikipedia.org/wiki/Microsoft_Windows_SDK
+.. _Microsoft Visual Studio: https://en.wikipedia.org/wiki/Microsoft_Visual_Studio
+.. _GNU compiler (gcc): https://en.wikipedia.org/wiki/GNU_Compiler_Collection
+.. _clang: https://en.wikipedia.org/wiki/Clang
+
+.. nextslide::
+
+Linux C-runtime compatibility is determined by the version of **glibc** used
+for the build.
+
+The glibc library shared by the system is forwards compatible but not
+backwards compatibile. That is, a package built on an older system *will*
+work on a newer system, while a package built on a newer system will not
+work on an older system.
+
+The `manylinux <https://github.com/pypa/manylinux>`_ project provides Docker
+images that have an older version of glibc to use for distributable Linux
+packages.
+
+.. nextslide::
+
+The C-runtime on macOS is determined by a build time option, the *osx
+deployment target*, which defines the minmum version of macOS to support, e.g.
+`10.9`.
+
+.. nextslide::
+
+The C-runtime used on Windows is associated with the version of Visual Studio.
+
+.. table::
+
+    +-------------------+------------------------------------------------------+
+    |                   | Architecture                                         |
+    +-------------------+------------------------+-----------------------------+
+    | CPython Version   | x86 (32-bit)           | x64 (64-bit)                |
+    +===================+========================+=============================+
+    | **3.5 and above** | Visual Studio 14 2015  | Visual Studio 14 2015 Win64 |
+    +-------------------+------------------------+-----------------------------+
+    | **3.3 to 3.4**    | Visual Studio 10 2010  | Visual Studio 10 2010 Win64 |
+    +-------------------+------------------------+-----------------------------+
+    | **2.7 to 3.2**    | Visual Studio 9 2008   | Visual Studio 9 2008 Win64  |
+    +-------------------+------------------------+-----------------------------+
+
+.. nextslide::
+
+Distributable binaries are also built to be compatible with a certain
+CPU architecture class. For example
+
+- x86_64 (currently the most common)
+- x86
+- ppc64le
+
 
 Scientific Python Build Tools
 -----------------------------
+
+**scikit-build** is an improved build system generator for CPython C/C++/Fortran/Cython
+extensions.
+
+.. nextslide::
+
+It provides better support for additional compilers, build
+systems, cross compilation, and locating dependencies and their associated
+build requirements.
+
+.. nextslide::
+
+The **scikit-build** package is fundamentally just glue between
+the `setuptools` Python module and `CMake <https://cmake.org/>`_.
+
+.. nextslide::
+
+**Conda** is an open source package management system and environment management system that runs on Windows, macOS and Linux.
+
+.. nextslide::
+
+Conda quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer.
+
+.. nextslide::
+
+It was created for Python programs, but it can package and distribute software for any language.
+
+.. nextslide::
+
+*scikit-build* and *conda* **abstract away** and **manage platform-specific details** for you!
 
 Exercises
 =========
