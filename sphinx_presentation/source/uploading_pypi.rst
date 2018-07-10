@@ -212,26 +212,33 @@ Learn more reading `Creating Virtual Environments <https://packaging.python.org/
 Building a source distribution
 ------------------------------
 
-**To be done**
+Bu leveraging the ``setup.py`` script, setuptools can build a source
+distribution (a tar archive of all the files needed to build and install the package):
 
 .. code-block:: bash
 
-    python setup.py sdist
+    python setup.py sdist  # the sdist will be generated in the ./dist subdirectory
+
+
+Installing a wheel
+------------------
+
+.. code-block:: bash
+
+    pip install /path/to/package.whl
+
+
+.. code-block:: bash
+
+    pip install package  # this will download the package from PyPI
+
 
 Building a wheel
 ----------------
 
-**To be done**
-
 .. code-block:: bash
 
-    python setup.py bdist_wheel
-
-
-Building a wheel
-----------------
-
-**To be done**
+    pip wheel . -w dist
 
 
 Registering to PyPI
@@ -255,4 +262,51 @@ An other approach: filt
 
 Exercises
 =========
+
+
+Resources
+=========
+
+Where do I go to figure this out?
+---------------------------------
+
+This is a really good guide:
+
+Python Packaging User Guide:
+
+https://packaging.python.org/
+
+and a more detailed tutorial:
+
+http://python-packaging.readthedocs.io/en/latest/
+
+**Follow one of them**
+
+There is a sample project here:
+
+https://github.com/pypa/sampleproject
+
+(this has all the complexity you might need...)
+
+You can use this as a template for your own packages.
+
+Here is an opinionated update -- a little more fancy, but some good ideas:
+
+https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+Rather than doing it by hand, you can use the nifty "cookie cutter" project:
+
+https://cookiecutter.readthedocs.io/en/latest/
+
+And there are a few templates that can be used with that.
+
+The core template written by the author:
+
+https://github.com/audreyr/cookiecutter-pypackage
+
+And one written by the author of the opinionated blog post above:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+
+Either are great starting points.
 

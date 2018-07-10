@@ -122,67 +122,6 @@ What is a Package?
 * ... and a way to build and install it...
 
 
-Python packaging tools:
-------------------------
-
-The ``distutils``::
-
-    from distutils.core import setup
-
-Getting klunky, hard to extend, maybe destined for deprecation ...
-
-But it gets the job done -- and it does it well for the simple cases.
-
-``setuptools``: for extra features
-
-"The Python Packaging Authority" -- PaPA
-
-https://www.pypa.io/en/latest/
-
-
-Where do I go to figure this out?
----------------------------------
-
-This is a really good guide:
-
-Python Packaging User Guide:
-
-https://packaging.python.org/
-
-and a more detailed tutorial:
-
-http://python-packaging.readthedocs.io/en/latest/
-
-**Follow one of them**
-
-There is a sample project here:
-
-https://github.com/pypa/sampleproject
-
-(this has all the complexity you might need...)
-
-You can use this as a template for your own packages.
-
-Here is an opinionated update -- a little more fancy, but some good ideas:
-
-https://blog.ionelmc.ro/2014/05/25/python-packaging/
-
-Rather than doing it by hand, you can use the nifty "cookie cutter" project:
-
-https://cookiecutter.readthedocs.io/en/latest/
-
-And there are a few templates that can be used with that.
-
-The core template written by the author:
-
-https://github.com/audreyr/cookiecutter-pypackage
-
-And one written by the author of the opinionated blog post above:
-
-https://github.com/ionelmc/cookiecutter-pylibrary
-
-Either are great starting points.
-
 Basic Package Structure:
 ------------------------
 
@@ -261,9 +200,9 @@ What Does ``setup.py`` Do?
 
 * List of other files to include
 
-* Lists of dependencies
+* List of dependencies
 
-* Lists of extensions to be compiled
+* List of extensions to be compiled (if you are not using `scikit-build <https://scikit-build.org>`_.
 
 
 An example ``setup.py``:
@@ -311,38 +250,6 @@ simple to read and write.
 ``option`` is one of the options that command supports.
 
 Note that an option spelled ``--foo-bar`` on the command-line is spelled f``foo_bar`` in configuration files.
-
-
-Running ``setup.py``
---------------------
-
-With a ``setup.py`` script defined, setuptools can do a lot:
-
-* builds a source distribution (a tar archive of all the files needed to build and install the package)::
-
-    python setup.py sdist
-
-* builds wheels::
-
-    ./setup.py bdist_wheel
-
-(you need the wheel package for this to work: ``pip install wheel``)
-
-* build from source::
-
-    python setup.py build
-
-* and install::
-
-    python setup.py install
-
-* install in "develop" or "editable" mode::
-
-    python setup.py develop
-
-or::
-
-   pip install .
 
 
 setuptools
