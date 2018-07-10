@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Conda Packages" href="conda_packages.html" />
+    <link rel="next" title="Binaries and Dependencies" href="binaries_dependencies.html" />
     <link rel="prev" title="setup.py" href="setup_py.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -35,7 +35,8 @@
             
   <div class="section" id="building-and-uploading-to-pypi">
 <h1>Building and Uploading to PyPi<a class="headerlink" href="#building-and-uploading-to-pypi" title="Permalink to this headline">¶</a></h1>
-<p>Tools and package types</p>
+<div class="section" id="tools-and-package-types">
+<h2>Tools and package types<a class="headerlink" href="#tools-and-package-types" title="Permalink to this headline">¶</a></h2>
 <p><strong>flit:</strong> great for simple packages</p>
 <p><strong>twine:</strong> the secure way to upload to PyPI</p>
 <ul class="simple">
@@ -47,6 +48,63 @@
 <li>Auditwheel - <a class="reference external" href="https://github.com/pypa/auditwheel">https://github.com/pypa/auditwheel</a></li>
 </ul>
 </div>
+<div class="section" id="redistributable-artifacts">
+<h2>Redistributable artifacts<a class="headerlink" href="#redistributable-artifacts" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>sdists</li>
+<li>wheels</li>
+<li>conda packages</li>
+<li>eggs (deprecated)</li>
+</ul>
+<div class="section" id="when-how-to-use-an-sdist">
+<h3>When/how to use an sdist<a class="headerlink" href="#when-how-to-use-an-sdist" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Pure python (no compilation requirements)</li>
+<li>Or, distributing source code that must be compiled prior to usage</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py sdist
+</pre></div>
+</div>
+</div>
+<div class="section" id="wheels-vs-conda-packages">
+<h3>Wheels vs. Conda packages<a class="headerlink" href="#wheels-vs-conda-packages" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Wheels</th>
+<th class="head">Conda packages</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Employed by pip, blessed by PyPA</td>
+<td>Foundation of Anaconda ecosystem</td>
+</tr>
+<tr class="row-odd"><td>Used by any python installation</td>
+<td>Used by conda python installations</td>
+</tr>
+<tr class="row-even"><td>Mostly specific to Python ecosystem</td>
+<td>General purpose (any ecosystem)</td>
+</tr>
+<tr class="row-odd"><td>Good mechanism for specifying range
+of python compatibility</td>
+<td>Primitive support for multiple
+python versions (noarch)</td>
+</tr>
+<tr class="row-even"><td>Depends on static linking or other
+system package managers to provide
+core libraries</td>
+<td>Can bundle core system-level shared
+libraries as packages, and resolve
+dependencies</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -54,12 +112,25 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building and Uploading to PyPi</a><ul>
+<li><a class="reference internal" href="#tools-and-package-types">Tools and package types</a></li>
+<li><a class="reference internal" href="#redistributable-artifacts">Redistributable artifacts</a><ul>
+<li><a class="reference internal" href="#when-how-to-use-an-sdist">When/how to use an sdist</a></li>
+<li><a class="reference internal" href="#wheels-vs-conda-packages">Wheels vs. Conda packages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="setup_py.html" title="previous chapter">setup.py</a></li>
-      <li>Next: <a href="conda_packages.html" title="next chapter">Conda Packages</a></li>
+      <li>Next: <a href="binaries_dependencies.html" title="next chapter">Binaries and Dependencies</a></li>
   </ul></li>
 </ul>
 </div>
