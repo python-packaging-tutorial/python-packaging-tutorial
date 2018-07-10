@@ -213,8 +213,6 @@ https://github.com/ionelmc/cookiecutter-pylibrary
 Either are great starting points.
 
 
-=======
->>>>>>> 6d931b45eb07470ba47277cc85642f9e94e09c57
 Basic Package Structure:
 ------------------------
 
