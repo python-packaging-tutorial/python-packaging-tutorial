@@ -114,7 +114,7 @@ Clone that repo now -- so you can follow along.
 
 .. ifnotslides::
 
-  :ref:`conda-build`
+  :ref:`conda_build`
 
 
 3:15-3:30 Exercise:
@@ -140,10 +140,6 @@ Clone that repo now -- so you can follow along.
 
 3:45-4:00 Automated building with cloud-based CI services:
 ----------------------------------------------------------
-
-.. ifnotslides::
-
-  :ref:`conda-forge`
 
 
 **conda-forge** (optional; as time allows)

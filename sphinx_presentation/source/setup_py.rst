@@ -468,87 +468,294 @@ Exercise: A Small Example Package
 
   - ``at least one working test``
 
-Start with the silly code in:
+Start with the silly code in the tutorial repo in:
+
+``python-packaging-tutorial/setup_example/``
+
+or you can download a zip file here:
 
 :download:`capitalize.zip <examples/capitalize.zip>`
 
 
-Let’s Make a Package
---------------------
+capitalize
+----------
+
+capitalize is a useless little utility that will capitalize the words in a text file.
+
+But it has the core structure of a python package:
+
+* a library of "logic code"
+* a command line script
+* a data file
+* tests
+
+.. nextslide::
+
+So let's see what's in there::
+
+	$ ls
+	capital_mod.py           test_capital_mod.py
+	cap_data.txt             main.py
+	cap_script.py            sample_text_file.txt
+
+
+What are these files?
+---------------------
+
+``capital_mod.py``
+    The core logic code
+
+``main.py``
+    The command line app
+
+``test_capital_mod.py``
+    Test code for the logic
+
+``cap_script.py``
+    top-level script
+
+``cap_data.txt``
+    data file
+
+``sample_text_file.txt``
+    sample example file to test with.
+
+.. nextslide::
+
+Try it out:
 
 ::
 
-    mypkg/
-        __init__.py
-        subpkg/
-            __init__.py
-            a.py
+	$ cd capitalize/
 
+	$ python3 cap_script.py sample_text_file.txt
+
+	Capitalizing: sample_text_file.txt and storing it in
+	sample_text_file_cap.txt
+
+	I'm done
+
+So it works, as long as you are in the directory with all the code.
+
+
+Setting up a package structure
+------------------------------
+
+Create a basic package structure::
+
+    package_name/
+        bin/
+        README.txt
+        setup.py
+        package_name/
+              __init__.py
+              module1.py
+              test/
+                  __init__.py
+                  test_module1.py
+
+Let's create all that for capitalize:
 
 
 .. nextslide::
 
-**Windows:**
+Make the package:
 
 .. code-block:: bash
 
-	mkdir mypkg/subpkg
+	$ mkdir capitalize
 
-	echo. > mypkg/__init__.py
+	$ cd capitalize/
 
-	echo . > mypkg/subpkg/__init__.py
+	$ touch __init__.py
 
-	echo . > mypkg/subpkg/a.py
-
-
-**Mac/Linux:**
+Move the code into it:
 
 .. code-block:: bash
 
-	mkdir -p mypkg/subpkg
+ 	$ mv ../capital_mod.py ./
+    $ mv ../main.py ./
+    $ mv ../cap_data.txt ./
 
-	touch mypkg/__init__.py
+.. nextslide::
 
-	touch mypkg/subpkg/__init__.py
+Create a dir for the tests:
 
-	touch mypkg/subpkg/a.py
+.. code-block:: bash
+
+    $ mkdir test
+
+Move the tests into that:
+
+.. code-block:: bash
+
+    $ mv ../test_capital_mod.py test/
 
 
+.. nextslide::
+
+Create a dir for the script:
+
+.. code-block:: bash
+
+    $ mkdir bin
+
+Move the script into that:
+
+.. code-block:: bash
+
+    $ mv ../cap_script.py bin
+
+Now we have a package!
+
+.. nextslide::
+
+Let's try it::
+
+	$ python bin/cap_script.py
+	Traceback (most recent call last):
+	  File "bin/cap_script.py", line 8, in <module>
+	    import capital_mod
+	ImportError: No module named capital_mod
+
+OK, that didn't work. Why not?
+
+Well, we've moved everytihng around:
+
+The modules don't know how to find each other.
 
 Let’s Write a ``setup.py``
 --------------------------
 
 .. code-block:: python
 
-    #!/usr/bin/env python
+	#!/usr/bin/env python
 
-    from setuptools import setup
+	from setuptools import setup
 
-    setup(name='mypkg',
-          version='1.0',
-          # list folders, not files
-          packages=['mypkg', 'mypkg.subpkg'],
-          )
+	setup(name='capitalize',
+	      version='1.0',
+	      # list folders, not files
+	      packages=['capitalize',
+	                'capitalize.test'],
+	      scripts=['capitalize/bin/cap_script.py'],
+	      )
+
 
 (remember that a "package" is a folder with a ``__init__.py__`` file)
 
+That's about the minimum you can do.
 
-Try installing your package
----------------------------
+.. nextslide::
+
+Save it as ``setup.py`` *outside* the capitalize package dir.
+
+Install it in "editable" mode:
 
 .. code-block:: bash
 
-	cd mypkg-src
+	$ pip install -e ./
+	Obtaining file:///Users/chris.barker/HAZMAT/Conferences/SciPy-2018/PackagingTutorial/TutorialDay/capitalize
+	Installing collected packages: capitalize
+	  Running setup.py develop for capitalize
+	Successfully installed capitalize
 
-	python setup.py install
+.. nextslide::
 
-	python -c “import mypkg.subpkg.a”
+Try it out::
 
-Go look in your ``site-packages`` folder
+	$ cap_script.py
+	Traceback (most recent call last):
+	  File "/Users/chris.barker/miniconda2/envs/py3/bin/cap_script.py", line 6, in <module>
+	    exec(compile(open(__file__).read(), __file__, 'exec'))
+	  File "/Users/chris.barker/HAZMAT/Conferences/SciPy-2018/PackagingTutorial/TutorialDay/capitalize/capitalize/bin/cap_script.py", line 8, in <module>
+	    import capital_mod
+	ModuleNotFoundError: No module named 'capital_mod'
+
+Still didn't work -- why not?
+
+We need to update some imports.
+
+.. nextslide::
+
+in cap_script.py::
+
+  import main
+
+should be::
+
+  from capitalize import main
+
+and similarly in main.py::
+
+    from capitalize import capital_mod
+
+.. nextslide::
+
+And try it::
+
+	$ cap_script.py sample_text_file.txt
+
+	Capitalizing: sample_text_file.txt and storing it in
+	sample_text_file_cap.txt
+
+	I'm done
+
+
+Running the tests:
+------------------
+
+Option 1: cd to the test dir::
+
+	$ cd capitalize/test/
+
+	$ pytest
+	$ ===================================
+	  test session starts
+	  ====================================
+	...
+
+	Traceback:
+	test_capital_mod.py:14: in <module>
+	    import capital_mod
+	E   ModuleNotFoundError: No module named 'capital_mod'
+
+Whoops -- we need to fix that import, too::
+
+    from capitalize import capital_mod
+
+.. nextslide::
+
+
+And now we're good::
+
+	$ pytest
+	======test session starts =====
+
+	collected 3 items
+
+	test_capital_mod.py ...
+
+	============== 3 passed in 0.06 seconds ============
+
+.. nextslide::
+
+You can also run the tests from anywhere on the command line::
+
+    $ pytest --pyargs capitalize
+
+	collected 3 items
+
+	capitalize/capitalize/test/test_capital_mod.py ...                                   [100%]
+
+	=============== 3 passed in 0.03 seconds ==========
+
 
 
 Making Packages the Easy Way
 ----------------------------
+
+To auto-build a full package structure:
 
 .. image:: images/cookiecutter.png
 
@@ -595,7 +802,7 @@ Requirements in ``requirements.txt``
 
 **Common Mistake:**
 
-* ``requirements.txt`` often from pip freeze
+* requirements.txt often from pip freeze
 
 * Pinned way too tightly.  OK for env creation, bad for packaging.
 
@@ -622,12 +829,6 @@ Requirements in ``setup.cfg`` (ideal)
 Parse-able without execution, unlike ``setup.py``
 
 `configuring setup using setup cfg files <http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files>`_
-
-Exercise
----------
-
-* Fill in the missing pieces in a setup.py for a sample package
-* Do a development install for the package
 
 
 Break time!
