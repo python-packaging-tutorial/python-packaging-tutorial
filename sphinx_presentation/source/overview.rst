@@ -22,12 +22,11 @@ What is a “package”?
 Package Managers and Repos
 --------------------------
 
-* Many package managers: some OS specific -- some language specific:
+Many package managers: some OS specific -- some language specific:
 
-* NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
+    * NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
 
-* PyPI, anaconda.org, CRAN, CPAN
-
+    * PyPI, anaconda.org, CRAN, CPAN
 
 But they all contain:
 
@@ -35,7 +34,7 @@ But they all contain:
 
 * Artifact and/or source repository
 
-The idea is that you install something, and have it "just work".
+The idea is that you install something, and have it *just work*.
 
 
 Package types:
@@ -54,20 +53,20 @@ There is little difference between a source and binary package *for a pure pytho
 
 But if there is any compiled code in there, building from source can be a challenge:
 
- - binary packages are very helpful
+ - binary packages are very helpful in these cases
 
 Source Packages
 ---------------
 
-A source package is all the source required to build the package.
+A source package is all the source code required to build the package.
 
 Package managers (like pip) can automatically build your package from source.
 
 **But:**
 
- - Your system needs to be set up to build (compiler)
- - You need to have the dependencies, etc available
- - Sometimes it take time
+ - Your system needs the correct tools installed, compilers, build tools, etc
+ - You need to have the dependencies available
+ - Sometimes it takes time, sometimes a LONG time
 
 Binary Packages
 ---------------
@@ -79,53 +78,42 @@ A collection of code all ready to run.
 **But:**
 
  - It's likely to be platform dependent
- - Maybe require dependencies to be installed
+ - May require dependencies to be installed
 
 
 Python Packaging
 ----------------
 
-There are essentially two package managers widely used for Python.
+There are two package managers widely used for Python.
 
 **pip:**
 
   - Pulls packages from PyPI
-
   - Handles both source and binary packages (wheels)
-
   - Python only
 
 **conda:**
 
   - Pulls packages from anaconda.org
-
   - Binary only
-
   - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
-
   - Manages Python itself
 
 
 OS package managers:
 --------------------
 
-  - System package managers:
+System package managers:
 
-	  - Linux
+  * Linux
+	* rpm
+	* apt-get, homebrew
 
-	    - rpm
+  * OS-X
+	* homebrew
+	* macports
 
-	    - apt-get, homebrew
-
-	  - OS-X
-
-	    - homebrew
-
-	    - macports
-
-	  - Windows
-
-	  	- chocolatey
+  * Windows
+	* chocolatey
 
 Also sometimes handle python packages -- but we won't talk about those here.
-
