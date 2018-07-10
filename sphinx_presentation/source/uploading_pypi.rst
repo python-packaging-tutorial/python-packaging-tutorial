@@ -2,6 +2,26 @@
 Building and Uploading to PyPi
 ******************************
 
+Learning Objectives
+===================
+
+In this section we will ...
+---------------------------
+
+* Review the packaging terminology
+* Understand how to build and package a python package
+
+
+Tutorial
+========
+
+Introduction
+------------
+
+This section discusses how to build python packages (or distributions) and publish
+them in a central repository to streamline their installation. Finally, we conclude
+with an exercise where we publish a package with the `Test Python Package Index <http://test.pypi.org/>`_.
+
 
 Packaging Terminology 101
 =========================
