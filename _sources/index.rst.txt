@@ -6,14 +6,24 @@
 The Joy of Packaging!
 =====================
 
+Scipy 2018 Tutorial
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
 
    overview
+   setup_py
+   uploading_pypi
+   binaries_dependencies
+   conda_packages
+   conda_forge
+
+
    package_building
 
-Instructors
+
+Your Guides
 -----------
 
 Michael Sarahan, PhD: Conda-build tech lead, Anaconda, Inc.
