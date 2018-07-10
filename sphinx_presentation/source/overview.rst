@@ -26,7 +26,7 @@ Exercise:
 .........
 
 * Fill in the missing pieces in a setup.py for a sample package
-* Build a source distribution for the package
+* Do a development install for the package
 
 0:45-1:00 Building and uploading to PyPI:
 -----------------------------------------
@@ -72,8 +72,7 @@ Support for developer mode (bonus)
 2:00-2:45 Exercise:
 -------------------
 
-* Add CMake project that generates python extension.  Tie
-it into previous python project.
+* Add CMake project that generates python extension.  Tie it into previous python project.
 
 Cookie cutter template integrating conda, pypi, etc. will be provided.
 
