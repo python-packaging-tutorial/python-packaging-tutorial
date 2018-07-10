@@ -1,3 +1,5 @@
+.. _uploading:
+
 ******************************
 Building and Uploading to PyPi
 ******************************

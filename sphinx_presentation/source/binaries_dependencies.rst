@@ -1,3 +1,5 @@
+.. _binaries:
+
 *************************
 Binaries and Dependencies
 *************************

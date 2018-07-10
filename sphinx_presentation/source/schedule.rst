@@ -11,22 +11,37 @@ How are we spending our afternoon?
 0:00-00:20 Overview of packaging
 --------------------------------
 
- * What is a pacakge, anyway?
- * Source/binary
- * Wheel vs conda packages
- * PyPI/anaconda.org
+.. ifnotslides::
+
+  :ref:`overview`
+
+* What is a package, anyway?
+* Source/binary
+* Wheel vs conda packages
+* PyPI/anaconda.org
+
 
 0:20-0:45 python packages: the setup.py file
 --------------------------------------------
+
+.. ifnotslides::
+
+  :ref:`setup`
+
 
 * Python packages -- what are they?
 * The setup.py file
 * Specifying requirements
 * When and how to "pin" requirements
+* Let's make a package!
 
 
 0:45-1:00 Building and uploading to PyPI:
 -----------------------------------------
+
+.. ifnotslides::
+
+  :ref:`overview`
 
 * Packaging Terminology 101
 * Building and publishing a python distribution
@@ -48,6 +63,11 @@ How are we spending our afternoon?
 
 1:30-1:45 Binaries and dependencies:
 ------------------------------------
+
+.. ifnotslides::
+
+  :ref:`binaries`
+
 
 How scikit-build and conda-build can make life easier
 
@@ -75,6 +95,10 @@ How scikit-build and conda-build can make life easier
 3:00-3:15 Conda-build overview
 ------------------------------
 
+.. ifnotslides::
+
+  :ref:`conda-build`
+
 
 3:15-3:30 Exercise:
 -------------------
@@ -99,6 +123,11 @@ How scikit-build and conda-build can make life easier
 
 3:45-4:00 Automated building with cloud-based CI services:
 ----------------------------------------------------------
+
+.. ifnotslides::
+
+  :ref:`conda-forge`
+
 
 **conda-forge** (optional; as time allows)
 
