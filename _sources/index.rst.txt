@@ -27,7 +27,7 @@ Topics
    binaries_dependencies
    conda
 
-`conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/>`_
+If we have time: `conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/>`_
 
 
 Your Guides
