@@ -1,6 +1,11 @@
 # python-packaging-tutorial
 Tutorial on python packaging at SciPy 2018
 
+## Rendered notes here:
+
+https://python-packaging-tutorial.github.io/python-packaging-tutorial/
+
+
 ## Installation instructions
 
 
