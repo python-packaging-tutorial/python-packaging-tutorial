@@ -24,21 +24,23 @@ In this section we will ...
 Tutorial
 ========
 
-Introduction
-------------
+.. ifnotslides::
 
-This section discusses the creation of Python packages that contain **native
-binaries**.
+    Introduction
+    ------------
 
-First, we explain why building Python packages with native binaries is often
-*desirable* or *necessary* for *scientific applications*.
+    This section discusses the creation of Python packages that contain **native
+    binaries**.
 
-Next, an overview of the requirements to build native binaries is provided.
-Within this the context, we explain how *scikit-build* and *conda-build* make
-life easier when we want to satisfy these requirements.
+    First, we explain why building Python packages with native binaries is often
+    *desirable* or *necessary* for *scientific applications*.
 
-Finally, run an exercise where we build a native Python wth native binaries
-package and analyze the different stages of the build process.
+    Next, an overview of the requirements to build native binaries is provided.
+    Within this the context, we explain how *scikit-build* and *conda-build* make
+    life easier when we want to satisfy these requirements.
+
+    Finally, run an exercise where we build a native Python wth native binaries
+    package and analyze the different stages of the build process.
 
 Motivation
 ----------
