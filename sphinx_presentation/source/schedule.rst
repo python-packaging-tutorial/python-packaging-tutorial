@@ -68,14 +68,14 @@ How are we spending our afternoon?
 
   :ref:`binaries`
 
-* Understand why we build Python packages with native binaries: 1)
+* Why we build Python packages with native binaries: 1)
   **performance** and 2) **library integration**
-* Understand different components of the binary build process and their role:
+* Different components of the binary build process and their role:
   *headers, libraries, compilers, linkers, build systems, system introspection
   tools, package managers*
-* Understand basic requirements for binary compatibility: a) **C-runtime library
+* Basic requirements for binary compatibility: a) **C-runtime library
   compatibility** and b) **shared library compatibilty**
-* Understand **scikit-build**'s role in coordinating components of the binary
+* Joyous tools: **scikit-build**'s role in coordinating components of the binary
   build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
 2:00-2:45 Exercise:
