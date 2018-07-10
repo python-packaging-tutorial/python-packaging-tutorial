@@ -7,8 +7,28 @@ Outline
 
 How are we spending our afternoon?
 
+0:00-00:10 Getting setup for this Tutorial
+------------------------------------------
 
-0:00-00:20 Overview of packaging
+There is a repo for this tutorial here:
+
+https://github.com/python-packaging-tutorial/python-packaging-tutorial
+
+or:
+
+http://bit.ly/JoyOfPackaging
+
+And the materials are rendered as html here:
+
+https://python-packaging-tutorial.github.io/python-packaging-tutorial/
+
+(linked from the git repo)
+
+Clone that repo now -- so you can follow along.
+
+``git clone https://github.com/python-packaging-tutorial/python-packaging-tutorial.git``
+
+0:10-00:20 Overview of packaging
 --------------------------------
 
 .. ifnotslides::

@@ -126,7 +126,6 @@ What is a Package?
 ... and a way to build and install it...
 
 
-<<<<<<< HEAD
 Python packaging tools:
 ------------------------
 
