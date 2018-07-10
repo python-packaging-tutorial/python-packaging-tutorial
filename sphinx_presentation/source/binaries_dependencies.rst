@@ -409,4 +409,4 @@ To find the version of glibc required by the extension, run::
 What glibc version compatibility is required for this binary?
 
 
-.. manylinux:: https://github.com/pypa/manylinux
+manylinux: https://github.com/pypa/manylinux

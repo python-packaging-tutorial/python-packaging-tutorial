@@ -166,7 +166,7 @@ Wheels vs. Conda packages
 +-------------------------------------+-------------------------------------+
 
 
-To learn more about Conda, see :ref:`conda-build` section.
+To learn more about Conda, see :ref:`conda_build` section.
 
 
 Virtual Environment
