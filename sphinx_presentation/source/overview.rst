@@ -31,17 +31,8 @@ Exercise:
 0:45-1:00 Building and uploading to PyPI:
 -----------------------------------------
 
-Tools and package types
-
-* **flit:** great for simple packages - https://github.com/takluyver/flit
-* **twine:** the secure way to upload to PyPI - https://github.com/pypa/twine
-* Multibuild - https://github.com/matthew-brett/multibuild
-* Manylinux docker image - https://github.com/pypa/manylinux
-* Delocate - https://github.com/matthew-brett/delocate
-* Auditwheel - https://github.com/pypa/auditwheel
-
-* Building a source distribution
-* Building a wheel
+* Packaging Terminology 101
+* Building and publishing a python distribution
 
 
 1:00-1:10 Break
