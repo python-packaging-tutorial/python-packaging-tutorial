@@ -16,9 +16,6 @@ What is a "package" in Python ?
 Packages, modules, imports, oh my!
 ----------------------------------
 
-Before we get started on making your own package -- let's remind
-ourselves about packages and modules, and importing....
-
 **Modules**
 
 A python "module" is a single namespace, with a collection of values:
@@ -31,12 +28,12 @@ A python "module" is a single namespace, with a collection of values:
 A module usually corresponds to a single file: ``something.py``
 
 
-**Packages**
+Packages
+--------
 
 A "package" is essentially a module, except it can have other modules (and indeed other packages) inside it.
 
-A package usually corresponds to a directory with a file in it called ``__init__.py`` and any number
-of python files or other package directories::
+A package usually corresponds to a directory with a file in it called ``__init__.py`` and any number of python files or other package directories::
 
   a_package
      __init__.py
@@ -45,14 +42,21 @@ of python files or other package directories::
        __init__.py
        module_b.py
 
+.. nextslide::
+
 The ``__init__.py`` can be totally empty -- or it can have arbitrary python code in it.
+
 The code will be run when the package is imported -- just like a module,
 
 modules inside packages are *not* automatically imported. So, with the above structure::
 
   import a_package
 
-will run the code in ``a_package/__init__.py``. Any names defined in the
+will run the code in ``a_package/__init__.py``.
+
+.. nextslide::
+
+Any names defined in the
 ``__init__.py`` will be available in::
 
   a_package.a_name
@@ -63,10 +67,10 @@ but::
 
 will not exist. To get submodules, you need to explicitly import them:
 
-  import a_package.module_a
+``import a_package.module_a``
 
 
-``https://docs.python.org/3/tutorial/modules.html#packages``
+https://docs.python.org/3/tutorial/modules.html#packages
 
 
 The module search path
@@ -84,7 +88,7 @@ You can manipulate that list to add or remove paths to let python find modules o
 
 And every module has a ``__file__`` name that points to the path it lives in. This lets you add paths relative to where you are, etc.
 
-*NOTE* it's usually better to use setuptools' "develop" mode instead -- see below.
+*NOTE:*  it's usually better to use setuptools' "develop" mode instead -- see below.
 
 
 Building Your Own Package
@@ -111,15 +115,15 @@ What is a Package?
 
 **A collection of modules**
 
-* ... and the documentation
+... and the documentation
 
-* ... and the tests
+... and the tests
 
-* ... and any top-level scripts
+... and any top-level scripts
 
-* ... and any data files required
+... and any data files required
 
-* ... and a way to build and install it...
+... and a way to build and install it...
 
 
 Python packaging tools:
@@ -131,13 +135,32 @@ The ``distutils``::
 
 Getting klunky, hard to extend, maybe destined for deprecation ...
 
-But it gets the job done -- and it does it well for the simple cases.
-
 ``setuptools``: for extra features
+
+- And it's auto-installed in most modern Python installations.
 
 "The Python Packaging Authority" -- PaPA
 
 https://www.pypa.io/en/latest/
+
+setuptools
+-----------
+
+``setuptools`` is an extension to ``distutils`` that provides a number of extensions::
+
+    from setuptools import setup
+
+superset of the ``distutils setup``
+
+This buys you a bunch of additional functionality:
+
+  * auto-finding packages
+  * better script installation
+  * resource (non-code files) management
+  * **develop mode**
+  * a LOT more
+
+http://pythonhosted.org//setuptools/
 
 
 Where do I go to figure this out?
@@ -155,6 +178,8 @@ http://python-packaging.readthedocs.io/en/latest/
 
 **Follow one of them**
 
+.. nextslide::
+
 There is a sample project here:
 
 https://github.com/pypa/sampleproject
@@ -166,6 +191,9 @@ You can use this as a template for your own packages.
 Here is an opinionated update -- a little more fancy, but some good ideas:
 
 https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+Cookie Cutter
+-------------
 
 Rather than doing it by hand, you can use the nifty "cookie cutter" project:
 
@@ -182,6 +210,7 @@ And one written by the author of the opinionated blog post above:
 https://github.com/ionelmc/cookiecutter-pylibrary
 
 Either are great starting points.
+
 
 Basic Package Structure:
 ------------------------
@@ -205,6 +234,7 @@ Basic Package Structure:
                   test_module1.py
                   test_module2.py
 
+.. nextslide::
 
 ``CHANGES.txt``: log of changes with each release
 
@@ -212,19 +242,22 @@ Basic Package Structure:
 
 ``MANIFEST.in``: description of what non-code files to include
 
-``README.txt``: description of the package -- should be written in ReST (for PyPi):
-
-(http://docutils.sourceforge.net/rst.html)
+``README.txt``: description of the package -- should be written in ReST
+or Markdown (for PyPi):
 
 ``setup.py``: the script for building/installing package.
 
+.. nextslide::
+
 ``bin/``: This is where you put top-level scripts
 
-  ( some folks use ``scripts`` )
+( some folks use ``scripts`` )
 
 ``docs/``: the documentation
 
 ``package_name/``: The main package -- this is where the code goes.
+
+.. nextslide::
 
 ``test/``: your unit tests. Options here:
 
@@ -249,8 +282,8 @@ It is python code, so you can add anything custom you need to it
 
 But in the simple case, it is essentially declarative.
 
+http://docs.python.org/3/distutils/
 
-``http://docs.python.org/3/distutils/``
 
 What Does ``setup.py`` Do?
 --------------------------
@@ -294,9 +327,7 @@ An example ``setup.py``:
 ``setup.cfg``
 --------------
 
-**NOTE:** this is usually a pretty advanced option -- simple packages don't need this.
-
-``setup.cfg`` provides a way to give the end user some ability to customize the install
+Provides a way to give the end user some ability to customize the install
 
 It's an ``ini`` style file::
 
@@ -310,7 +341,8 @@ simple to read and write.
 
 ``option`` is one of the options that command supports.
 
-Note that an option spelled ``--foo-bar`` on the command-line is spelled f``foo_bar`` in configuration files.
+Note that an option spelled ``--foo-bar`` on the command-line is spelled
+``foo_bar`` in configuration files.
 
 
 Running ``setup.py``
@@ -318,25 +350,32 @@ Running ``setup.py``
 
 With a ``setup.py`` script defined, setuptools can do a lot:
 
-* builds a source distribution (a tar archive of all the files needed to build and install the package)::
+Builds a source distribution (a tar archive of all the files needed to build and install the package)::
 
     python setup.py sdist
 
-* builds wheels::
+Builds wheels::
 
     ./setup.py bdist_wheel
 
-(you need the wheel package for this to work: ``pip install wheel``)
+(you need the wheel package for this to work:)
 
-* build from source::
+``pip install wheel``
+
+.. nextslide::
+
+Build from source::
 
     python setup.py build
 
-* and install::
+And install::
 
     python setup.py install
 
-* install in "develop" or "editable" mode::
+Develop mode
+------------
+
+Install in "develop" or "editable" mode::
 
     python setup.py develop
 
@@ -344,25 +383,6 @@ or::
 
    pip install .
 
-
-setuptools
------------
-
-``setuptools`` is an extension to ``distutils`` that provides a number of extensions::
-
-    from setuptools import setup
-
-superset of the ``distutils setup``
-
-This buys you a bunch of additional functionality:
-
-  * auto-finding packages
-  * better script installation
-  * resource (non-code files) management
-  * **develop mode**
-  * a LOT more
-
-http://pythonhosted.org//setuptools/
 
 Under Development
 ------------------
@@ -377,7 +397,9 @@ or::
 
 (the e stands for "editable" -- it is the same thing)
 
-It puts a links into the python installation to your code, so that your package is installed, but any changes will immediately take effect.
+.. nextslide::
+
+It puts a links (actually ``*.pth`` files) into the python installation to your code, so that your package is installed, but any changes will immediately take effect.
 
 This way all your test code, and client code, etc, can all import your package the usual way.
 
@@ -385,6 +407,7 @@ No ``sys.path`` hacking
 
 Good idea to use it for anything more than a single file project.
 
+.. nextslide::
 
 +--------------------------------------+----------------------------------------+
 | Install                              | Development Install                    |

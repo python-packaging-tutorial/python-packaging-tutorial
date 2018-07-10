@@ -28,6 +28,9 @@ Topics
    conda_packages
    conda_forge
 
+
+https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/
+
    conda
 
 ..  package_building
