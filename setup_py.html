@@ -108,7 +108,7 @@ distribute packages.</p>
 <p>Using a well structured, standard layout for your package makes it
 easy to use those tools.</p>
 <p>Even if you never want to give anyone else your code, a well
-structured package eases development.</p>
+structured package simplifies development.</p>
 </div>
 <div class="section" id="what-is-a-package">
 <h3>What is a Package?<a class="headerlink" href="#what-is-a-package" title="Permalink to this headline">¶</a></h3>
@@ -121,24 +121,26 @@ structured package eases development.</p>
 </div>
 <div class="section" id="python-packaging-tools">
 <h3>Python packaging tools:<a class="headerlink" href="#python-packaging-tools" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">distutils</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<p><code class="docutils literal notranslate"><span class="pre">distutils</span></code>: included with python</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
-<p>Getting klunky, hard to extend, maybe destined for deprecation …</p>
-<p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code>: for extra features</p>
+<p>Getting clunky, hard to extend, maybe destined for deprecation …</p>
+<p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code>: for extra features, technically third party</p>
 <ul class="simple">
-<li>And it’s auto-installed in most modern Python installations.</li>
+<li>present in most modern Python installations</li>
 </ul>
-<p>“The Python Packaging Authority” – PaPA</p>
+<p>“The Python Packaging Authority” – PyPA</p>
 <p><a class="reference external" href="https://www.pypa.io/en/latest/">https://www.pypa.io/en/latest/</a></p>
 </div>
 <div class="section" id="setuptools">
 <h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> is an extension to <code class="docutils literal notranslate"><span class="pre">distutils</span></code> that provides a number of extensions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
 </pre></div>
 </div>
+<blockquote>
+<div>from setuptools import setup</div></blockquote>
 <p>superset of the <code class="docutils literal notranslate"><span class="pre">distutils</span> <span class="pre">setup</span></code></p>
 <p>This buys you a bunch of additional functionality:</p>
 <blockquote>
@@ -380,38 +382,116 @@ nothing else comes first)</td>
 </ul>
 </li>
 </ul>
-<p>Start with the silly code in:</p>
+<p>Start with the silly code in the tutorial repo in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python-packaging-tutorial/setup_example/</span></code></p>
+<p>or you can download a zip file here:</p>
 <p><a class="reference download internal" href="_downloads/capitalize.zip" download=""><code class="xref download docutils literal notranslate"><span class="pre">capitalize.zip</span></code></a></p>
 </div>
-<div class="section" id="lets-make-a-package">
-<h3>Let’s Make a Package<a class="headerlink" href="#lets-make-a-package" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mypkg</span><span class="o">/</span>
-    <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
-    <span class="n">subpkg</span><span class="o">/</span>
-        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">py</span>
+<div class="section" id="capitalize">
+<h3>capitalize<a class="headerlink" href="#capitalize" title="Permalink to this headline">¶</a></h3>
+<p>capitalize is a useless little utility that will capitalize the words in a text file.</p>
+<p>But it has the core structure of a python package:</p>
+<ul class="simple">
+<li>a library of “logic code”</li>
+<li>a command line script</li>
+<li>a data file</li>
+<li>tests</li>
+</ul>
+<p>So let’s see what’s in there:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
+capital_mod.py           test_capital_mod.py
+cap_data.txt             main.py
+cap_script.py            sample_text_file.txt
 </pre></div>
 </div>
-<p><strong>Windows:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir mypkg/subpkg
+</div>
+<div class="section" id="what-are-these-files">
+<h3>What are these files?<a class="headerlink" href="#what-are-these-files" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">capital_mod.py</span></code></dt>
+<dd>The core logic code</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">main.py</span></code></dt>
+<dd>The command line app</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">test_capital_mod.py</span></code></dt>
+<dd>Test code for the logic</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cap_script.py</span></code></dt>
+<dd>top-level script</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cap_data.txt</span></code></dt>
+<dd>data file</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">sample_text_file.txt</span></code></dt>
+<dd>sample example file to test with.</dd>
+</dl>
+<p>Try it out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd capitalize/
 
-echo. &gt; mypkg/__init__.py
+$ python3 cap_script.py sample_text_file.txt
 
-<span class="nb">echo</span> . &gt; mypkg/subpkg/__init__.py
+Capitalizing: sample_text_file.txt and storing it in
+sample_text_file_cap.txt
 
-<span class="nb">echo</span> . &gt; mypkg/subpkg/a.py
+I&#39;m done
 </pre></div>
 </div>
-<p><strong>Mac/Linux:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p mypkg/subpkg
-
-touch mypkg/__init__.py
-
-touch mypkg/subpkg/__init__.py
-
-touch mypkg/subpkg/a.py
+<p>So it works, as long as you are in the directory with all the code.</p>
+</div>
+<div class="section" id="setting-up-a-package-structure">
+<h3>Setting up a package structure<a class="headerlink" href="#setting-up-a-package-structure" title="Permalink to this headline">¶</a></h3>
+<p>Create a basic package structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">package_name</span><span class="o">/</span>
+    <span class="nb">bin</span><span class="o">/</span>
+    <span class="n">README</span><span class="o">.</span><span class="n">txt</span>
+    <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">package_name</span><span class="o">/</span>
+          <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+          <span class="n">module1</span><span class="o">.</span><span class="n">py</span>
+          <span class="n">test</span><span class="o">/</span>
+              <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+              <span class="n">test_module1</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
+<p>Let’s create all that for capitalize:</p>
+<p>Make the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir capitalize
+
+$ <span class="nb">cd</span> capitalize/
+
+$ touch __init__.py
+</pre></div>
+</div>
+<p>Move the code into it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    $ mv ../capital_mod.py ./
+$ mv ../main.py ./
+$ mv ../cap_data.txt ./
+</pre></div>
+</div>
+<p>Create a dir for the tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir <span class="nb">test</span>
+</pre></div>
+</div>
+<p>Move the tests into that:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mv ../test_capital_mod.py test/
+</pre></div>
+</div>
+<p>Create a dir for the script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir bin
+</pre></div>
+</div>
+<p>Move the script into that:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mv ../cap_script.py bin
+</pre></div>
+</div>
+<p>Now we have a package!</p>
+<p>Let’s try it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python bin/cap_script.py
+Traceback (most recent call last):
+  File &quot;bin/cap_script.py&quot;, line 8, in &lt;module&gt;
+    import capital_mod
+ImportError: No module named capital_mod
+</pre></div>
+</div>
+<p>OK, that didn’t work. Why not?</p>
+<p>Well, we’ve moved everytihng around:</p>
+<p>The modules don’t know how to find each other.</p>
 </div>
 <div class="section" id="lets-write-a-setup-py">
 <h3>Let’s Write a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#lets-write-a-setup-py" title="Permalink to this headline">¶</a></h3>
@@ -419,28 +499,106 @@ touch mypkg/subpkg/a.py
 
 <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mypkg&#39;</span><span class="p">,</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;capitalize&#39;</span><span class="p">,</span>
       <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
       <span class="c1"># list folders, not files</span>
-      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mypkg&#39;</span><span class="p">,</span> <span class="s1">&#39;mypkg.subpkg&#39;</span><span class="p">],</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;capitalize&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;capitalize.test&#39;</span><span class="p">],</span>
+      <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;capitalize/bin/cap_script.py&#39;</span><span class="p">],</span>
       <span class="p">)</span>
 </pre></div>
 </div>
 <p>(remember that a “package” is a folder with a <code class="docutils literal notranslate"><span class="pre">__init__.py__</span></code> file)</p>
-</div>
-<div class="section" id="try-installing-your-package">
-<h3>Try installing your package<a class="headerlink" href="#try-installing-your-package" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> mypkg-src
-
-python setup.py install
-
-python -c “import mypkg.subpkg.a”
+<p>That’s about the minimum you can do.</p>
+<p>Save it as <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> <em>outside</em> the capitalize package dir.</p>
+<p>Install it in “editable” mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -e ./
+Obtaining file:///Users/chris.barker/HAZMAT/Conferences/SciPy-2018/PackagingTutorial/TutorialDay/capitalize
+Installing collected packages: capitalize
+  Running setup.py develop <span class="k">for</span> capitalize
+Successfully installed capitalize
 </pre></div>
 </div>
-<p>Go look in your <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> folder</p>
+<p>Try it out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cap_script.py
+Traceback (most recent call last):
+  File &quot;/Users/chris.barker/miniconda2/envs/py3/bin/cap_script.py&quot;, line 6, in &lt;module&gt;
+    exec(compile(open(__file__).read(), __file__, &#39;exec&#39;))
+  File &quot;/Users/chris.barker/HAZMAT/Conferences/SciPy-2018/PackagingTutorial/TutorialDay/capitalize/capitalize/bin/cap_script.py&quot;, line 8, in &lt;module&gt;
+    import capital_mod
+ModuleNotFoundError: No module named &#39;capital_mod&#39;
+</pre></div>
+</div>
+<p>Still didn’t work – why not?</p>
+<p>We need to update some imports.</p>
+<p>in cap_script.py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">main</span>
+</pre></div>
+</div>
+<p>should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capitalize</span> <span class="k">import</span> <span class="n">main</span>
+</pre></div>
+</div>
+<p>and similarly in main.py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capitalize</span> <span class="k">import</span> <span class="n">capital_mod</span>
+</pre></div>
+</div>
+<p>And try it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cap_script.py sample_text_file.txt
+
+Capitalizing: sample_text_file.txt and storing it in
+sample_text_file_cap.txt
+
+I&#39;m done
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-tests">
+<h3>Running the tests:<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h3>
+<p>Option 1: cd to the test dir:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd capitalize/test/
+
+$ pytest
+$ ===================================
+  test session starts
+  ====================================
+...
+
+Traceback:
+test_capital_mod.py:14: in &lt;module&gt;
+    import capital_mod
+E   ModuleNotFoundError: No module named &#39;capital_mod&#39;
+</pre></div>
+</div>
+<p>Whoops – we need to fix that import, too:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">capitalize</span> <span class="k">import</span> <span class="n">capital_mod</span>
+</pre></div>
+</div>
+<p>And now we’re good:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest
+======test session starts =====
+
+collected 3 items
+
+test_capital_mod.py ...
+
+============== 3 passed in 0.06 seconds ============
+</pre></div>
+</div>
+<p>You can also run the tests from anywhere on the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest --pyargs capitalize
+
+    collected 3 items
+
+    capitalize/capitalize/test/test_capital_mod.py ...                                   [100%]
+
+    =============== 3 passed in 0.03 seconds ==========
+</pre></div>
+</div>
 </div>
 <div class="section" id="making-packages-the-easy-way">
 <h3>Making Packages the Easy Way<a class="headerlink" href="#making-packages-the-easy-way" title="Permalink to this headline">¶</a></h3>
+<p>To auto-build a full package structure:</p>
 <img alt="_images/cookiecutter.png" src="_images/cookiecutter.png" />
 <p><a class="reference external" href="https://github.com/audreyr/cookiecutter">github.com/audreyr/cookiecutter</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cookiecutter
@@ -474,7 +632,7 @@ python -c “import mypkg.subpkg.a”
 <h3>Requirements in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code><a class="headerlink" href="#requirements-in-requirements-txt" title="Permalink to this headline">¶</a></h3>
 <p><strong>Common Mistake:</strong></p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> often from pip freeze</li>
+<li>requirements.txt often from pip freeze</li>
 <li>Pinned way too tightly.  OK for env creation, bad for packaging.</li>
 </ul>
 <div class="line-block">
@@ -498,13 +656,6 @@ python -c “import mypkg.subpkg.a”
 </div>
 <p>Parse-able without execution, unlike <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p>
 <p><a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files">configuring setup using setup cfg files</a></p>
-</div>
-<div class="section" id="exercise">
-<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Fill in the missing pieces in a setup.py for a sample package</li>
-<li>Do a development install for the package</li>
-</ul>
 </div>
 <div class="section" id="break-time">
 <h3>Break time!<a class="headerlink" href="#break-time" title="Permalink to this headline">¶</a></h3>
@@ -547,9 +698,11 @@ python -c “import mypkg.subpkg.a”
 <li><a class="reference internal" href="#aside-on-pip-and-dependencies">Aside on pip and dependencies</a></li>
 <li><a class="reference internal" href="#getting-started-with-a-new-package">Getting Started With a New Package</a></li>
 <li><a class="reference internal" href="#exercise-a-small-example-package">Exercise: A Small Example Package</a></li>
-<li><a class="reference internal" href="#lets-make-a-package">Let’s Make a Package</a></li>
+<li><a class="reference internal" href="#capitalize">capitalize</a></li>
+<li><a class="reference internal" href="#what-are-these-files">What are these files?</a></li>
+<li><a class="reference internal" href="#setting-up-a-package-structure">Setting up a package structure</a></li>
 <li><a class="reference internal" href="#lets-write-a-setup-py">Let’s Write a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
-<li><a class="reference internal" href="#try-installing-your-package">Try installing your package</a></li>
+<li><a class="reference internal" href="#running-the-tests">Running the tests:</a></li>
 <li><a class="reference internal" href="#making-packages-the-easy-way">Making Packages the Easy Way</a></li>
 </ul>
 </li>
@@ -557,7 +710,6 @@ python -c “import mypkg.subpkg.a”
 <li><a class="reference internal" href="#requirements-in-setup-py">Requirements in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
 <li><a class="reference internal" href="#requirements-in-requirements-txt">Requirements in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></a></li>
 <li><a class="reference internal" href="#requirements-in-setup-cfg-ideal">Requirements in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> (ideal)</a></li>
-<li><a class="reference internal" href="#exercise">Exercise</a></li>
 <li><a class="reference internal" href="#break-time">Break time!</a></li>
 </ul>
 </li>

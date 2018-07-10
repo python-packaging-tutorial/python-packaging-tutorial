@@ -51,6 +51,8 @@ A package can be essentially in two forms:
 * source
 * binary
 
+.. nextslide::
+
 Focusing now on the Python world:
 
 As Python is a dynamic language, this distinction can get a bit blurred:
@@ -109,7 +111,7 @@ There are two package managers widely used for Python.
 
     - Pulls packages from anaconda.org
 
-    - Binary only
+    - Binary only (does not compile code when installing)
 
     - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
 
@@ -118,20 +120,10 @@ There are two package managers widely used for Python.
 OS package managers:
 --------------------
 
-* Linux
+* Linux: apt, conda, dnf, homebrew, nix, pacman, spack, yum
 
-  - rpm
+* OS-X: conda, homebrew, macports, spack
 
-  - apt-get, homebrew
+* Windows: chocolatey, conda, cygwin, pacman (msys2)
 
-* OS-X
-
-  - homebrew
-
-  - macports
-
-* Windows
-
-	- chocolatey
-
-Also sometimes handle python packages -- but we won't talk about those here.
+Sometimes handle python packages -- but we won't talk about those here.

@@ -7,6 +7,25 @@ Outline
 
 How are we spending our afternoon?
 
+Agenda
+------
+
+* 0:00-0:20 Getting setup and overview of packaging
+* 0:20-0:45 python packages: the setup.py file
+* 0:45-1:00 Building and uploading to PyPI
+
+* 1:00-1:10 **Break**
+
+* 1:10-1:30 Worked example/exercise
+* 1:30-2:00 Binaries and dependencies
+* 2:00-2:45 Exercises
+
+* 2:45-3:00 **Break**
+
+* 3:00-3:15 Conda-build overview
+* 3:15-3:45 Exercise
+* 3:45-4:00 conda-forge
+
 0:00-00:10 Getting setup for this Tutorial
 ------------------------------------------
 
@@ -88,14 +107,14 @@ Clone that repo now -- so you can follow along.
 
   :ref:`binaries`
 
-* Understand why we build Python packages with native binaries: 1)
+* Why we build Python packages with native binaries: 1)
   **performance** and 2) **library integration**
-* Understand different components of the binary build process and their role:
+* Different components of the binary build process and their role:
   *headers, libraries, compilers, linkers, build systems, system introspection
   tools, package managers*
-* Understand basic requirements for binary compatibility: a) **C-runtime library
+* Basic requirements for binary compatibility: a) **C-runtime library
   compatibility** and b) **shared library compatibilty**
-* Understand **scikit-build**'s role in coordinating components of the binary
+* Joyous tools: **scikit-build**'s role in coordinating components of the binary
   build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
 2:00-2:45 Exercise:
@@ -103,6 +122,7 @@ Clone that repo now -- so you can follow along.
 
 * Build a Python package with a C++-based C-extension.
 * Build a Python package with a Cython-based C-extension.
+* Build a distributable Linux wheel package.
 
 
 2:45-3:00 Break
