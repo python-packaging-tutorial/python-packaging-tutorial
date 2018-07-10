@@ -26,9 +26,8 @@ Topics
    uploading_pypi
    binaries_dependencies
    conda
-   conda_forge
 
-https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/
+`conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/>`_
 
 
 Your Guides
