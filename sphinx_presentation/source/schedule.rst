@@ -89,15 +89,12 @@ Clone that repo now -- so you can follow along.
 1:00-1:10 Break
 ---------------
 
-1:10-1:30 Worked example/exercise:
+1:10-1:30 Exercises:
 ----------------------------------
 
-* Building a package and uploading to pypi
-* Continuing from the the previous exercise, build a wheel for the package
-* Register the package on the pypi testing server
-* Upload the built distributions using twine
-* Delete one of the uploaded files on pypi and try re-uploading (will fail)
-* Introduce the idea of .post releases (it will happen to everyone who uploads)
+* Prepare environment
+* Build source distribution and wheel
+* Publish artifacts on PyPI
 
 
 1:30-2:00 Binaries and dependencies:

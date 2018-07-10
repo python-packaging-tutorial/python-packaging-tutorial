@@ -365,8 +365,8 @@ Exercise 2: Build source distribution and wheel
 * Make sure artifacts have been generated in the ``dist`` subdirectory.
 
 
-Exercise 3: Publish artifacts
------------------------------
+Exercise 3: Publish artifacts on PyPI
+-------------------------------------
 
 .. code-block:: bash
 
