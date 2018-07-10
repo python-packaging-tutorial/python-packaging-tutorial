@@ -107,7 +107,7 @@ Using a well structured, standard layout for your package makes it
 easy to use those tools.
 
 Even if you never want to give anyone else your code, a well
-structured package eases development.
+structured package simplifies development.
 
 
 What is a Package?
@@ -129,17 +129,19 @@ What is a Package?
 Python packaging tools:
 ------------------------
 
-The ``distutils``::
+``distutils``: included with python
+
+.. code-block:: python
 
     from distutils.core import setup
 
-Getting klunky, hard to extend, maybe destined for deprecation ...
+Getting clunky, hard to extend, maybe destined for deprecation ...
 
-``setuptools``: for extra features
+``setuptools``: for extra features, technically third party
 
-- And it's auto-installed in most modern Python installations.
+- present in most modern Python installations
 
-"The Python Packaging Authority" -- PaPA
+"The Python Packaging Authority" -- PyPA
 
 https://www.pypa.io/en/latest/
 
@@ -148,9 +150,11 @@ setuptools
 
 ``setuptools`` is an extension to ``distutils`` that provides a number of extensions::
 
+.. code-block:: python
+
     from setuptools import setup
 
-superset of the ``distutils setup``
+superset of the ``distutils setup``a
 
 This buys you a bunch of additional functionality:
 

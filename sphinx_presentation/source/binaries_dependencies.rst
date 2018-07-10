@@ -237,7 +237,7 @@ Linux C-runtime compatibility is determined by the version of **glibc** used
 for the build.
 
 The glibc library shared by the system is forwards compatible but not
-backwards compatibile. That is, a package built on an older system *will*
+backwards compatible. That is, a package built on an older system *will*
 work on a newer system, while a package built on a newer system will not
 work on an older system.
 
@@ -250,6 +250,15 @@ packages.
 The C-runtime on macOS is determined by a build time option, the *osx
 deployment target*, which defines the minmum version of macOS to support, e.g.
 `10.9`.
+
+A macOS system comes with support for running building binaries for its version of
+OSX and older versions of OSX.
+
+The XCode toolchain comes with SDK's that support multiple target versions of OSX.
+
+When building a wheel, this can be specified with `--plat-name`::
+
+    python setup.py bdist_wheel --plat-name macosx-10.6-x86_64
 
 .. nextslide::
 
@@ -357,3 +366,47 @@ with the commands::
 
 Examine files referenced in the build output. What is the purpose of all
 referenced files?
+
+Bonus Exercise 3: Build a Distributable Linux Wheel Package
+-----------------------------------------------------------
+
+If Docker is installed, create a `dockcross
+<https://github.com/dockcross/dockcross>`_ `manylinux`_ bash driver script.
+From a bash shell, run::
+
+  # cd into the hello-cpp project from Exercise 1
+  cd hello-cpp
+  docker run --rm dockcross/manylinux-x64 > ./dockcross-manylinux-x64
+  chmod +x ./dockcross-manylinux-x64
+
+The *dockcross* driver script simplifies execution of commands in the isolated
+Docker build environment that use sources in the current working directory.
+
+.. nextslide::
+
+To build a distributable Python 3.6 Python wheel, run::
+
+  ./dockcross-manylinux-x64 /opt/python/cp36-cp36m/bin/pip wheel -w dist .
+
+Which will output::
+
+  Processing /work
+  Building wheels for collected packages: hello-cpp
+  Running setup.py bdist_wheel for hello-cpp ... done
+  Stored in directory: /work/dist
+  Successfully built hello-cpp
+
+and produce the wheel::
+
+  ./dist/hello_cpp-1.2.3-cp36-cp36m-linux_x86_64.whl
+
+.. nextslide::
+
+To find the version of glibc required by the extension, run::
+
+  ./dockcross-manylinux-x64 bash -c 'cd dist && unzip -o hello_cpp-1.2.3-cp36-cp36m-linux_x86_64.whl && objdump -T hello/_hello.cpython-36m-x86_64-linux-gnu.so | grep GLIBC'
+
+What glibc version compatibility is required for this binary?
+
+
+.. manylinux:: https://github.com/pypa/manylinux

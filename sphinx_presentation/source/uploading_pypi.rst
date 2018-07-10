@@ -29,6 +29,8 @@ PyPI
 PyPI is the default `Package Index <https://packaging.python.org/glossary/#term-package-index>`_ for the Python community.
 It is open to all Python developers to consume and distribute their **distributions**.
 
+.. nextslide::
+
 There are two instances of the Package Index:
 
 * PyPI: Python Package Index hosted at https://pypi.org/
@@ -44,6 +46,8 @@ pip
 ---
 
 The `PyPA <https://www.pypa.io/en/latest/>`_ recommended tool for installing Python packages.
+
+.. nextslide::
 
 A multi-faceted tool:
 
@@ -62,6 +66,8 @@ PyPA
 
 The Python Packaging Authority (PyPA) is a working group that maintains many of the relevant
 projects in Python packaging.
+
+.. nextslide::
 
 The associated website https://www.pypa.io references the PyPA Goals, Specifications and Roadmap
 as well as `Python Packaging User Guide <https://packaging.python.org/>`_, a collection of tutorials
@@ -105,6 +111,7 @@ Python Distribution: pure vs non-pure
   * Not specific to a CPU architecture
   * No `ABI (Application Binary Interface) <https://en.wikipedia.org/wiki/Application_binary_interface>`_
 
+.. nextslide::
 
 * **non-pure**
 
@@ -159,7 +166,7 @@ Wheels vs. Conda packages
 +-------------------------------------+-------------------------------------+
 
 
-.. note:: To learn more about Conda, see :ref:`conda-build` section.
+To learn more about Conda, see :ref:`conda-build` section.
 
 
 Virtual Environment
@@ -168,7 +175,7 @@ Virtual Environment
 An isolated Python environment that allows packages to be installed for use by a
 particular application, rather than being installed system wide.
 
-Reference: https://packaging.python.org/glossary/#term-virtual-environment
+Learn more reading `Creating Virtual Environments <https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments>`_
 
 
 Build system
@@ -198,39 +205,28 @@ Introduction
 
 This section discusses how to build python packages (or distributions) and publish
 them in a central repository to streamline their installation. Finally, we conclude
-with an exercise where we publish a package with the `Test Python Package Index <http://test.pypi.org/>`_.
+with exercises where we publish a package with the `Test Python Package Index <http://test.pypi.org/>`_.
 
 
 Creating an environment
 -----------------------
 
-**To be done**
-
-Learn more reading `Creating Virtual Environments <https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments>`_
+Before developing or building your distribution, we highly recommend to create a
+dedicated environment. This is supported by both ``conda`` and ``pip``.
 
 
 Building a source distribution
 ------------------------------
 
-Bu leveraging the ``setup.py`` script, setuptools can build a source
+By leveraging the ``setup.py`` script, setuptools can build a source
 distribution (a tar archive of all the files needed to build and install the package):
 
 .. code-block:: bash
 
-    python setup.py sdist  # the sdist will be generated in the ./dist subdirectory
+    $ python setup.py sdist
 
-
-Installing a wheel
-------------------
-
-.. code-block:: bash
-
-    pip install /path/to/package.whl
-
-
-.. code-block:: bash
-
-    pip install package  # this will download the package from PyPI
+    $ ls -1 dist
+    SomePackage-1.0.tar.gz
 
 
 Building a wheel
@@ -238,30 +234,183 @@ Building a wheel
 
 .. code-block:: bash
 
-    pip wheel . -w dist
+    $ pip wheel . -w dist
+
+    $ ls -1 dist
+    SomePackage-1.0-py2.py3-none-any.whl
 
 
-Registering to PyPI
--------------------
+.. nextslide::
 
-**To be done**
+This is equivalent to:
+
+.. code-block:: bash
+
+    $ python setup.py bdist_wheel
+
+
+Installing a wheel
+------------------
+
+* Install a package from PyPI:
+
+.. code-block:: bash
+
+    $ pip install SomePackage
+    [...]
+    Successfully installed SomePackage
+
+.. nextslide::
+
+* Install a package file:
+
+.. code-block:: bash
+
+    $ pip install SomePackage-1.0-py2.py3-none-any.whl
+    [...]
+    Successfully installed SomePackage
+
+For more details, see `QuickStart guide from pip documentation <https://pip.pypa.io/en/stable/quickstart/>`_.
+
+
+Installing a source distribution
+--------------------------------
+
+.. code-block:: bash
+
+    $ pip install SomePackage-1.0.tar.gz
+        [...]
+    Successfully installed SomePackage
+
+It transparently builds the associated wheel and install it.
 
 
 Publishing to PyPI
 ------------------
 
-**To be done**
+`twine <https://twine.readthedocs.io>`_ utility is used for publishing
+Python packages on PyPI.
 
+It is available as both a conda and a pypi package.
 
-An other approach: filt
------------------------
-
-**To be done**
-
+Learn more reading `Using TestPiPY <https://packaging.python.org/guides/using-testpypi/>`_.
 
 
 Exercises
 =========
+
+Exercise 1: Prepare environment
+-------------------------------
+
+* In the context of this tutorial, because participants already `installed miniconda <https://github.com/python-packaging-tutorial/python-packaging-tutorial#installation-instructions>`_,
+  we will create a conda environment and install packages using ``conda install SomePackage``.
+
+.. code-block:: bash
+
+    # create and activate a dedicated environment named "hello-pypi"
+    conda create -n hello-pypi -y -c conda-forge
+    conda activate hello-pypi
+
+    # install pip, wheel and twine
+    conda install -y twine wheel pip
+
+.. nextslide::
+
+* Create an account on TestPyPI (https://test.pypi.org/account/register/)
+
+
+Exercise 2: Build source distribution and wheel
+-----------------------------------------------
+
+* `Download <https://github.com/python-packaging-tutorial/hello-pypi/archive/master.zip>`_ (or
+  `checkout <https://github.com/python-packaging-tutorial/hello-pypi>`_ using git) the sources
+  of our ``hello-pypi`` sample project:
+
+.. code-block:: bash
+
+    conda install -y wget
+    wget https://github.com/python-packaging-tutorial/hello-pypi/archive/master.zip
+
+
+.. nextslide::
+
+* Extract sources
+
+.. code-block:: bash
+
+    conda install -y unzip
+    unzip master.zip
+    cd hello-pypi-master
+
+.. nextslide::
+
+* Modify package name so that it is unique
+
+.. nextslide::
+
+* Then, build the source distribution:
+
+
+.. code-block:: bash
+
+    $ python setup.py sdist
+
+
+* And finally, build the wheel:
+
+.. code-block:: bash
+
+    $ pip wheel . -w dist
+
+* Make sure artifacts have been generated in the ``dist`` subdirectory.
+
+
+Exercise 3: Publish artifacts
+-----------------------------
+
+.. code-block:: bash
+
+    $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+
+Bonus Exercise 4: Publish artifacts automating authentication
+-------------------------------------------------------------
+
+* Delete ``hello-pypi-master`` directory and extract archive again.
+
+* Update name of package and rebuild source distribution and wheel.
+
+.. nextslide::
+
+* Create file ``.pypirc`` in your home directory with the following content:
+
+::
+
+    [distutils]
+    index-servers=
+        pypi
+        testpypi
+
+    [testpypi]
+    repository: https://test.pypi.org/legacy/
+    username: your testpypi username
+    password: your testpypi password
+
+    [pypi]
+    username: your testpypi username
+    password: your testpypi password
+
+.. nextslide::
+
+* Publish package on TestPyPI:
+
+.. code-block:: bash
+
+    $ twine upload --repository testpypi dist/*
+
+
+Omitting the ``-repository testpypi`` argument allows to upload
+to the regular PyPI server.
 
 
 Resources
