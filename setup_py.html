@@ -136,11 +136,9 @@ structured package simplifies development.</p>
 <div class="section" id="setuptools">
 <h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> is an extension to <code class="docutils literal notranslate"><span class="pre">distutils</span></code> that provides a number of extensions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
-<blockquote>
-<div>from setuptools import setup</div></blockquote>
 <p>superset of the <code class="docutils literal notranslate"><span class="pre">distutils</span> <span class="pre">setup</span></code></p>
 <p>This buys you a bunch of additional functionality:</p>
 <blockquote>
@@ -168,17 +166,6 @@ structured package simplifies development.</p>
 <p>You can use this as a template for your own packages.</p>
 <p>Here is an opinionated update – a little more fancy, but some good ideas:</p>
 <p><a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
-</div>
-<div class="section" id="cookie-cutter">
-<h3>Cookie Cutter<a class="headerlink" href="#cookie-cutter" title="Permalink to this headline">¶</a></h3>
-<p>Rather than doing it by hand, you can use the nifty “cookie cutter” project:</p>
-<p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a></p>
-<p>And there are a few templates that can be used with that.</p>
-<p>The core template written by the author:</p>
-<p><a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">https://github.com/audreyr/cookiecutter-pypackage</a></p>
-<p>And one written by the author of the opinionated blog post above:</p>
-<p><a class="reference external" href="https://github.com/ionelmc/cookiecutter-pylibrary">https://github.com/ionelmc/cookiecutter-pylibrary</a></p>
-<p>Either are great starting points.</p>
 </div>
 <div class="section" id="basic-package-structure">
 <h3>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h3>
@@ -599,8 +586,18 @@ test_capital_mod.py ...
 <div class="section" id="making-packages-the-easy-way">
 <h3>Making Packages the Easy Way<a class="headerlink" href="#making-packages-the-easy-way" title="Permalink to this headline">¶</a></h3>
 <p>To auto-build a full package structure:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <img alt="_images/cookiecutter.png" src="_images/cookiecutter.png" />
-<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">github.com/audreyr/cookiecutter</a></p>
+<p>Rather than doing it by hand, you can use the nifty “cookie cutter” project:</p>
+<p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a></p>
+<p>And there are a few templates that can be used with that.</p>
+<p>The core template written by the author:</p>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">https://github.com/audreyr/cookiecutter-pypackage</a></p>
+<p>And one written by the author of the opinionated blog post above:</p>
+<p><a class="reference external" href="https://github.com/ionelmc/cookiecutter-pylibrary">https://github.com/ionelmc/cookiecutter-pylibrary</a></p>
+<p>Either are great starting points.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cookiecutter
 </pre></div>
 </div>
@@ -686,7 +683,6 @@ test_capital_mod.py ...
 <li><a class="reference internal" href="#python-packaging-tools">Python packaging tools:</a></li>
 <li><a class="reference internal" href="#setuptools">setuptools</a></li>
 <li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
-<li><a class="reference internal" href="#cookie-cutter">Cookie Cutter</a></li>
 <li><a class="reference internal" href="#basic-package-structure">Basic Package Structure:</a></li>
 <li><a class="reference internal" href="#the-setup-py-file">The <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> File</a></li>
 <li><a class="reference internal" href="#what-does-setup-py-do">What Does <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> Do?</a></li>

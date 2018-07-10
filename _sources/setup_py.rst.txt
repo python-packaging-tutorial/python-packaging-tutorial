@@ -148,7 +148,7 @@ https://www.pypa.io/en/latest/
 setuptools
 -----------
 
-``setuptools`` is an extension to ``distutils`` that provides a number of extensions::
+``setuptools`` is an extension to ``distutils`` that provides a number of extensions:
 
 .. code-block:: python
 
@@ -195,25 +195,6 @@ You can use this as a template for your own packages.
 Here is an opinionated update -- a little more fancy, but some good ideas:
 
 https://blog.ionelmc.ro/2014/05/25/python-packaging/
-
-Cookie Cutter
--------------
-
-Rather than doing it by hand, you can use the nifty "cookie cutter" project:
-
-https://cookiecutter.readthedocs.io/en/latest/
-
-And there are a few templates that can be used with that.
-
-The core template written by the author:
-
-https://github.com/audreyr/cookiecutter-pypackage
-
-And one written by the author of the opinionated blog post above:
-
-https://github.com/ionelmc/cookiecutter-pylibrary
-
-Either are great starting points.
 
 
 Basic Package Structure:
@@ -761,10 +742,30 @@ Making Packages the Easy Way
 
 To auto-build a full package structure:
 
+|
+
 .. image:: images/cookiecutter.png
 
 
-`github.com/audreyr/cookiecutter <https://github.com/audreyr/cookiecutter>`_
+.. nextslide::
+
+Rather than doing it by hand, you can use the nifty "cookie cutter" project:
+
+https://cookiecutter.readthedocs.io/en/latest/
+
+And there are a few templates that can be used with that.
+
+The core template written by the author:
+
+https://github.com/audreyr/cookiecutter-pypackage
+
+And one written by the author of the opinionated blog post above:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+
+Either are great starting points.
+
+.. nextslide::
 
 .. code-block:: bash
 
