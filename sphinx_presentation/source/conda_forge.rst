@@ -1,15 +1,10 @@
 
 .. _conda-forge:
 
+conda-forge
+------------
 
-***************************
-Using a CI to build for you
-***************************
+.. figure:: images/conda-forge.png
 
-.. image:: images/conda-forge.png
-
-
-`Conda-forge overview <https://docs.google.com/presentation/d/e/2PACX-1vSaiNdfVfnrRxxQqBE92w6WoU4tVhsEhkSN1mz04-tVNyyaaMIF4seFawlbfh8gPqgk0w3S7iIlly_w/pub?start=false&loop=false&delayms=60000>`_
-==================================================================================================================================================================================================
-
-
+`Introduction to conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/#/title-slide>`_
+=============================================================================================================
