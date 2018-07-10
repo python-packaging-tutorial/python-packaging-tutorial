@@ -20,6 +20,7 @@ Topics
 .. toctree::
    :maxdepth: 1
 
+   schedule
    overview
    setup_py
    uploading_pypi
