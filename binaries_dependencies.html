@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Conda Packages" href="conda_packages.html" />
+    <link rel="next" title="Conda Packages" href="conda.html" />
     <link rel="prev" title="Building and Uploading to PyPi" href="uploading_pypi.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -43,7 +43,7 @@
 <li>Understand why we build Python packages with native binaries: 1)
 <strong>performance</strong> and 2) <strong>library integration</strong></li>
 <li>Understand different components of the binary build process and their role:
-<em>headers, libraries, compilers, linkers, makefiles, system introspection
+<em>headers, libraries, compilers, linkers, build systems, system introspection
 tools, package managers</em></li>
 <li>Understand basic requirements for binary compatibility: a) <strong>C-runtime library
 compatibility</strong> and b) <strong>shared library compatibilty</strong></li>
@@ -124,40 +124,214 @@ computing include:</p>
 <p>Build component categories:</p>
 <dl class="docutils">
 <dt>build tools</dt>
-<dd>Tools use in the build process, such as the compiler, linker, makefile,
+<dd>Tools use in the build process, such as the compiler, linker, build systems,
 system introspection tool, and package manager</dd>
 </dl>
+<p>Example compilers:</p>
+<ul class="simple">
+<li>GCC</li>
+<li>Clang</li>
+<li>Visual Studio</li>
+</ul>
+<p><em>Compilers translate source code from a human readable to a machine readable
+form.</em></p>
+<p>Example linkers:</p>
+<ul class="simple">
+<li>ld</li>
+<li>ld.gold</li>
+<li>link.exe</li>
+</ul>
+<p><em>Linkers combine the results of compilers into a shared library that is
+executed at program runtime.</em></p>
+<p>Example build systems:</p>
+<ul class="simple">
+<li>distutils.build_ext</li>
+<li>Unix Makefiles</li>
+<li>Ninja</li>
+<li>MSBuild in Visual Studio</li>
+</ul>
+<p><em>Builds systems coordinate invocation of the compiler and linker, passing
+flags, and only out-of-date build targets are built.</em></p>
+<p>Example system introspection tools:</p>
+<ul class="simple">
+<li>CMake</li>
+<li>GNU Autotools</li>
+<li>Meson</li>
+</ul>
+<p><em>System introspection tools examine the host system for available build tools,
+the location of build dependencies, and properties of the build target to
+generate the appropriate build system configuration files.</em></p>
+<p>Example package managers:</p>
+<ul class="simple">
+<li>conda</li>
+<li>pip</li>
+<li>apt</li>
+<li>yum</li>
+<li>chocolatey</li>
+<li>homebrew</li>
+</ul>
+<p><em>Package managers resolve dependencies so the required build host artifacts are
+available for the build.</em></p>
 <dl class="docutils">
 <dt>build host artifacts</dt>
 <dd>These are files required on the <em>host</em> system performing the build. This
-includes header files, <cite>*.h</cite> files, which define the C program <em>symbols</em>,
+includes <strong>header files</strong>, <cite>*.h</cite> files, which define the C program <strong>symbols</strong>,
 i.e. variable and function names, for the native binary with which we want
 to integrate. This also usually includes the native binaries themselves,
-i.e. the executable or shared library. An important exception to this rule
+i.e. the <strong>executable or shared library</strong>. An important exception to this rule
 is <em>libpython</em>, which we do not need on some platforms due to <a class="reference external" href="https://scikit-build.readthedocs.io/en/latest/cmake-modules/targetLinkLibrariesWithDynamicLookup.html">weak linking
 rules</a>.</dd>
 </dl>
 <dl class="docutils">
 <dt>target system artifacts</dt>
-<dd>These are artifacts intended to be run on the <em>target</em> system, typically the
+<dd>These are artifacts intended to be run on the <strong>target</strong> system, typically the
 shared library C-extension.</dd>
 </dl>
 <p>When the build <em>host</em> system is different from the <em>target</em> system, we are
 <strong>cross-compiling</strong>.</p>
-<p>Python packaging guide</p>
-<p>scikit-build C-runtime compatibility</p>
+<p>For example, when we are building a Linux Python package on macOS is
+cross-compiling. In this case macOS is the <em>host</em> system and Linux is the
+<em>target</em> system.</p>
+<p>Distributable binaries must use a <strong>compatible C-runtime</strong>.</p>
+<p>The table below lists the different C runtime implementations, compilers and
+their usual distribution mechanisms for each operating systems.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="26%" />
+<col width="24%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Linux</th>
+<th class="head">MacOSX</th>
+<th class="head">Windows</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>C runtime</strong></td>
+<td><a class="reference external" href="https://en.wikipedia.org/wiki/GNU_C_Library">GNU C Library (glibc)</a></td>
+<td><a class="reference external" href="https://www.safaribooksonline.com/library/view/mac-os-x/0596003560/ch05s02.html">libSystem library</a></td>
+<td><a class="reference external" href="https://en.wikipedia.org/wiki/Microsoft_Windows_library_files#Runtime_libraries">Microsoft C run-time library</a></td>
+</tr>
+<tr class="row-odd"><td><strong>Compiler</strong></td>
+<td><a class="reference external" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GNU compiler (gcc)</a></td>
+<td><a class="reference external" href="https://en.wikipedia.org/wiki/Clang">clang</a></td>
+<td>Microsoft C/C++ Compiler (cl.exe)</td>
+</tr>
+<tr class="row-even"><td><strong>Provenance</strong></td>
+<td><a class="reference external" href="https://en.wikipedia.org/wiki/Package_manager">Package manager</a></td>
+<td>OSX SDK within <a class="reference external" href="https://en.wikipedia.org/wiki/Xcode#Version_comparison_table">XCode</a></td>
+<td><ul class="first last simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Microsoft_Visual_Studio">Microsoft Visual Studio</a></li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Microsoft_Windows_SDK">Microsoft Windows SDK</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Linux C-runtime compatibility is determined by the version of <strong>glibc</strong> used
+for the build.</p>
+<p>The glibc library shared by the system is forwards compatible but not
+backwards compatibile. That is, a package built on an older system <em>will</em>
+work on a newer system, while a package built on a newer system will not
+work on an older system.</p>
+<p>The <a class="reference external" href="https://github.com/pypa/manylinux">manylinux</a> project provides Docker
+images that have an older version of glibc to use for distributable Linux
+packages.</p>
+<p>The C-runtime on macOS is determined by a build time option, the <em>osx
+deployment target</em>, which defines the minmum version of macOS to support, e.g.
+<cite>10.9</cite>.</p>
+<p>The C-runtime used on Windows is associated with the version of Visual Studio.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="33%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head" colspan="2">Architecture</th>
+</tr>
+<tr class="row-even"><th class="head">CPython Version</th>
+<th class="head">x86 (32-bit)</th>
+<th class="head">x64 (64-bit)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>3.5 and above</strong></td>
+<td>Visual Studio 14 2015</td>
+<td>Visual Studio 14 2015 Win64</td>
+</tr>
+<tr class="row-even"><td><strong>3.3 to 3.4</strong></td>
+<td>Visual Studio 10 2010</td>
+<td>Visual Studio 10 2010 Win64</td>
+</tr>
+<tr class="row-odd"><td><strong>2.7 to 3.2</strong></td>
+<td>Visual Studio 9 2008</td>
+<td>Visual Studio 9 2008 Win64</td>
+</tr>
+</tbody>
+</table>
+<p>Distributable binaries are also built to be compatible with a certain
+CPU architecture class. For example</p>
+<ul class="simple">
+<li>x86_64 (currently the most common)</li>
+<li>x86</li>
+<li>ppc64le</li>
+</ul>
 </div>
 <div class="section" id="scientific-python-build-tools">
 <h3>Scientific Python Build Tools<a class="headerlink" href="#scientific-python-build-tools" title="Permalink to this headline">¶</a></h3>
+<p><strong>scikit-build</strong> is an improved build system generator for CPython C/C++/Fortran/Cython
+extensions.</p>
+<p><strong>scikit-build</strong> provides better support for additional compilers, build
+systems, cross compilation, and locating dependencies and their associated
+build requirements.</p>
+<p>The <strong>scikit-build</strong> package is fundamentally just glue between
+the <cite>setuptools</cite> Python module and <a class="reference external" href="https://cmake.org/">CMake</a>.</p>
+<p>To build and install a project configured with scikit-build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>To build and install a project configured with scikit-build for development:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>To build and package a project configured with scikit-build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">wheel</span> <span class="o">-</span><span class="n">w</span> <span class="n">dist</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p><strong>Conda</strong> is an open source package management system and environment management system that runs on Windows, macOS and Linux.</p>
+<p><strong>Conda</strong> quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer.</p>
+<p><strong>Conda</strong> was created for Python programs, but it can package and distribute software for any language.</p>
+<p><em>scikit-build</em> and <em>conda</em> <strong>abstract away</strong> and <strong>manage platform-specific details</strong> for you!</p>
 </div>
 </div>
 <div class="section" id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="exercise-1-build-a-python-package-with-a-c-extension-module">
 <h3>Exercise 1: Build a Python Package with a C++ Extension Module<a class="headerlink" href="#exercise-1-build-a-python-package-with-a-c-extension-module" title="Permalink to this headline">¶</a></h3>
+<p>Download the <a class="reference external" href="https://github.com/python-packaging-tutorial/hello-cpp">hello-cpp</a> example C++ project and build a wheel package
+with the commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">hello</span><span class="o">-</span><span class="n">cpp</span>
+<span class="n">pip</span> <span class="n">wheel</span> <span class="o">-</span><span class="n">w</span> <span class="n">dist</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Examine files referenced in the build output. What is the purpose of all
+referenced files?</p>
 </div>
 <div class="section" id="exercise-2-build-a-python-package-with-a-cython-extension-module">
 <h3>Exercise 2: Build a Python Package with a Cython Extension Module<a class="headerlink" href="#exercise-2-build-a-python-package-with-a-cython-extension-module" title="Permalink to this headline">¶</a></h3>
+<p>Download the <a class="reference external" href="https://github.com/python-packaging-tutorial/hello-cython">hello-cython</a> example C++ project and build a wheel package
+with the commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">hello</span><span class="o">-</span><span class="n">cython</span>
+<span class="n">pip</span> <span class="n">wheel</span> <span class="o">-</span><span class="n">w</span> <span class="n">dist</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Examine files referenced in the build output. What is the purpose of all
+referenced files?</p>
 </div>
 </div>
 </div>
@@ -196,7 +370,7 @@ shared library C-extension.</dd>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="uploading_pypi.html" title="previous chapter">Building and Uploading to PyPi</a></li>
-      <li>Next: <a href="conda_packages.html" title="next chapter">Conda Packages</a></li>
+      <li>Next: <a href="conda.html" title="next chapter">Conda Packages</a></li>
   </ul></li>
 </ul>
 </div>

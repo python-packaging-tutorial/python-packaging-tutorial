@@ -38,8 +38,20 @@
 <div class="section" id="outline">
 <h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
 <p>How are we spending our afternoon?</p>
+<div class="section" id="getting-setup-for-this-tutorial">
+<h3>0:00-00:10 Getting setup for this Tutorial<a class="headerlink" href="#getting-setup-for-this-tutorial" title="Permalink to this headline">¶</a></h3>
+<p>There is a repo for this tutorial here:</p>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial">https://github.com/python-packaging-tutorial/python-packaging-tutorial</a></p>
+<p>or:</p>
+<p><a class="reference external" href="http://bit.ly/JoyOfPackaging">http://bit.ly/JoyOfPackaging</a></p>
+<p>And the materials are rendered as html here:</p>
+<p><a class="reference external" href="https://python-packaging-tutorial.github.io/python-packaging-tutorial/">https://python-packaging-tutorial.github.io/python-packaging-tutorial/</a></p>
+<p>(linked from the git repo)</p>
+<p>Clone that repo now – so you can follow along.</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/python-packaging-tutorial/python-packaging-tutorial.git</span></code></p>
+</div>
 <div class="section" id="overview-of-packaging">
-<h3>0:00-00:20 Overview of packaging<a class="headerlink" href="#overview-of-packaging" title="Permalink to this headline">¶</a></h3>
+<h3>0:10-00:20 Overview of packaging<a class="headerlink" href="#overview-of-packaging" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="overview.html#overview"><span class="std std-ref">Overview</span></a></p>
 <ul class="simple">
 <li>What is a package, anyway?</li>
@@ -82,23 +94,25 @@
 </ul>
 </div>
 <div class="section" id="binaries-and-dependencies">
-<h3>1:30-1:45 Binaries and dependencies:<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<h3>1:30-2:00 Binaries and dependencies:<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="binaries_dependencies.html#binaries"><span class="std std-ref">Binaries and Dependencies</span></a></p>
-<p>How scikit-build and conda-build can make life easier</p>
-</div>
-<div class="section" id="scikit-build-overview">
-<h3>1:45-2:00 Scikit-build overview:<a class="headerlink" href="#scikit-build-overview" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Why + Motivations</li>
-<li>From <code class="docutils literal notranslate"><span class="pre">[distutils.core.Extension]</span></code> to <code class="docutils literal notranslate"><span class="pre">[scikit-build</span> <span class="pre">+</span> <span class="pre">CMake]</span></code> in few lines</li>
-<li>Support for developer mode (bonus)</li>
+<li>Understand why we build Python packages with native binaries: 1)
+<strong>performance</strong> and 2) <strong>library integration</strong></li>
+<li>Understand different components of the binary build process and their role:
+<em>headers, libraries, compilers, linkers, build systems, system introspection
+tools, package managers</em></li>
+<li>Understand basic requirements for binary compatibility: a) <strong>C-runtime library
+compatibility</strong> and b) <strong>shared library compatibilty</strong></li>
+<li>Understand <strong>scikit-build</strong>’s role in coordinating components of the binary
+build process and <strong>conda</strong>’s role in resolving dependencies and creating compatible platform binaries</li>
 </ul>
 </div>
 <div class="section" id="exercise">
 <h3>2:00-2:45 Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Add CMake project that generates python extension.  Tie it into previous python project.</li>
-<li>Cookie cutter template integrating conda, pypi, etc. will be provided.</li>
+<li>Build a Python package with a C++-based C-extension.</li>
+<li>Build a Python package with a Cython-based C-extension.</li>
 </ul>
 </div>
 <div class="section" id="id1">
@@ -106,7 +120,7 @@
 </div>
 <div class="section" id="conda-build-overview">
 <h3>3:00-3:15 Conda-build overview<a class="headerlink" href="#conda-build-overview" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="conda_packages.html#conda-build"><span class="std std-ref">Conda Packages</span></a></p>
+<p><a class="reference internal" href="conda.html#conda-build"><span class="std std-ref">Conda Packages</span></a></p>
 </div>
 <div class="section" id="id2">
 <h3>3:15-3:30 Exercise:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
@@ -131,7 +145,6 @@
 </div>
 <div class="section" id="automated-building-with-cloud-based-ci-services">
 <h3>3:45-4:00 Automated building with cloud-based CI services:<a class="headerlink" href="#automated-building-with-cloud-based-ci-services" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="conda_forge.html#conda-forge"><span class="std std-ref">Using a CI to build for you</span></a></p>
 <p><strong>conda-forge</strong> (optional; as time allows)</p>
 <p>CI service overview &amp; Conda-forge – what are the pieces and how do they fit together?</p>
 <ul class="simple">
@@ -164,13 +177,13 @@
   <ul>
 <li><a class="reference internal" href="#">Tutorial Schedule</a><ul>
 <li><a class="reference internal" href="#outline">Outline</a><ul>
-<li><a class="reference internal" href="#overview-of-packaging">0:00-00:20 Overview of packaging</a></li>
+<li><a class="reference internal" href="#getting-setup-for-this-tutorial">0:00-00:10 Getting setup for this Tutorial</a></li>
+<li><a class="reference internal" href="#overview-of-packaging">0:10-00:20 Overview of packaging</a></li>
 <li><a class="reference internal" href="#python-packages-the-setup-py-file">0:20-0:45 python packages: the setup.py file</a></li>
 <li><a class="reference internal" href="#building-and-uploading-to-pypi">0:45-1:00 Building and uploading to PyPI:</a></li>
 <li><a class="reference internal" href="#break">1:00-1:10 Break</a></li>
 <li><a class="reference internal" href="#worked-example-exercise">1:10-1:30 Worked example/exercise:</a></li>
-<li><a class="reference internal" href="#binaries-and-dependencies">1:30-1:45 Binaries and dependencies:</a></li>
-<li><a class="reference internal" href="#scikit-build-overview">1:45-2:00 Scikit-build overview:</a></li>
+<li><a class="reference internal" href="#binaries-and-dependencies">1:30-2:00 Binaries and dependencies:</a></li>
 <li><a class="reference internal" href="#exercise">2:00-2:45 Exercise:</a></li>
 <li><a class="reference internal" href="#id1">2:45-3:00 Break</a></li>
 <li><a class="reference internal" href="#conda-build-overview">3:00-3:15 Conda-build overview</a></li>

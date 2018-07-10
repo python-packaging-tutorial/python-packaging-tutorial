@@ -22,12 +22,17 @@ What is a “package”?
 Package Managers and Repos
 --------------------------
 
-* Many package managers: some OS specific -- some language specific:
+* Many package managers: some OS specific:
 
-* NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.
+  - apt, yum, dnf, chocolatey, homebrew, etc.
 
-* PyPI, anaconda.org, CRAN, CPAN
+* Some language specific:
 
+  -  NPM, pip, RubyGems
+
+* And there are many online repositories of packages:
+
+  - PyPI, anaconda.org, CRAN, CPAN
 
 But they all contain:
 
@@ -35,18 +40,18 @@ But they all contain:
 
 * Artifact and/or source repository
 
-The idea is that you install something, and have it "just work".
+The idea is that you install something, and have it *just work*.
 
 
 Package types:
 --------------
 
-Focusing now on the Python world:
-
 A package can be essentially in two forms:
 
 * source
 * binary
+
+Focusing now on the Python world:
 
 As Python is a dynamic language, this distinction can get a bit blurred:
 
@@ -54,78 +59,79 @@ There is little difference between a source and binary package *for a pure pytho
 
 But if there is any compiled code in there, building from source can be a challenge:
 
- - binary packages are very helpful
+ - Binary packages are very helpful
 
 Source Packages
 ---------------
 
-A source package is all the source required to build the package.
+A source package is all the source code required to build the package.
 
 Package managers (like pip) can automatically build your package from source.
 
 **But:**
 
- - Your system needs to be set up to build (compiler)
- - You need to have the dependencies, etc available
- - Sometimes it take time
+ - Your system needs the correct tools installed, compilers, build tools, etc
+ - You need to have the dependencies available
+ - Sometimes it takes time, sometimes a LONG time
+
 
 Binary Packages
 ---------------
 
 A collection of code all ready to run.
 
- - Everything is already compiled and ready to go
+ - Everything is already compiled and ready to go -- makes it easy.
 
 **But:**
 
  - It's likely to be platform dependent
- - Maybe require dependencies to be installed
+ - May require dependencies to be installed
+
+How do you manage that if the dependencies aren't in the same language/system?
 
 
 Python Packaging
 ----------------
 
-There are essentially two package managers widely used for Python.
+There are two package managers widely used for Python.
 
-**pip:**
+**pip:** The "official" solution.
 
-  - Pulls packages from PyPI
+    - Pulls packages from PyPI
 
-  - Handles both source and binary packages (wheels)
+    - Handles both source and binary packages (wheels)
 
-  - Python only
+    - Python only
 
-**conda:**
+.. nextslide::
 
-  - Pulls packages from anaconda.org
+**conda:** Widely used in the scipy community.
 
-  - Binary only
+    - Pulls packages from anaconda.org
 
-  - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
+    - Binary only
 
-  - Manages Python itself
+    - Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)
 
+    - Manages Python itself!
 
 OS package managers:
 --------------------
 
-  - System package managers:
+* Linux
 
-	  - Linux
+  - rpm
 
-	    - rpm
+  - apt-get, homebrew
 
-	    - apt-get, homebrew
+* OS-X
 
-	  - OS-X
+  - homebrew
 
-	    - homebrew
+  - macports
 
-	    - macports
+* Windows
 
-	  - Windows
-
-	  	- chocolatey
+	- chocolatey
 
 Also sometimes handle python packages -- but we won't talk about those here.
-

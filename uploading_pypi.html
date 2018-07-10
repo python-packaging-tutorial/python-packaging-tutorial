@@ -49,7 +49,42 @@
 <h2>Packaging Terminology 101<a class="headerlink" href="#packaging-terminology-101" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="introduction">
 <h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
-<p>This section reviews the python packaging concepts and terminology.</p>
+<p>This section reviews the key python packaging concepts and definitions.</p>
+</div>
+<div class="section" id="pypi">
+<h3>PyPI<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
+<p>PyPI is the default <a class="reference external" href="https://packaging.python.org/glossary/#term-package-index">Package Index</a> for the Python community.
+It is open to all Python developers to consume and distribute their <strong>distributions</strong>.</p>
+<p>There are two instances of the Package Index:</p>
+<ul class="simple">
+<li>PyPI: Python Package Index hosted at <a class="reference external" href="https://pypi.org/">https://pypi.org/</a></li>
+<li>TestPyPI: a separate instance of the Python Package Index (PyPI) that allows you to try out the
+distribution tools and process without worrying about affecting the real index.
+TestPyPI is hosted at <a class="reference external" href="https://test.pypi.org">https://test.pypi.org</a></li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-python-package-index-pypi">https://packaging.python.org/glossary/#term-python-package-index-pypi</a></p>
+</div>
+<div class="section" id="pip">
+<h3>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://www.pypa.io/en/latest/">PyPA</a> recommended tool for installing Python packages.</p>
+<p>A multi-faceted tool:</p>
+<ul class="simple">
+<li>It is an <em>integration frontend</em> that takes a set of package requirements (e.g. a requirements.txt file)
+and attempts to update a working environment to satisfy those requirements. This may require locating,
+building, and installing a combination of <strong>distributions</strong>.</li>
+<li>It is a <strong>build frontend</strong> that can takes arbitrary source trees or source distributions and builds wheels
+from them.</li>
+</ul>
+<p>Reference: <a class="reference external" href="http://pip.readthedocs.io/">http://pip.readthedocs.io/</a></p>
+</div>
+<div class="section" id="id1">
+<h3>PyPA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The Python Packaging Authority (PyPA) is a working group that maintains many of the relevant
+projects in Python packaging.</p>
+<p>The associated website <a class="reference external" href="https://www.pypa.io">https://www.pypa.io</a> references the PyPA Goals, Specifications and Roadmap
+as well as <a class="reference external" href="https://packaging.python.org/">Python Packaging User Guide</a>, a collection of tutorials
+and references to help you distribute and install Python packages with modern tools.</p>
+<p>Reference: <a class="reference external" href="https://www.pypa.io">https://www.pypa.io</a></p>
 </div>
 <div class="section" id="source-distribution">
 <h3>Source distribution<a class="headerlink" href="#source-distribution" title="Permalink to this headline">¶</a></h3>
@@ -78,11 +113,11 @@
 <ul class="simple">
 <li><strong>pure</strong>:<ul>
 <li>Not specific to a CPU architecture</li>
-<li>No ABI</li>
+<li>No <a class="reference external" href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI (Application Binary Interface)</a></li>
 </ul>
 </li>
 <li><strong>non-pure</strong><ul>
-<li>ABI</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a></li>
 <li>Platform specific</li>
 </ul>
 </li>
@@ -146,24 +181,37 @@ dependencies</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To learn more about Conda, see <span class="xref std std-ref">conda-build</span> section.</p>
 </div>
-<div class="section" id="pypi">
-<h3>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
 </div>
 <div class="section" id="virtual-environment">
 <h3>Virtual Environment<a class="headerlink" href="#virtual-environment" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
+<p>An isolated Python environment that allows packages to be installed for use by a
+particular application, rather than being installed system wide.</p>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-virtual-environment">https://packaging.python.org/glossary/#term-virtual-environment</a></p>
 </div>
 <div class="section" id="build-system">
 <h3>Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
+<p>Synonym: Build backend</p>
+<ul class="simple">
+<li><a class="reference external" href="https://setuptools.readthedocs.io">setuptools</a> associated with the <a class="reference external" href="https://wheel.readthedocs.io">wheel</a> package
+form the default build system. They support the creation of source and <strong>built distributions</strong> based on a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> and
+optionally a <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file.</li>
+<li><a class="reference external" href="https://flit.readthedocs.io/en/latest/">flit</a> is an alternative backend allowing to also create (and also publish)
+<strong>built distributions</strong>.</li>
+</ul>
+</div>
+<div class="section" id="python-package-lifecycle">
+<h3>Python Package Lifecycle<a class="headerlink" href="#python-package-lifecycle" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/python-package-life-cycle.png" src="_images/python-package-life-cycle.png" />
 </div>
 </div>
 <div class="section" id="tutorial">
 <h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Introduction<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>This section discusses how to build python packages (or distributions) and publish
 them in a central repository to streamline their installation. Finally, we conclude
 with an exercise where we publish a package with the <a class="reference external" href="http://test.pypi.org/">Test Python Package Index</a>.</p>
@@ -171,24 +219,30 @@ with an exercise where we publish a package with the <a class="reference externa
 <div class="section" id="creating-an-environment">
 <h3>Creating an environment<a class="headerlink" href="#creating-an-environment" title="Permalink to this headline">¶</a></h3>
 <p><strong>To be done</strong></p>
+<p>Learn more reading <a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments">Creating Virtual Environments</a></p>
 </div>
 <div class="section" id="building-a-source-distribution">
 <h3>Building a source distribution<a class="headerlink" href="#building-a-source-distribution" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py sdist
+<p>Bu leveraging the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script, setuptools can build a source
+distribution (a tar archive of all the files needed to build and install the package):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py sdist  <span class="c1"># the sdist will be generated in the ./dist subdirectory</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-a-wheel">
+<h3>Installing a wheel<a class="headerlink" href="#installing-a-wheel" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install /path/to/package.whl
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install package  <span class="c1"># this will download the package from PyPI</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="building-a-wheel">
 <h3>Building a wheel<a class="headerlink" href="#building-a-wheel" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py bdist_wheel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip wheel . -w dist
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
-<h3>Building a wheel<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p><strong>To be done</strong></p>
 </div>
 <div class="section" id="registering-to-pypi">
 <h3>Registering to PyPI<a class="headerlink" href="#registering-to-pypi" title="Permalink to this headline">¶</a></h3>
@@ -205,6 +259,32 @@ with an exercise where we publish a package with the <a class="reference externa
 </div>
 <div class="section" id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-do-i-go-to-figure-this-out">
+<h3>Where do I go to figure this out?<a class="headerlink" href="#where-do-i-go-to-figure-this-out" title="Permalink to this headline">¶</a></h3>
+<p>This is a really good guide:</p>
+<p>Python Packaging User Guide:</p>
+<p><a class="reference external" href="https://packaging.python.org/">https://packaging.python.org/</a></p>
+<p>and a more detailed tutorial:</p>
+<p><a class="reference external" href="http://python-packaging.readthedocs.io/en/latest/">http://python-packaging.readthedocs.io/en/latest/</a></p>
+<p><strong>Follow one of them</strong></p>
+<p>There is a sample project here:</p>
+<p><a class="reference external" href="https://github.com/pypa/sampleproject">https://github.com/pypa/sampleproject</a></p>
+<p>(this has all the complexity you might need…)</p>
+<p>You can use this as a template for your own packages.</p>
+<p>Here is an opinionated update – a little more fancy, but some good ideas:</p>
+<p><a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
+<p>Rather than doing it by hand, you can use the nifty “cookie cutter” project:</p>
+<p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a></p>
+<p>And there are a few templates that can be used with that.</p>
+<p>The core template written by the author:</p>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">https://github.com/audreyr/cookiecutter-pypackage</a></p>
+<p>And one written by the author of the opinionated blog post above:</p>
+<p><a class="reference external" href="https://github.com/ionelmc/cookiecutter-pylibrary">https://github.com/ionelmc/cookiecutter-pylibrary</a></p>
+<p>Either are great starting points.</p>
+</div>
 </div>
 </div>
 
@@ -224,29 +304,36 @@ with an exercise where we publish a package with the <a class="reference externa
 </li>
 <li><a class="reference internal" href="#packaging-terminology-101">Packaging Terminology 101</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#pypi">PyPI</a></li>
+<li><a class="reference internal" href="#pip">pip</a></li>
+<li><a class="reference internal" href="#id1">PyPA</a></li>
 <li><a class="reference internal" href="#source-distribution">Source distribution</a></li>
 <li><a class="reference internal" href="#built-distribution">Built Distribution</a></li>
 <li><a class="reference internal" href="#python-distribution-pure-vs-non-pure">Python Distribution: pure vs non-pure</a></li>
 <li><a class="reference internal" href="#binary-distribution">Binary Distribution</a></li>
 <li><a class="reference internal" href="#wheel">Wheel</a></li>
 <li><a class="reference internal" href="#wheels-vs-conda-packages">Wheels vs. Conda packages</a></li>
-<li><a class="reference internal" href="#pypi">PyPi</a></li>
 <li><a class="reference internal" href="#virtual-environment">Virtual Environment</a></li>
 <li><a class="reference internal" href="#build-system">Build system</a></li>
+<li><a class="reference internal" href="#python-package-lifecycle">Python Package Lifecycle</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
-<li><a class="reference internal" href="#id1">Introduction</a></li>
+<li><a class="reference internal" href="#id3">Introduction</a></li>
 <li><a class="reference internal" href="#creating-an-environment">Creating an environment</a></li>
 <li><a class="reference internal" href="#building-a-source-distribution">Building a source distribution</a></li>
+<li><a class="reference internal" href="#installing-a-wheel">Installing a wheel</a></li>
 <li><a class="reference internal" href="#building-a-wheel">Building a wheel</a></li>
-<li><a class="reference internal" href="#id2">Building a wheel</a></li>
 <li><a class="reference internal" href="#registering-to-pypi">Registering to PyPI</a></li>
 <li><a class="reference internal" href="#publishing-to-pypi">Publishing to PyPI</a></li>
 <li><a class="reference internal" href="#an-other-approach-filt">An other approach: filt</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#exercises">Exercises</a></li>
+<li><a class="reference internal" href="#resources">Resources</a><ul>
+<li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

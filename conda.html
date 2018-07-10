@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Using a CI to build for you" href="conda_forge.html" />
+    <link rel="prev" title="Binaries and Dependencies" href="binaries_dependencies.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,7 +33,7 @@
           <div class="body" role="main">
             
   <div class="section" id="conda-packages">
-<h1>Conda Packages<a class="headerlink" href="#conda-packages" title="Permalink to this headline">¶</a></h1>
+<span id="conda-build"></span><h1>Conda Packages<a class="headerlink" href="#conda-packages" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="building-conda-packages">
 <h2>Building Conda Packages<a class="headerlink" href="#building-conda-packages" title="Permalink to this headline">¶</a></h2>
 <p>A package system for anything…</p>
@@ -88,30 +88,22 @@ dependencies</td>
 </li>
 </ul>
 </div>
-<div class="section" id="getting-conda-build-to-work-for-you">
-<h3>Getting <code class="docutils literal notranslate"><span class="pre">conda-build</span></code> to work for you<a class="headerlink" href="#getting-conda-build-to-work-for-you" title="Permalink to this headline">¶</a></h3>
-<p>Input: <code class="docutils literal notranslate"><span class="pre">meta.yaml</span></code> files</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">package</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mypkg</span>
-  <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="lets-use-conda-build">
-<h3>Let’s Use <code class="docutils literal notranslate"><span class="pre">conda-build</span></code><a class="headerlink" href="#lets-use-conda-build" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="excercise-lets-use-conda-build">
+<h3>Excercise: let’s use <code class="docutils literal notranslate"><span class="pre">conda-build</span></code><a class="headerlink" href="#excercise-lets-use-conda-build" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install conda-build
 </pre></div>
 </div>
-<ul>
-<li><p class="first">Windows only:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">m2</span><span class="o">-</span><span class="n">patch</span> <span class="n">posix</span>
+<ul class="simple">
+<li>Windows only:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install m2-patch posix
 </pre></div>
 </div>
-</li>
-<li><p class="first">All platforms:</p>
-</li>
+<ul class="simple">
+<li>All platforms:</li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda build mypkg-src
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> python-packaging-tutorial/conda_build_recipes
+conda build 01_minimum
 </pre></div>
 </div>
 </div>
@@ -148,6 +140,7 @@ dependencies</td>
 <div class="section" id="anaconda-recipes">
 <h3>Anaconda Recipes<a class="headerlink" href="#anaconda-recipes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
+<li><a class="reference external" href="https://github.com/AnacondaRecipes">https://github.com/AnacondaRecipes</a></li>
 <li>Official recipes that Anaconda uses for building packages</li>
 <li>Since Anaconda 5.0, forked from conda-forge recipes.</li>
 <li>Intended to be compatible with conda-forge long-term</li>
@@ -157,7 +150,9 @@ dependencies</td>
 <div class="section" id="conda-forge">
 <h3>Conda-forge<a class="headerlink" href="#conda-forge" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/conda-forge.png" src="_images/conda-forge.png" />
+<p><a class="reference external" href="https://conda-forge.org">https://conda-forge.org</a></p>
 <ul class="simple">
+<li><a class="reference external" href="https://conda-forge.org">https://conda-forge.org</a></li>
 <li>Numfocus-affiliated community organization made up of volunteers</li>
 <li>One github repository per recipe<ul>
 <li>Fine granularity over permissions</li>
@@ -212,6 +207,10 @@ conda skeleton cran --recursive biwt
 </pre></div>
 </div>
 </div>
+<div class="section" id="exercise-create-a-basic-recipe">
+<h3>Exercise: create a basic recipe<a class="headerlink" href="#exercise-create-a-basic-recipe" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/01_minimum">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/01_minimum</a></p>
+</div>
 <div class="section" id="source-types">
 <h3>Source types<a class="headerlink" href="#source-types" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -226,76 +225,40 @@ conda skeleton cran --recursive biwt
 </div>
 <p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section">meta.yaml source section</a></p>
 </div>
-<div class="section" id="source-patches">
-<h3>Source Patches<a class="headerlink" href="#source-patches" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exercise-point-your-recipe-at-local-files">
+<h3>Exercise: point your recipe at local files<a class="headerlink" href="#exercise-point-your-recipe-at-local-files" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/02_local_source">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/02_local_source</a></p>
+</div>
+<div class="section" id="building-packages">
+<h3>Building packages<a class="headerlink" href="#building-packages" title="Permalink to this headline">¶</a></h3>
+<p>Lots of ways, but let’s start simple:</p>
 <ul class="simple">
-<li>patch files live alongside meta.yaml</li>
-<li>create patches with:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">diff</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">format-patch</span></code></li>
+<li>build.sh (unix)</li>
+<li>bld.bat (windows)</li>
 </ul>
-</li>
-</ul>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Filenames are of paramount importance here</p>
 </div>
-<p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section">meta.yaml source section</a></p>
-</div>
-<div class="section" id="exercise-lets-make-a-patch">
-<h3>Exercise: let’s make a patch<a class="headerlink" href="#exercise-lets-make-a-patch" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">package</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">test-patch</span>
-  <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.2.3</span>
-
-<span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://zlib.net/zlib-1.2.11.tar.gz</span>
-
-<span class="l l-Scalar l-Scalar-Plain">build</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exit 1</span>
-</pre></div>
-</div>
-<ul>
-<li><p class="first">Builds that fail leave their build folders in place</p>
-</li>
-<li><p class="first">look in output for source tree in:</p>
-<p><code class="docutils literal notranslate"><span class="pre">*/conda-bld/test-patch_&lt;numbers&gt;/work</span></code></p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">cd</span></code> there</p>
-</li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git init
-
-git add *
-
-git commit -am “init”
-
-edit file of choice
-
-git commit -m “changing file because …”
-
-git format-patch HEAD~1
-</pre></div>
-</div>
+<div class="section" id="build-sh-stuff-to-run-on-mac-linux">
+<h3>build.sh: stuff to run on mac/linux<a class="headerlink" href="#build-sh-stuff-to-run-on-mac-linux" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>copy that patch back alongside meta.yaml</li>
-<li>modify meta.yaml to include the patch</li>
+<li>It’s a shell script: do what you want</li>
+<li>Snapshot files in $PREFIX before running script; again after</li>
+<li>Files that are new in $PREFIX are what make up your package</li>
+<li>Several useful env vars for use in build.sh: <a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html">https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html</a></li>
 </ul>
 </div>
-<div class="section" id="multiple-sources">
-<h3>Multiple sources<a class="headerlink" href="#multiple-sources" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://package1.com/a.tar.bz2</span>
-    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">stuff</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://package1.com/b.tar.bz2</span>
-    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">stuff</span>
-    <span class="l l-Scalar l-Scalar-Plain">patches</span><span class="p p-Indicator">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">something.patch</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/conda/conda-build</span>
-    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">conda-build</span>
-</pre></div>
+<div class="section" id="bld-bat-stuff-to-run-on-windows">
+<h3>bld.bat: stuff to run on windows<a class="headerlink" href="#bld-bat-stuff-to-run-on-windows" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>It’s a batch script: do what you want</li>
+<li>Snapshot files in %PREFIX% before running script; again after</li>
+<li>Files that are new in %PREFIX% are what make up your package</li>
+<li>Several useful env vars for use in bld.bat: <a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html">https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html</a></li>
+</ul>
 </div>
-<p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section">meta.yaml source section</a></p>
+<div class="section" id="exercise-copy-a-file-into-the-package">
+<h3>Exercise: Copy a file into the package<a class="headerlink" href="#exercise-copy-a-file-into-the-package" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/03_copy_file">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/03_copy_file</a></p>
 </div>
 <div class="section" id="build-options">
 <h3>Build options<a class="headerlink" href="#build-options" title="Permalink to this headline">¶</a></h3>
@@ -317,6 +280,33 @@ git format-patch HEAD~1
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/build_host_run.png" src="_images/build_host_run.png" />
 </div>
+<div class="section" id="build-requirements">
+<h3>Build requirements<a class="headerlink" href="#build-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Tools to build packages with; things that don’t directly go into headers or linking</li>
+<li>Compilers</li>
+<li>autotools, pkg-config, m4, cmake</li>
+<li>archive tools</li>
+</ul>
+</div>
+<div class="section" id="host-requirements">
+<h3>Host requirements<a class="headerlink" href="#host-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>External dependencies for the package that need to be present at build time</li>
+<li>Headers, libraries, python/R/perl</li>
+<li>Python deps used in setup.py</li>
+<li>Not available at runtime, unless also specified in run section</li>
+</ul>
+</div>
+<div class="section" id="run-requirements">
+<h3>Run requirements<a class="headerlink" href="#run-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Things that need to be present when the package is installed on the end-user system</li>
+<li>Runtime libraries</li>
+<li>Python dependencies at runtime</li>
+<li>Not available at build time unless also specified in build/host section</li>
+</ul>
+</div>
 <div class="section" id="requirements-build-vs-host">
 <h3>Requirements: build vs. host<a class="headerlink" href="#requirements-build-vs-host" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -331,6 +321,10 @@ git format-patch HEAD~1
 (only build, no <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">compiler()</span> <span class="pre">}}</span></code>)</li>
 <li>packages are bundled from host env, not build env</li>
 </ul>
+</div>
+<div class="section" id="exercise-use-python-in-a-build-script">
+<h3>Exercise: use Python in a build script<a class="headerlink" href="#exercise-use-python-in-a-build-script" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/04_python_in_build">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/04_python_in_build</a></p>
 </div>
 <div class="section" id="post-build-tests">
 <h3>Post-build Tests<a class="headerlink" href="#post-build-tests" title="Permalink to this headline">¶</a></h3>
@@ -368,8 +362,8 @@ git format-patch HEAD~1
 <dd><code class="docutils literal notranslate"><span class="pre">run_test.sh</span></code></dd>
 </dl>
 </div>
-<div class="section" id="id3">
-<h3>Post-build tests<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Post-build tests<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>May have specific requirements</li>
 <li>May specify files that must be bundled for tests (<code class="docutils literal notranslate"><span class="pre">source_files</span></code>)</li>
@@ -402,6 +396,10 @@ sequential shell-based commands to run (not OS-specific)</li>
 </pre></div>
 </div>
 </div>
+<div class="section" id="exercise-add-some-tests">
+<h3>Exercise: add some tests<a class="headerlink" href="#exercise-add-some-tests" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/05_test_python">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/05_test_python</a></p>
+</div>
 <div class="section" id="outputs-more-than-one-pkg-per-recipe">
 <h3>Outputs - more than one pkg per recipe<a class="headerlink" href="#outputs-more-than-one-pkg-per-recipe" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">package</span><span class="p p-Indicator">:</span>
@@ -421,26 +419,6 @@ sequential shell-based commands to run (not OS-specific)</li>
 </ul>
 <p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section">https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#outputs-section</a></p>
 </div>
-<div class="section" id="outputs-rules">
-<h3>Outputs rules<a class="headerlink" href="#outputs-rules" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>List of dicts</li>
-<li>Each list must have <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">type</span></code> key</li>
-<li>May use all entries from <code class="docutils literal notranslate"><span class="pre">build</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">about</span></code> sections</li>
-<li>May specify files to bundle either using globs or by running a script</li>
-</ul>
-<p><strong>Outputs Examples</strong></p>
-<p><a class="reference external" href="https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml">https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml</a></p>
-<p><a class="reference external" href="https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml">https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml</a></p>
-</div>
-<div class="section" id="exercise-split-a-package">
-<h3>Exercise: Split a Package<a class="headerlink" href="#exercise-split-a-package" title="Permalink to this headline">¶</a></h3>
-<p>Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.</p>
-<p><strong>Starting point:</strong></p>
-<p><a class="reference external" href="https://github.com/conda-forge/curl-feedstock/tree/master/recipe">https://github.com/conda-forge/curl-feedstock/tree/master/recipe</a></p>
-<p><strong>Solution:</strong></p>
-<p><a class="reference external" href="https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe">https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe</a></p>
-</div>
 <div class="section" id="about-section">
 <h3>About section<a class="headerlink" href="#about-section" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
@@ -457,10 +435,6 @@ sequential shell-based commands to run (not OS-specific)</li>
 <li>Conda-build’s notion of whether a recipe is “final”</li>
 </ul>
 <p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#extra-section">https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#extra-section</a></p>
-</div>
-<div class="section" id="break-time">
-<h3>Break time!<a class="headerlink" href="#break-time" title="Permalink to this headline">¶</a></h3>
-<p>Advanced recipe tricks coming next</p>
 </div>
 <div class="section" id="conditional-lines-selectors">
 <h3>Conditional lines (selectors)<a class="headerlink" href="#conditional-lines-selectors" title="Permalink to this headline">¶</a></h3>
@@ -488,7 +462,7 @@ sequential shell-based commands to run (not OS-specific)</li>
   <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 
   <span class="l l-Scalar l-Scalar-Plain">build</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">skip</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True# [not linux]</span>
+  <span class="l l-Scalar l-Scalar-Plain">skip</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>  <span class="c1"># [not linux]</span>
 </pre></div>
 </div>
 </div>
@@ -749,32 +723,6 @@ package:
 <h3><code class="docutils literal notranslate"><span class="pre">run_exports</span></code><a class="headerlink" href="#run-exports" title="Permalink to this headline">¶</a></h3>
 <p>“if you build and link against library abc, you need a runtime dependency on library abc”</p>
 <p>This is annoying to keep track of in recipes.</p>
-<p>Upstream package “abc” (already built)</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">package</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
-  <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
-
-<span class="l l-Scalar l-Scalar-Plain">build</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">run_exports</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">abc 1.0.*</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="downstream-recipe">
-<h3>Downstream recipe<a class="headerlink" href="#downstream-recipe" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">requirements</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
-</pre></div>
-</div>
-<p><strong>Downstream package</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">requirements</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">abc 1.0 0</span>
-  <span class="l l-Scalar l-Scalar-Plain">run</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">abc 1.0.*</span>
-</pre></div>
-</div>
 <img alt="_images/run_exports.png" src="_images/run_exports.png" />
 <ul class="simple">
 <li>Add host or run dependencies for downstream packages that depend on upstream that specifies run_exports</li>
@@ -782,9 +730,13 @@ package:
 <li>Simplifies version tracking</li>
 </ul>
 </div>
-<div class="section" id="requirements-run-exports">
-<h3>Requirements: run_exports<a class="headerlink" href="#requirements-run-exports" title="Permalink to this headline">¶</a></h3>
-<img alt="_images/req_run_exports.png" src="_images/req_run_exports.png" />
+<div class="section" id="exercise-make-a-run-exports-package">
+<h3>Exercise: make a run_exports package<a class="headerlink" href="#exercise-make-a-run-exports-package" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/06_has_run_exports">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/06_has_run_exports</a></p>
+</div>
+<div class="section" id="exercise-use-a-run-exports-package">
+<h3>Exercise: use a run_exports package<a class="headerlink" href="#exercise-use-a-run-exports-package" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/07_uses_run_exports">https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/conda_build_recipes/07_uses_run_exports</a></p>
 </div>
 <div class="section" id="uploading-packages-anaconda-org">
 <h3>Uploading packages: anaconda.org<a class="headerlink" href="#uploading-packages-anaconda-org" title="Permalink to this headline">¶</a></h3>
@@ -805,6 +757,103 @@ package:
 </ul>
 </div>
 </div>
+<div class="section" id="fin">
+<h2>Fin<a class="headerlink" href="#fin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="extra-slides">
+<h2>Extra slides<a class="headerlink" href="#extra-slides" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="source-patches">
+<h3>Source Patches<a class="headerlink" href="#source-patches" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>patch files live alongside meta.yaml</li>
+<li>create patches with:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">diff</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">format-patch</span></code></li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section">meta.yaml source section</a></p>
+</div>
+<div class="section" id="exercise-lets-make-a-patch">
+<h3>Exercise: let’s make a patch<a class="headerlink" href="#exercise-lets-make-a-patch" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">package</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">test-patch</span>
+  <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.2.3</span>
+
+<span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://zlib.net/zlib-1.2.11.tar.gz</span>
+
+<span class="l l-Scalar l-Scalar-Plain">build</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exit 1</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">Builds that fail leave their build folders in place</p>
+</li>
+<li><p class="first">look in output for source tree in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">*/conda-bld/test-patch_&lt;numbers&gt;/work</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">cd</span></code> there</p>
+</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git init
+
+git add *
+
+git commit -am “init”
+
+edit file of choice
+
+git commit -m “changing file because …”
+
+git format-patch HEAD~1
+</pre></div>
+</div>
+<ul class="simple">
+<li>copy that patch back alongside meta.yaml</li>
+<li>modify meta.yaml to include the patch</li>
+</ul>
+</div>
+<div class="section" id="multiple-sources">
+<h3>Multiple sources<a class="headerlink" href="#multiple-sources" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://package1.com/a.tar.bz2</span>
+    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">stuff</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://package1.com/b.tar.bz2</span>
+    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">stuff</span>
+    <span class="l l-Scalar l-Scalar-Plain">patches</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">something.patch</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/conda/conda-build</span>
+    <span class="l l-Scalar l-Scalar-Plain">folder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">conda-build</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#source-section">meta.yaml source section</a></p>
+</div>
+<div class="section" id="outputs-rules">
+<h3>Outputs rules<a class="headerlink" href="#outputs-rules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>List of dicts</li>
+<li>Each list must have <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">type</span></code> key</li>
+<li>May use all entries from <code class="docutils literal notranslate"><span class="pre">build</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">about</span></code> sections</li>
+<li>May specify files to bundle either using globs or by running a script</li>
+</ul>
+<p><strong>Outputs Examples</strong></p>
+<p><a class="reference external" href="https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml">https://github.com/AnacondaRecipes/curl-feedstock/blob/master/recipe/meta.yaml</a></p>
+<p><a class="reference external" href="https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml">https://github.com/AnacondaRecipes/aggregate/blob/master/ctng-compilers-activation-feedstock/recipe/meta.yaml</a></p>
+</div>
+<div class="section" id="exercise-split-a-package">
+<h3>Exercise: Split a Package<a class="headerlink" href="#exercise-split-a-package" title="Permalink to this headline">¶</a></h3>
+<p>Curl is a library and an executable.  Splitting them lets us clarify where Curl is only a build time dependency, and where it also needs to be a runtime dependency.</p>
+<p><strong>Starting point:</strong></p>
+<p><a class="reference external" href="https://github.com/conda-forge/curl-feedstock/tree/master/recipe">https://github.com/conda-forge/curl-feedstock/tree/master/recipe</a></p>
+<p><strong>Solution:</strong></p>
+<p><a class="reference external" href="https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe">https://github.com/AnacondaRecipes/curl-feedstock/tree/master/recipe</a></p>
+</div>
+</div>
 </div>
 
 
@@ -820,8 +869,7 @@ package:
 <li><a class="reference internal" href="#building-conda-packages">Building Conda Packages</a><ul>
 <li><a class="reference internal" href="#wheels-vs-conda-packages">Wheels vs. Conda packages</a></li>
 <li><a class="reference internal" href="#introducing-conda-build">Introducing conda-build</a></li>
-<li><a class="reference internal" href="#getting-conda-build-to-work-for-you">Getting <code class="docutils literal notranslate"><span class="pre">conda-build</span></code> to work for you</a></li>
-<li><a class="reference internal" href="#lets-use-conda-build">Let’s Use <code class="docutils literal notranslate"><span class="pre">conda-build</span></code></a></li>
+<li><a class="reference internal" href="#excercise-lets-use-conda-build">Excercise: let’s use <code class="docutils literal notranslate"><span class="pre">conda-build</span></code></a></li>
 <li><a class="reference internal" href="#what-happened">What happened?</a></li>
 <li><a class="reference internal" href="#obtaining-recipes">Obtaining recipes</a></li>
 <li><a class="reference internal" href="#anaconda-recipes">Anaconda Recipes</a></li>
@@ -829,24 +877,29 @@ package:
 <li><a class="reference internal" href="#skeletons">Skeletons</a></li>
 <li><a class="reference internal" href="#conda-skeleton">conda skeleton</a></li>
 <li><a class="reference internal" href="#when-all-else-fails-write-a-recipe">When all else fails, write a recipe</a></li>
+<li><a class="reference internal" href="#exercise-create-a-basic-recipe">Exercise: create a basic recipe</a></li>
 <li><a class="reference internal" href="#source-types">Source types</a></li>
-<li><a class="reference internal" href="#source-patches">Source Patches</a></li>
-<li><a class="reference internal" href="#exercise-lets-make-a-patch">Exercise: let’s make a patch</a></li>
-<li><a class="reference internal" href="#multiple-sources">Multiple sources</a></li>
+<li><a class="reference internal" href="#exercise-point-your-recipe-at-local-files">Exercise: point your recipe at local files</a></li>
+<li><a class="reference internal" href="#building-packages">Building packages</a></li>
+<li><a class="reference internal" href="#build-sh-stuff-to-run-on-mac-linux">build.sh: stuff to run on mac/linux</a></li>
+<li><a class="reference internal" href="#bld-bat-stuff-to-run-on-windows">bld.bat: stuff to run on windows</a></li>
+<li><a class="reference internal" href="#exercise-copy-a-file-into-the-package">Exercise: Copy a file into the package</a></li>
 <li><a class="reference internal" href="#build-options">Build options</a></li>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#build-requirements">Build requirements</a></li>
+<li><a class="reference internal" href="#host-requirements">Host requirements</a></li>
+<li><a class="reference internal" href="#run-requirements">Run requirements</a></li>
 <li><a class="reference internal" href="#requirements-build-vs-host">Requirements: build vs. host</a></li>
+<li><a class="reference internal" href="#exercise-use-python-in-a-build-script">Exercise: use Python in a build script</a></li>
 <li><a class="reference internal" href="#post-build-tests">Post-build Tests</a></li>
 <li><a class="reference internal" href="#post-build-tests-test-files">Post-build tests: test files</a></li>
-<li><a class="reference internal" href="#id3">Post-build tests</a></li>
+<li><a class="reference internal" href="#id1">Post-build tests</a></li>
 <li><a class="reference internal" href="#import-tests">Import Tests</a></li>
 <li><a class="reference internal" href="#test-commands">Test commands</a></li>
+<li><a class="reference internal" href="#exercise-add-some-tests">Exercise: add some tests</a></li>
 <li><a class="reference internal" href="#outputs-more-than-one-pkg-per-recipe">Outputs - more than one pkg per recipe</a></li>
-<li><a class="reference internal" href="#outputs-rules">Outputs rules</a></li>
-<li><a class="reference internal" href="#exercise-split-a-package">Exercise: Split a Package</a></li>
 <li><a class="reference internal" href="#about-section">About section</a></li>
 <li><a class="reference internal" href="#extra-section-free-for-all">Extra section: free-for-all</a></li>
-<li><a class="reference internal" href="#break-time">Break time!</a></li>
 <li><a class="reference internal" href="#conditional-lines-selectors">Conditional lines (selectors)</a></li>
 <li><a class="reference internal" href="#exercise-limit-a-recipe-to-only-linux">Exercise: Limit a Recipe to Only Linux</a></li>
 <li><a class="reference internal" href="#intro-to-templating-with-jinja2">Intro to Templating with Jinja2</a></li>
@@ -866,9 +919,18 @@ package:
 <li><a class="reference internal" href="#compilers">Compilers</a></li>
 <li><a class="reference internal" href="#why-put-compilers-into-conda">Why put compilers into Conda?</a></li>
 <li><a class="reference internal" href="#run-exports"><code class="docutils literal notranslate"><span class="pre">run_exports</span></code></a></li>
-<li><a class="reference internal" href="#downstream-recipe">Downstream recipe</a></li>
-<li><a class="reference internal" href="#requirements-run-exports">Requirements: run_exports</a></li>
+<li><a class="reference internal" href="#exercise-make-a-run-exports-package">Exercise: make a run_exports package</a></li>
+<li><a class="reference internal" href="#exercise-use-a-run-exports-package">Exercise: use a run_exports package</a></li>
 <li><a class="reference internal" href="#uploading-packages-anaconda-org">Uploading packages: anaconda.org</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fin">Fin</a></li>
+<li><a class="reference internal" href="#extra-slides">Extra slides</a><ul>
+<li><a class="reference internal" href="#source-patches">Source Patches</a></li>
+<li><a class="reference internal" href="#exercise-lets-make-a-patch">Exercise: let’s make a patch</a></li>
+<li><a class="reference internal" href="#multiple-sources">Multiple sources</a></li>
+<li><a class="reference internal" href="#outputs-rules">Outputs rules</a></li>
+<li><a class="reference internal" href="#exercise-split-a-package">Exercise: Split a Package</a></li>
 </ul>
 </li>
 </ul>
@@ -878,7 +940,7 @@ package:
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="conda_forge.html" title="previous chapter">Using a CI to build for you</a></li>
+      <li>Previous: <a href="binaries_dependencies.html" title="previous chapter">Binaries and Dependencies</a></li>
   </ul></li>
 </ul>
 </div>

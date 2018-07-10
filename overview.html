@@ -48,44 +48,53 @@
 <div class="section" id="package-managers-and-repos">
 <h3>Package Managers and Repos<a class="headerlink" href="#package-managers-and-repos" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Many package managers: some OS specific – some language specific:</li>
-<li>NPM, apt, yum, dnf, chocolatey, pip, conda, homebrew, etc.</li>
+<li>Many package managers: some OS specific:<ul>
+<li>apt, yum, dnf, chocolatey, homebrew, etc.</li>
+</ul>
+</li>
+<li>Some language specific:<ul>
+<li>NPM, pip, RubyGems</li>
+</ul>
+</li>
+<li>And there are many online repositories of packages:<ul>
 <li>PyPI, anaconda.org, CRAN, CPAN</li>
+</ul>
+</li>
 </ul>
 <p>But they all contain:</p>
 <ul class="simple">
 <li>Some form of dependency management</li>
 <li>Artifact and/or source repository</li>
 </ul>
-<p>The idea is that you install something, and have it “just work”.</p>
+<p>The idea is that you install something, and have it <em>just work</em>.</p>
 </div>
 <div class="section" id="package-types">
 <h3>Package types:<a class="headerlink" href="#package-types" title="Permalink to this headline">¶</a></h3>
-<p>Focusing now on the Python world:</p>
 <p>A package can be essentially in two forms:</p>
 <ul class="simple">
 <li>source</li>
 <li>binary</li>
 </ul>
+<p>Focusing now on the Python world:</p>
 <p>As Python is a dynamic language, this distinction can get a bit blurred:</p>
 <p>There is little difference between a source and binary package <em>for a pure python package</em></p>
 <p>But if there is any compiled code in there, building from source can be a challenge:</p>
 <blockquote>
 <div><ul class="simple">
-<li>binary packages are very helpful</li>
+<li>Binary packages are very helpful</li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="source-packages">
 <h3>Source Packages<a class="headerlink" href="#source-packages" title="Permalink to this headline">¶</a></h3>
-<p>A source package is all the source required to build the package.</p>
+<p>A source package is all the source code required to build the package.</p>
 <p>Package managers (like pip) can automatically build your package from source.</p>
 <p><strong>But:</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>Your system needs to be set up to build (compiler)</li>
-<li>You need to have the dependencies, etc available</li>
-<li>Sometimes it take time</li>
+<li>Your system needs the correct tools installed, compilers, build tools, etc</li>
+<li>You need to have the dependencies available</li>
+<li>Sometimes it takes time, sometimes a LONG time</li>
 </ul>
 </div></blockquote>
 </div>
@@ -94,21 +103,22 @@
 <p>A collection of code all ready to run.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Everything is already compiled and ready to go</li>
+<li>Everything is already compiled and ready to go – makes it easy.</li>
 </ul>
 </div></blockquote>
 <p><strong>But:</strong></p>
 <blockquote>
 <div><ul class="simple">
 <li>It’s likely to be platform dependent</li>
-<li>Maybe require dependencies to be installed</li>
+<li>May require dependencies to be installed</li>
 </ul>
 </div></blockquote>
+<p>How do you manage that if the dependencies aren’t in the same language/system?</p>
 </div>
 <div class="section" id="python-packaging">
 <h3>Python Packaging<a class="headerlink" href="#python-packaging" title="Permalink to this headline">¶</a></h3>
-<p>There are essentially two package managers widely used for Python.</p>
-<p><strong>pip:</strong></p>
+<p>There are two package managers widely used for Python.</p>
+<p><strong>pip:</strong> The “official” solution.</p>
 <blockquote>
 <div><ul class="simple">
 <li>Pulls packages from PyPI</li>
@@ -116,23 +126,19 @@
 <li>Python only</li>
 </ul>
 </div></blockquote>
-<p><strong>conda:</strong></p>
+<p><strong>conda:</strong> Widely used in the scipy community.</p>
 <blockquote>
 <div><ul class="simple">
 <li>Pulls packages from anaconda.org</li>
 <li>Binary only</li>
 <li>Supports other languages / libraries: C, Fortran, R, Perl, Java (anything, really)</li>
-<li>Manages Python itself</li>
+<li>Manages Python itself!</li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="os-package-managers">
 <h3>OS package managers:<a class="headerlink" href="#os-package-managers" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><ul>
-<li><p class="first">System package managers:</p>
-<blockquote>
-<div><ul>
+<ul>
 <li><p class="first">Linux</p>
 <ul class="simple">
 <li>rpm</li>
@@ -153,10 +159,6 @@
 </div></blockquote>
 </li>
 </ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
 <p>Also sometimes handle python packages – but we won’t talk about those here.</p>
 </div>
 </div>

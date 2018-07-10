@@ -25,18 +25,15 @@ Topics
    setup_py
    uploading_pypi
    binaries_dependencies
-   conda_packages
-   conda_forge
-
    conda
 
-..  package_building
+`conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/>`_
 
 
 Your Guides
 -----------
 
-Michael Sarahan, PhD:
+Michael Sarahan:
   Conda-build tech lead, Anaconda, Inc.
 
 Matt McCormick:
@@ -45,22 +42,17 @@ Matt McCormick:
 Jean-Christophe Fillion-Robin:
   Maintainer of scikit-build, scikit-ci, scikit-ci-addons and python-cmake-buildsystem
 
-Filipe Fernandes:
-  Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
-
-Matt Craig:
-  Maintainer of ccdproc, reducer, astropy, lead on conda packaging for astropy, Conda-forge core team.
 
 .. nextslide::
+
+Filipe Fernandes:
+  Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
 
 Chris Barker:
   Python instructor for the Univ. Washington Continuing Education Program, Contributor to conda-forge project. Lead developer for assorted oceanography / oil spill packages.
 
-Ray Donnelly:
-  Anaconda employee, working on Anaconda Distribution. MSYS2 co-founder, Likes build systems too much.
-
 Jonathan Helmus:
-  Anaconda employee, working on Anaconda Distribution Builds tensorflow for fun, conda-forge core team member. Contributor to various open source packages in the scientific Python ecosystem.
+  Conda-forge core team. Maintainer of Berryconda. Anaconda, Inc.  Builds Tensorflow for fun.
 
 
 
