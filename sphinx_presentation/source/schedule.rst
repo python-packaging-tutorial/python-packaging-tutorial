@@ -41,7 +41,7 @@ How are we spending our afternoon?
 
 .. ifnotslides::
 
-  :ref:`overview`
+  :ref:`uploading`
 
 * Packaging Terminology 101
 * Building and publishing a python distribution

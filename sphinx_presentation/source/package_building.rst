@@ -1,10 +1,10 @@
-####################
-The Joy of Packaging
-####################
+##########################
+The Sheer Joy of Packaging
+##########################
 
 
-Scipy 2018 Tutorial
-===================
+Building Conda Packages
+=======================
 
 Instructors
 -----------
