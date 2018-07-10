@@ -107,5 +107,5 @@ Finished processing dependencies for hello-cython==1.2.3
 
 ## Package hosting service accounts
 Pprior to attending the tutorial, participants should set up an account on
-* PyPI (​https://pypi.python.org/pypi?%3Aaction=register_form​)
+* PyPI (​https://pypi.org/account/register/) and TestPyPI (https://test.pypi.org/account/register/)
 * anaconda.org (​https://anaconda.org/​)
