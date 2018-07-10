@@ -2,6 +2,99 @@
 Building and Uploading to PyPi
 ******************************
 
+
+Packaging Terminology 101
+=========================
+
+Source distribution
+-------------------
+
+* Synonyms: sdist, Source release
+
+* provides metadata + source files
+
+* needed for installing
+
+  * by a tool like pip
+  * or for generating a Built Distribution
+
+Reference: https://packaging.python.org/glossary/#term-source-distribution-or-sdist
+
+
+Built Distribution
+------------------
+
+* Synonyms: bdist
+
+* provides metadata + pre-built files
+
+* only need to be moved (usually by pip) to the correct locations on the target system
+
+Reference: https://packaging.python.org/glossary/#term-built-distribution
+
+
+Python Distribution: pure vs non-pure
+-------------------------------------
+
+* **pure**:
+
+  * Not specific to a CPU architecture
+  * No ABI
+
+
+* **non-pure**
+
+  * ABI
+  * Platform specific
+
+Reference: https://packaging.python.org/glossary/#term-module
+
+
+Binary Distribution
+-------------------
+
+* is a **Built Distribution**
+* is **non-pure**
+* uses platform-specific compiled extensions
+
+Reference: https://packaging.python.org/glossary/#term-binary-distribution
+
+
+Wheel
+-----
+
+* a **Built Distribution**
+
+* a ZIP-format archive with .whl extension
+
+  * ``{distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl``
+
+* described  by `PEP 427 <https://www.python.org/dev/peps/pep-0427/>`_
+
+Reference: https://packaging.python.org/glossary/#term-wheel
+
+
+Wheels vs. Conda packages
+-------------------------
+
++-------------------------------------+-------------------------------------+
+|  Wheels                             |    Conda packages                   |
++=====================================+=====================================+
+| Employed by pip, blessed by PyPA    |  Foundation of Anaconda ecosystem   |
++-------------------------------------+-------------------------------------+
+| Used by any python installation     |  Used by conda python installations |
++-------------------------------------+-------------------------------------+
+| Mostly specific to Python ecosystem |  General purpose (any ecosystem)    |
++-------------------------------------+-------------------------------------+
+| Good mechanism for specifying range |  Primitive support for multiple     |
+| of python compatibility             |  python versions (noarch)           |
++-------------------------------------+-------------------------------------+
+| Depends on static linking or other  | Can bundle core system-level shared |
+| system package managers to provide  | libraries as packages, and resolve  |
+| core libraries                      | dependencies                        |
++-------------------------------------+-------------------------------------+
+
+
 Tools and package types
 =======================
 
@@ -46,26 +139,6 @@ When/how to use an sdist
 
     python setup.py sdist
 
-
-Wheels vs. Conda packages
--------------------------
-
-+-------------------------------------+-------------------------------------+
-|  Wheels                             |    Conda packages                   |
-+=====================================+=====================================+
-| Employed by pip, blessed by PyPA    |  Foundation of Anaconda ecosystem   |
-+-------------------------------------+-------------------------------------+
-| Used by any python installation     |  Used by conda python installations |
-+-------------------------------------+-------------------------------------+
-| Mostly specific to Python ecosystem |  General purpose (any ecosystem)    |
-+-------------------------------------+-------------------------------------+
-| Good mechanism for specifying range |  Primitive support for multiple     |
-| of python compatibility             |  python versions (noarch)           |
-+-------------------------------------+-------------------------------------+
-| Depends on static linking or other  | Can bundle core system-level shared |
-| system package managers to provide  | libraries as packages, and resolve  |
-| core libraries                      | dependencies                        |
-+-------------------------------------+-------------------------------------+
 
 
 
