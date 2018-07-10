@@ -365,8 +365,8 @@ Exercise 2: Build source distribution and wheel
 * Make sure artifacts have been generated in the ``dist`` subdirectory.
 
 
-Exercise 3: Publish artifacts
------------------------------
+Exercise 3: Publish artifacts on PyPI
+-------------------------------------
 
 .. code-block:: bash
 
@@ -411,6 +411,13 @@ Bonus Exercise 4: Publish artifacts automating authentication
 
 Omitting the ``-repository testpypi`` argument allows to upload
 to the regular PyPI server.
+
+
+Bonus Exercise 5: Setting up continuous integration
+---------------------------------------------------
+
+* See branch `master-with-ci <https://github.com/python-packaging-tutorial/hello-pypi/tree/master-with-ci>`_
+  branch associated with ``hello-pypi`` example.
 
 
 Resources

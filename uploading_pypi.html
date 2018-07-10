@@ -339,8 +339,8 @@ unzip master.zip
 <li>Make sure artifacts have been generated in the <code class="docutils literal notranslate"><span class="pre">dist</span></code> subdirectory.</li>
 </ul>
 </div>
-<div class="section" id="exercise-3-publish-artifacts">
-<h3>Exercise 3: Publish artifacts<a class="headerlink" href="#exercise-3-publish-artifacts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exercise-3-publish-artifacts-on-pypi">
+<h3>Exercise 3: Publish artifacts on PyPI<a class="headerlink" href="#exercise-3-publish-artifacts-on-pypi" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 </pre></div>
 </div>
@@ -377,6 +377,13 @@ unzip master.zip
 </div>
 <p>Omitting the <code class="docutils literal notranslate"><span class="pre">-repository</span> <span class="pre">testpypi</span></code> argument allows to upload
 to the regular PyPI server.</p>
+</div>
+<div class="section" id="bonus-exercise-5-setting-up-continuous-integration">
+<h3>Bonus Exercise 5: Setting up continuous integration<a class="headerlink" href="#bonus-exercise-5-setting-up-continuous-integration" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>See branch <a class="reference external" href="https://github.com/python-packaging-tutorial/hello-pypi/tree/master-with-ci">master-with-ci</a>
+branch associated with <code class="docutils literal notranslate"><span class="pre">hello-pypi</span></code> example.</li>
+</ul>
 </div>
 </div>
 <div class="section" id="resources">
@@ -450,8 +457,9 @@ to the regular PyPI server.</p>
 <li><a class="reference internal" href="#exercises">Exercises</a><ul>
 <li><a class="reference internal" href="#exercise-1-prepare-environment">Exercise 1: Prepare environment</a></li>
 <li><a class="reference internal" href="#exercise-2-build-source-distribution-and-wheel">Exercise 2: Build source distribution and wheel</a></li>
-<li><a class="reference internal" href="#exercise-3-publish-artifacts">Exercise 3: Publish artifacts</a></li>
+<li><a class="reference internal" href="#exercise-3-publish-artifacts-on-pypi">Exercise 3: Publish artifacts on PyPI</a></li>
 <li><a class="reference internal" href="#bonus-exercise-4-publish-artifacts-automating-authentication">Bonus Exercise 4: Publish artifacts automating authentication</a></li>
+<li><a class="reference internal" href="#bonus-exercise-5-setting-up-continuous-integration">Bonus Exercise 5: Setting up continuous integration</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#resources">Resources</a><ul>

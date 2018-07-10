@@ -375,6 +375,21 @@ Docker build environment that use sources in the current working directory.</p>
 <p>What glibc version compatibility is required for this binary?</p>
 <p>manylinux: <a class="reference external" href="https://github.com/pypa/manylinux">https://github.com/pypa/manylinux</a></p>
 </div>
+<div class="section" id="bonus-exercise-4-setting-up-continuous-integration">
+<h3>Bonus Exercise 4: Setting up continuous integration<a class="headerlink" href="#bonus-exercise-4-setting-up-continuous-integration" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>See branch <a class="reference external" href="https://github.com/python-packaging-tutorial/hello-cpp/tree/master-with-ci">master-with-ci</a>
+branch associated with <code class="docutils literal notranslate"><span class="pre">hello-cpp</span></code> example:<ul>
+<li>Use <a class="reference external" href="http://scikit-ci.readthedocs.io">scikit-ci</a> for simpler and centralized CI configuration for
+Python extensions.</li>
+<li>Use <a class="reference external" href="http://scikit-ci-addons.readthedocs.org/">scikit-ci-addons</a>, a set of scripts useful
+to help drive CI.</li>
+<li>On CircleCI, use manylinux dockcross images including <a class="reference external" href="https://pypi.python.org/pypi/scikit-build">scikit-build</a>,
+<a class="reference external" href="https://pypi.python.org/pypi/cmake">cmake</a> and <a class="reference external" href="https://pypi.python.org/pypi/ninja">ninja</a> packages.</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -403,6 +418,7 @@ Docker build environment that use sources in the current working directory.</p>
 <li><a class="reference internal" href="#exercise-1-build-a-python-package-with-a-c-extension-module">Exercise 1: Build a Python Package with a C++ Extension Module</a></li>
 <li><a class="reference internal" href="#exercise-2-build-a-python-package-with-a-cython-extension-module">Exercise 2: Build a Python Package with a Cython Extension Module</a></li>
 <li><a class="reference internal" href="#bonus-exercise-3-build-a-distributable-linux-wheel-package">Bonus Exercise 3: Build a Distributable Linux Wheel Package</a></li>
+<li><a class="reference internal" href="#bonus-exercise-4-setting-up-continuous-integration">Bonus Exercise 4: Setting up continuous integration</a></li>
 </ul>
 </li>
 </ul>
