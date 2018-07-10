@@ -296,6 +296,24 @@ the `setuptools` Python module and `CMake <https://cmake.org/>`_.
 
 .. nextslide::
 
+To build and install a project configured with scikit-build::
+
+  pip install .
+
+.. nextslide::
+
+To build and install a project configured with scikit-build for development::
+
+  pip install -e .
+
+.. nextslide::
+
+To build and package a project configured with scikit-build::
+
+  pip wheel -w dist .
+
+.. nextslide::
+
 **Conda** is an open source package management system and environment management system that runs on Windows, macOS and Linux.
 
 .. nextslide::
