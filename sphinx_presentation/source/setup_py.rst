@@ -126,7 +126,6 @@ What is a Package?
 ... and a way to build and install it...
 
 
-<<<<<<< HEAD
 Python packaging tools:
 ------------------------
 
@@ -400,7 +399,7 @@ or::
 
 .. nextslide::
 
-It puts a links (actually ``*.pth`` files) into the python installation to your code, so that your package is installed, but any changes will immediately take effect.
+It puts a link (actually ``*.pth`` files) into the python installation to your code, so that your package is installed, but any changes will immediately take effect.
 
 This way all your test code, and client code, etc, can all import your package the usual way.
 
@@ -424,6 +423,16 @@ Good idea to use it for anything more than a single file project.
 
 
 https://grahamwideman.wikispaces.com/Python-+site-package+dirs+and+.pth+files
+
+
+Aside on pip and dependencies
+-----------------------------
+
+* ``pip`` does not currently have a solver: http://github.com/pypa/pip/issues/988
+
+* pip may replace packages in your environment with incompatible versions.  Things will break when that happens.
+
+* use caution (and ideally, disposable environments) when using pip
 
 
 Getting Started With a New Package
