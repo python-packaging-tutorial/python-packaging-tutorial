@@ -1,0 +1,6 @@
+This is a really simple Text file.
+It is here so that I can test the capitalize script.
+
+And that's only there to try out packaging.
+
+So there.

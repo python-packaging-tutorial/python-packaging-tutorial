@@ -1,0 +1,7 @@
+# list of words that don't get capitalized
+is
+or 
+a
+the
+it
+to
