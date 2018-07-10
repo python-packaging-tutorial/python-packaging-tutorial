@@ -7,6 +7,25 @@ Outline
 
 How are we spending our afternoon?
 
+Agenda
+------
+
+* 0:00-0:20 Getting setup and overview of packaging
+* 0:20-0:45 python packages: the setup.py file
+* 0:45-1:00 Building and uploading to PyPI
+
+* 1:00-1:10 **Break**
+
+* 1:10-1:30 Worked example/exercise
+* 1:30-2:00 Binaries and dependencies
+* 2:00-2:45 Exercises
+
+* 2:45-3:00 **Break**
+
+* 3:00-3:15 Conda-build overview
+* 3:15-3:45 Exercise
+* 3:45-4:00 conda-forge
+
 0:00-00:10 Getting setup for this Tutorial
 ------------------------------------------
 
