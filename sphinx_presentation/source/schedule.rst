@@ -83,6 +83,7 @@ How are we spending our afternoon?
 
 * Build a Python package with a C++-based C-extension.
 * Build a Python package with a Cython-based C-extension.
+* Build a distributable Linux wheel package.
 
 
 2:45-3:00 Break
