@@ -373,6 +373,46 @@ Exercise 3: Publish artifacts
     $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 
+Bonus Exercise 4: Publish artifacts automating authentication
+-------------------------------------------------------------
+
+* Delete ``hello-pypi-master`` directory and extract archive again.
+
+* Update name of package and rebuild source distribution and wheel.
+
+.. nextslide::
+
+* Create file ``.pypirc`` in your home directory with the following content:
+
+::
+
+    [distutils]
+    index-servers=
+        pypi
+        testpypi
+
+    [testpypi]
+    repository: https://test.pypi.org/legacy/
+    username: your testpypi username
+    password: your testpypi password
+
+    [pypi]
+    username: your testpypi username
+    password: your testpypi password
+
+.. nextslide::
+
+* Publish package on TestPyPI:
+
+.. code-block:: bash
+
+    $ twine upload --repository testpypi dist/*
+
+
+Omitting the ``-repository testpypi`` argument allows to upload
+to the regular PyPI server.
+
+
 Resources
 =========
 
