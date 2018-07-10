@@ -413,6 +413,13 @@ Omitting the ``-repository testpypi`` argument allows to upload
 to the regular PyPI server.
 
 
+Bonus Exercise 5: Setting up continuous integration
+---------------------------------------------------
+
+* See branch `master-with-ci <https://github.com/python-packaging-tutorial/hello-pypi/tree/master-with-ci>`_
+  branch associated with ``hello-pypi`` example.
+
+
 Resources
 =========
 

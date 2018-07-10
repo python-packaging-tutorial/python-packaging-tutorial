@@ -92,9 +92,9 @@ Clone that repo now -- so you can follow along.
 1:10-1:30 Exercises:
 ----------------------------------
 
-* Prepare environment
-* Build source distribution and wheel
-* Publish artifacts on PyPI
+* Prepare environment.
+* Build source distribution and wheel.
+* Publish artifacts on PyPI.
 
 
 1:30-2:00 Binaries and dependencies:

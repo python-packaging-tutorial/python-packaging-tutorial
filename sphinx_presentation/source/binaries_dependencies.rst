@@ -410,3 +410,19 @@ What glibc version compatibility is required for this binary?
 
 
 manylinux: https://github.com/pypa/manylinux
+
+
+Bonus Exercise 4: Setting up continuous integration
+---------------------------------------------------
+
+* See branch `master-with-ci <https://github.com/python-packaging-tutorial/hello-cpp/tree/master-with-ci>`_
+  branch associated with ``hello-cpp`` example:
+
+  * Use `scikit-ci <http://scikit-ci.readthedocs.io>`_ for simpler and centralized CI configuration for
+    Python extensions.
+
+  * Use `scikit-ci-addons <http://scikit-ci-addons.readthedocs.org/>`_, a set of scripts useful
+    to help drive CI.
+
+  * On CircleCI, use manylinux dockcross images including `scikit-build <https://pypi.python.org/pypi/scikit-build>`_,
+    `cmake <https://pypi.python.org/pypi/cmake>`_ and `ninja <https://pypi.python.org/pypi/ninja>`_ packages.
