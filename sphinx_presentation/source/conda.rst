@@ -1,4 +1,4 @@
-:: _conda_build:
+.. _conda_build:
 
 ##############
 Conda Packages
