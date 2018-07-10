@@ -25,10 +25,9 @@ Topics
    setup_py
    uploading_pypi
    binaries_dependencies
-   conda_packages
+   conda
    conda_forge
 
-   conda
 
 ..  package_building
 
