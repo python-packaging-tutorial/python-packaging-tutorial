@@ -1,0 +1,233 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Tutorial Schedule &#8212; The Joy of Packaging 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" />
+    <link rel="prev" title="The Sheer Joy of Packaging!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tutorial-schedule">
+<h1>Tutorial Schedule<a class="headerlink" href="#tutorial-schedule" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<p>How are we spending our afternoon?</p>
+<div class="section" id="overview-of-packaging">
+<h3>0:00-00:20 Overview of packaging<a class="headerlink" href="#overview-of-packaging" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="overview.html#overview"><span class="std std-ref">Overview</span></a></p>
+<ul class="simple">
+<li>What is a package, anyway?</li>
+<li>Source/binary</li>
+<li>Wheel vs conda packages</li>
+<li>PyPI/anaconda.org</li>
+</ul>
+</div>
+<div class="section" id="python-packages-the-setup-py-file">
+<h3>0:20-0:45 python packages: the setup.py file<a class="headerlink" href="#python-packages-the-setup-py-file" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="setup_py.html#setup"><span class="std std-ref">Making a Python Package</span></a></p>
+<ul class="simple">
+<li>Python packages – what are they?</li>
+<li>The setup.py file</li>
+<li>Specifying requirements</li>
+<li>When and how to “pin” requirements</li>
+<li>Let’s make a package!</li>
+</ul>
+</div>
+<div class="section" id="building-and-uploading-to-pypi">
+<h3>0:45-1:00 Building and uploading to PyPI:<a class="headerlink" href="#building-and-uploading-to-pypi" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="uploading_pypi.html#uploading"><span class="std std-ref">Building and Uploading to PyPi</span></a></p>
+<ul class="simple">
+<li>Packaging Terminology 101</li>
+<li>Building and publishing a python distribution</li>
+</ul>
+</div>
+<div class="section" id="break">
+<h3>1:00-1:10 Break<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="worked-example-exercise">
+<h3>1:10-1:30 Worked example/exercise:<a class="headerlink" href="#worked-example-exercise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Building a package and uploading to pypi</li>
+<li>Continuing from the the previous exercise, build a wheel for the package</li>
+<li>Register the package on the pypi testing server</li>
+<li>Upload the built distributions using twine</li>
+<li>Delete one of the uploaded files on pypi and try re-uploading (will fail)</li>
+<li>Introduce the idea of .post releases (it will happen to everyone who uploads)</li>
+</ul>
+</div>
+<div class="section" id="binaries-and-dependencies">
+<h3>1:30-1:45 Binaries and dependencies:<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="binaries_dependencies.html#binaries"><span class="std std-ref">Binaries and Dependencies</span></a></p>
+<p>How scikit-build and conda-build can make life easier</p>
+</div>
+<div class="section" id="scikit-build-overview">
+<h3>1:45-2:00 Scikit-build overview:<a class="headerlink" href="#scikit-build-overview" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Why + Motivations</li>
+<li>From <code class="docutils literal notranslate"><span class="pre">[distutils.core.Extension]</span></code> to <code class="docutils literal notranslate"><span class="pre">[scikit-build</span> <span class="pre">+</span> <span class="pre">CMake]</span></code> in few lines</li>
+<li>Support for developer mode (bonus)</li>
+</ul>
+</div>
+<div class="section" id="exercise">
+<h3>2:00-2:45 Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Add CMake project that generates python extension.  Tie it into previous python project.</li>
+<li>Cookie cutter template integrating conda, pypi, etc. will be provided.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>2:45-3:00 Break<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="conda-build-overview">
+<h3>3:00-3:15 Conda-build overview<a class="headerlink" href="#conda-build-overview" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="conda_packages.html#conda-build"><span class="std std-ref">Conda Packages</span></a></p>
+</div>
+<div class="section" id="id2">
+<h3>3:15-3:30 Exercise:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Write a conda recipe for the sample package from previous exercises (pure python)</li>
+<li>noarch packages</li>
+<li>Upload to anaconda cloud</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>3:30-3:45 Exercise:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Recipe for package with compiled extensions</li>
+<li>Add compiled extension (source will be provided to students) to sample package</li>
+<li>Modify recipe, if needed</li>
+<li>Rebuild the package</li>
+<li>Version pinning (python, numpy)</li>
+<li>Split packages - multi-ecosystem ones</li>
+<li>Compiler packages + pin_downstream</li>
+<li>Interoperation with scikit-build</li>
+</ul>
+</div>
+<div class="section" id="automated-building-with-cloud-based-ci-services">
+<h3>3:45-4:00 Automated building with cloud-based CI services:<a class="headerlink" href="#automated-building-with-cloud-based-ci-services" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="conda_forge.html#conda-forge"><span class="std std-ref">Using a CI to build for you</span></a></p>
+<p><strong>conda-forge</strong> (optional; as time allows)</p>
+<p>CI service overview &amp; Conda-forge – what are the pieces and how do they fit together?</p>
+<ul class="simple">
+<li>Recipe format</li>
+<li>staged-recipes</li>
+<li>feedstocks</li>
+<li>Re-rendering and conda-smithy</li>
+<li>Updating package when new version released</li>
+<li>Future direction/community needs</li>
+<li>Invitation to sprints</li>
+<li>Contributing to Conda-forge</li>
+<li>Intro to conda-forge: staged-recipes, maintainer role, contributing to an existing package</li>
+<li>conda-smithy lint/rerender</li>
+<li>Example to go from the conda-skeleton to a PR on staged-recipes</li>
+<li>Comment on some special cases: cython extensions,  non-python pkgs, the use of the CIs, etc.</li>
+<li>Exercise: put a package on staged-recipes</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tutorial Schedule</a><ul>
+<li><a class="reference internal" href="#outline">Outline</a><ul>
+<li><a class="reference internal" href="#overview-of-packaging">0:00-00:20 Overview of packaging</a></li>
+<li><a class="reference internal" href="#python-packages-the-setup-py-file">0:20-0:45 python packages: the setup.py file</a></li>
+<li><a class="reference internal" href="#building-and-uploading-to-pypi">0:45-1:00 Building and uploading to PyPI:</a></li>
+<li><a class="reference internal" href="#break">1:00-1:10 Break</a></li>
+<li><a class="reference internal" href="#worked-example-exercise">1:10-1:30 Worked example/exercise:</a></li>
+<li><a class="reference internal" href="#binaries-and-dependencies">1:30-1:45 Binaries and dependencies:</a></li>
+<li><a class="reference internal" href="#scikit-build-overview">1:45-2:00 Scikit-build overview:</a></li>
+<li><a class="reference internal" href="#exercise">2:00-2:45 Exercise:</a></li>
+<li><a class="reference internal" href="#id1">2:45-3:00 Break</a></li>
+<li><a class="reference internal" href="#conda-build-overview">3:00-3:15 Conda-build overview</a></li>
+<li><a class="reference internal" href="#id2">3:15-3:30 Exercise:</a></li>
+<li><a class="reference internal" href="#id3">3:30-3:45 Exercise:</a></li>
+<li><a class="reference internal" href="#automated-building-with-cloud-based-ci-services">3:45-4:00 Automated building with cloud-based CI services:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">The Sheer Joy of Packaging!</a></li>
+      <li>Next: <a href="overview.html" title="next chapter">Overview</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/schedule.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Assorted.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/schedule.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Binaries and Dependencies" href="binaries_dependencies.html" />
-    <link rel="prev" title="setup.py" href="setup_py.html" />
+    <link rel="prev" title="Making a Python Package" href="setup_py.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -34,37 +34,81 @@
           <div class="body" role="main">
             
   <div class="section" id="building-and-uploading-to-pypi">
-<h1>Building and Uploading to PyPi<a class="headerlink" href="#building-and-uploading-to-pypi" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="tools-and-package-types">
-<h2>Tools and package types<a class="headerlink" href="#tools-and-package-types" title="Permalink to this headline">¶</a></h2>
-<p><strong>flit:</strong> great for simple packages</p>
-<p><strong>twine:</strong> the secure way to upload to PyPI</p>
+<span id="uploading"></span><h1>Building and Uploading to PyPi<a class="headerlink" href="#building-and-uploading-to-pypi" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="in-the-following-section-we-will">
+<h3>In the following section we will …<a class="headerlink" href="#in-the-following-section-we-will" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Building a source distribution</li>
-<li>Building a wheel</li>
-<li>Multibuild - <a class="reference external" href="https://github.com/matthew-brett/multibuild">https://github.com/matthew-brett/multibuild</a></li>
-<li>Manylinux docker image - <a class="reference external" href="https://github.com/pypa/manylinux">https://github.com/pypa/manylinux</a></li>
-<li>Delocate - <a class="reference external" href="https://github.com/matthew-brett/delocate">https://github.com/matthew-brett/delocate</a></li>
-<li>Auditwheel - <a class="reference external" href="https://github.com/pypa/auditwheel">https://github.com/pypa/auditwheel</a></li>
+<li>Review the packaging terminology</li>
+<li>Understand how to build, package and publish a python package</li>
 </ul>
 </div>
-<div class="section" id="redistributable-artifacts">
-<h2>Redistributable artifacts<a class="headerlink" href="#redistributable-artifacts" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>sdists</li>
-<li>wheels</li>
-<li>conda packages</li>
-<li>eggs (deprecated)</li>
-</ul>
-<div class="section" id="when-how-to-use-an-sdist">
-<h3>When/how to use an sdist<a class="headerlink" href="#when-how-to-use-an-sdist" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Pure python (no compilation requirements)</li>
-<li>Or, distributing source code that must be compiled prior to usage</li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py sdist
-</pre></div>
 </div>
+<div class="section" id="packaging-terminology-101">
+<h2>Packaging Terminology 101<a class="headerlink" href="#packaging-terminology-101" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>This section reviews the python packaging concepts and terminology.</p>
+</div>
+<div class="section" id="source-distribution">
+<h3>Source distribution<a class="headerlink" href="#source-distribution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Synonyms: sdist, Source release</li>
+<li>provides metadata + source files</li>
+<li>needed for installing<ul>
+<li>by a tool like pip</li>
+<li>or for generating a Built Distribution</li>
+</ul>
+</li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-source-distribution-or-sdist">https://packaging.python.org/glossary/#term-source-distribution-or-sdist</a></p>
+</div>
+<div class="section" id="built-distribution">
+<h3>Built Distribution<a class="headerlink" href="#built-distribution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Synonyms: bdist</li>
+<li>provides metadata + pre-built files</li>
+<li>only need to be moved (usually by pip) to the correct locations on the target system</li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-built-distribution">https://packaging.python.org/glossary/#term-built-distribution</a></p>
+</div>
+<div class="section" id="python-distribution-pure-vs-non-pure">
+<h3>Python Distribution: pure vs non-pure<a class="headerlink" href="#python-distribution-pure-vs-non-pure" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>pure</strong>:<ul>
+<li>Not specific to a CPU architecture</li>
+<li>No ABI</li>
+</ul>
+</li>
+<li><strong>non-pure</strong><ul>
+<li>ABI</li>
+<li>Platform specific</li>
+</ul>
+</li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-module">https://packaging.python.org/glossary/#term-module</a></p>
+</div>
+<div class="section" id="binary-distribution">
+<h3>Binary Distribution<a class="headerlink" href="#binary-distribution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>is a <strong>Built Distribution</strong></li>
+<li>is <strong>non-pure</strong></li>
+<li>uses platform-specific compiled extensions</li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-binary-distribution">https://packaging.python.org/glossary/#term-binary-distribution</a></p>
+</div>
+<div class="section" id="wheel">
+<h3>Wheel<a class="headerlink" href="#wheel" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>a <strong>Built Distribution</strong></li>
+<li>a ZIP-format archive with .whl extension<ul>
+<li><code class="docutils literal notranslate"><span class="pre">{distribution}-{version}(-{build</span> <span class="pre">tag})?-{python</span> <span class="pre">tag}-{abi</span> <span class="pre">tag}-{platform</span> <span class="pre">tag}.whl</span></code></li>
+</ul>
+</li>
+<li>described  by <a class="reference external" href="https://www.python.org/dev/peps/pep-0427/">PEP 427</a></li>
+</ul>
+<p>Reference: <a class="reference external" href="https://packaging.python.org/glossary/#term-wheel">https://packaging.python.org/glossary/#term-wheel</a></p>
 </div>
 <div class="section" id="wheels-vs-conda-packages">
 <h3>Wheels vs. Conda packages<a class="headerlink" href="#wheels-vs-conda-packages" title="Permalink to this headline">¶</a></h3>
@@ -103,6 +147,64 @@ dependencies</td>
 </tbody>
 </table>
 </div>
+<div class="section" id="pypi">
+<h3>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="virtual-environment">
+<h3>Virtual Environment<a class="headerlink" href="#virtual-environment" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="build-system">
+<h3>Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>This section discusses how to build python packages (or distributions) and publish
+them in a central repository to streamline their installation. Finally, we conclude
+with an exercise where we publish a package with the <a class="reference external" href="http://test.pypi.org/">Test Python Package Index</a>.</p>
+</div>
+<div class="section" id="creating-an-environment">
+<h3>Creating an environment<a class="headerlink" href="#creating-an-environment" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="building-a-source-distribution">
+<h3>Building a source distribution<a class="headerlink" href="#building-a-source-distribution" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py sdist
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-a-wheel">
+<h3>Building a wheel<a class="headerlink" href="#building-a-wheel" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py bdist_wheel
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Building a wheel<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="registering-to-pypi">
+<h3>Registering to PyPI<a class="headerlink" href="#registering-to-pypi" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="publishing-to-pypi">
+<h3>Publishing to PyPI<a class="headerlink" href="#publishing-to-pypi" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+<div class="section" id="an-other-approach-filt">
+<h3>An other approach: filt<a class="headerlink" href="#an-other-approach-filt" title="Permalink to this headline">¶</a></h3>
+<p><strong>To be done</strong></p>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -116,12 +218,35 @@ dependencies</td>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Building and Uploading to PyPi</a><ul>
-<li><a class="reference internal" href="#tools-and-package-types">Tools and package types</a></li>
-<li><a class="reference internal" href="#redistributable-artifacts">Redistributable artifacts</a><ul>
-<li><a class="reference internal" href="#when-how-to-use-an-sdist">When/how to use an sdist</a></li>
-<li><a class="reference internal" href="#wheels-vs-conda-packages">Wheels vs. Conda packages</a></li>
+<li><a class="reference internal" href="#learning-objectives">Learning Objectives</a><ul>
+<li><a class="reference internal" href="#in-the-following-section-we-will">In the following section we will …</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#packaging-terminology-101">Packaging Terminology 101</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#source-distribution">Source distribution</a></li>
+<li><a class="reference internal" href="#built-distribution">Built Distribution</a></li>
+<li><a class="reference internal" href="#python-distribution-pure-vs-non-pure">Python Distribution: pure vs non-pure</a></li>
+<li><a class="reference internal" href="#binary-distribution">Binary Distribution</a></li>
+<li><a class="reference internal" href="#wheel">Wheel</a></li>
+<li><a class="reference internal" href="#wheels-vs-conda-packages">Wheels vs. Conda packages</a></li>
+<li><a class="reference internal" href="#pypi">PyPi</a></li>
+<li><a class="reference internal" href="#virtual-environment">Virtual Environment</a></li>
+<li><a class="reference internal" href="#build-system">Build system</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
+<li><a class="reference internal" href="#id1">Introduction</a></li>
+<li><a class="reference internal" href="#creating-an-environment">Creating an environment</a></li>
+<li><a class="reference internal" href="#building-a-source-distribution">Building a source distribution</a></li>
+<li><a class="reference internal" href="#building-a-wheel">Building a wheel</a></li>
+<li><a class="reference internal" href="#id2">Building a wheel</a></li>
+<li><a class="reference internal" href="#registering-to-pypi">Registering to PyPI</a></li>
+<li><a class="reference internal" href="#publishing-to-pypi">Publishing to PyPI</a></li>
+<li><a class="reference internal" href="#an-other-approach-filt">An other approach: filt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">Exercises</a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +254,7 @@ dependencies</td>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="setup_py.html" title="previous chapter">setup.py</a></li>
+      <li>Previous: <a href="setup_py.html" title="previous chapter">Making a Python Package</a></li>
       <li>Next: <a href="binaries_dependencies.html" title="next chapter">Binaries and Dependencies</a></li>
   </ul></li>
 </ul>

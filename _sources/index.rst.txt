@@ -3,15 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-The Joy of Packaging!
-=====================
+***************************
+The Sheer Joy of Packaging!
+***************************
 
 Scipy 2018 Tutorial
 
+Packaging
+=========
+
+Packaging from start to finish for both PyPI and conda
+
+Topics
+------
+
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
 
+   schedule
    overview
    setup_py
    uploading_pypi
@@ -26,22 +35,31 @@ Scipy 2018 Tutorial
 Your Guides
 -----------
 
-Michael Sarahan, PhD: Conda-build tech lead, Anaconda, Inc.
+Michael Sarahan, PhD:
+  Conda-build tech lead, Anaconda, Inc.
 
-Matt McCormick (thewtex): Maintainer of dockcross, of Python packages for the Insight Toolkit (ITK)
+Matt McCormick:
+  Maintainer of dockcross, of Python packages for the Insight Toolkit (ITK)
 
-Jean-Christophe Fillion-Robin (jcfr): Maintainer of scikit-build, scikit-ci, scikit-ci-addons and python-cmake-buildsystem
+Jean-Christophe Fillion-Robin:
+  Maintainer of scikit-build, scikit-ci, scikit-ci-addons and python-cmake-buildsystem
 
-Filipe Fernandes (ocefpaf): Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
+Filipe Fernandes:
+  Conda-forge core team, Maintainer of folium and a variety of libraries for ocean sciences.
 
-Matt Craig (mwcraig): Maintainer of ccdproc, reducer, astropy, lead on conda packaging for astropy, Conda-forge core team.
+Matt Craig:
+  Maintainer of ccdproc, reducer, astropy, lead on conda packaging for astropy, Conda-forge core team.
 
-Chris Barker (PythonCHB): Python instructor for the Univ. Washington Continuing Education Program, Contributor to conda-forge project.
+.. nextslide::
 
-Ray Donnelly (mingwandroid): Anaconda employee, working on Anaconda Distribution. MSYS2 co-founder, Likes build systems too much.
+Chris Barker:
+  Python instructor for the Univ. Washington Continuing Education Program, Contributor to conda-forge project. Lead developer for assorted oceanography / oil spill packages.
 
-Jonathan Helmus (jjhelmus): Anaconda employee, working on Anaconda Distribution Builds tensorflow for fun, conda-forge core team member
-Contributor to various open source packages in the scientific Python ecosystem.
+Ray Donnelly:
+  Anaconda employee, working on Anaconda Distribution. MSYS2 co-founder, Likes build systems too much.
+
+Jonathan Helmus:
+  Anaconda employee, working on Anaconda Distribution Builds tensorflow for fun, conda-forge core team member. Contributor to various open source packages in the scientific Python ecosystem.
 
 
 

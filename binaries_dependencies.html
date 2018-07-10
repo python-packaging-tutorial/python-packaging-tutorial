@@ -34,29 +34,131 @@
           <div class="body" role="main">
             
   <div class="section" id="binaries-and-dependencies">
-<h1>Binaries and Dependencies<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h1>
+<span id="binaries"></span><h1>Binaries and Dependencies<a class="headerlink" href="#binaries-and-dependencies" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="in-this-section-we-will">
+<h3>In this section we will …<a class="headerlink" href="#in-this-section-we-will" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Understand why we build Python packages with native binaries: 1)
+<strong>performance</strong> and 2) <strong>library integration</strong></li>
+<li>Understand different components of the binary build process and their role:
+<em>headers, libraries, compilers, linkers, makefiles, system introspection
+tools, package managers</em></li>
+<li>Understand basic requirements for binary compatibility: a) <strong>C-runtime library
+compatibility</strong> and b) <strong>shared library compatibilty</strong></li>
+<li>Understand <strong>scikit-build</strong>’s role in coordinating components of the binary
+build process and <strong>conda</strong>’s role in resolving dependencies and creating compatible platform binaries</li>
+</ul>
+</div>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>This section discusses the creation of Python packages that contain native
-binaries. First, we explain why building Python packages with native binaries
-is often necessary or desirable for scientific applications. Next, an overview
-of the requirements to build native binaries is provided. Within this the
-context, we explain how <em>scikit-build</em> and <em>conda-build</em> make life easier when
-we want to satisfy these requirements. Finally, we conclude with an exercise
-where we build a native Python wth native binaries package and analyze the
-different stages of the build process.</p>
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>This section discusses the creation of Python packages that contain <strong>native
+binaries</strong>.</p>
+<p>First, we explain why building Python packages with native binaries is often
+<em>desirable</em> or <em>necessary</em> for <em>scientific applications</em>.</p>
+<p>Next, an overview of the requirements to build native binaries is provided.
+Within this the context, we explain how <em>scikit-build</em> and <em>conda-build</em> make
+life easier when we want to satisfy these requirements.</p>
+<p>Finally, run an exercise where we build a native Python wth native binaries
+package and analyze the different stages of the build process.</p>
 </div>
 <div class="section" id="motivation">
-<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h3>
+<p>Scientific computing applications demand <strong>higher performance</strong> than other
+domains because of the:</p>
+<ol class="arabic simple">
+<li><strong>Size</strong> of the <strong>datasets</strong> to be analyzed</li>
+<li><strong>Complexity</strong> of the <strong>algorithms</strong> evaluated</li>
+</ol>
+<p>In order to achieve <strong>high performance</strong>, programs can:</p>
+<ol class="arabic simple">
+<li><strong>Minimized the number of operations</strong> on the CPU required to acheive a certain
+task</li>
+<li><strong>Execute in parallel</strong> to leverage multi-core, many-core, and GPGPU system
+architectures</li>
+<li>Carefully and precisely <strong>manage memory</strong> allocation and use</li>
+</ol>
+<p>Greater performance is achieved with native binaries over CPython because:</p>
+<ol class="arabic simple">
+<li>Tasks are <strong>compiled down to minimal processor operations</strong>,
+as opposed to high level programming language instructions that must be
+<strong>interpreted</strong></li>
+<li>Parallel computing is not impared by CPython’s <a class="reference external" href="https://wiki.python.org/moin/GlobalInterpreterLock">Global Interpreter Lock
+(GIL)</a></li>
+<li><strong>Memory</strong> can be managed <strong>explicitly</strong> and <strong>deterministically</strong></li>
+</ol>
+<p>Many existing scientific codes are written in <strong>programming languages other than Python</strong>.
+It is necessary to <strong>re-use</strong> these libraries since:</p>
+<ul class="simple">
+<li><strong>Resources</strong> are not available to re-implement work that is sometimes the
+result of multiple decades of effort from multiple researchers.</li>
+<li>The <strong>scientific endeavor</strong> is built on the practice of <strong>reproducing</strong> and <strong>building on the top</strong> of the efforts of our predecessors.</li>
+</ul>
+<p>The <em>lingua franca</em> of computing is the <strong>C programming language</strong> because
+most operating systems themselves are written in C.</p>
+<p>As a consequence,</p>
+<ul class="simple">
+<li><strong>Native binaries</strong> reflect characteristics and compatibility with of the C language</li>
+<li>The reference implementation of Python, <em>CPython</em>, is implemented in C</li>
+<li>CPython supports <strong>binary extension modules written in C</strong></li>
+<li>Most other pre-compiled programming languages have a <strong>compatibility layer
+with C</strong></li>
+<li>CPython is an excellent language to <strong>integrate scientific codes</strong>!</li>
+</ul>
+<p>Common programming languages compiled into native libraries for scientific
+computing include:</p>
+<ul class="simple">
+<li>Fortran</li>
+<li>C</li>
+<li>C++</li>
+<li>Cython</li>
+<li>Rust</li>
+</ul>
 </div>
-<div class="section" id="build-requirements">
-<h2>Build Requirements<a class="headerlink" href="#build-requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build-components-and-requirements">
+<h3>Build Components and Requirements<a class="headerlink" href="#build-components-and-requirements" title="Permalink to this headline">¶</a></h3>
+<p>Build component categories:</p>
+<dl class="docutils">
+<dt>build tools</dt>
+<dd>Tools use in the build process, such as the compiler, linker, makefile,
+system introspection tool, and package manager</dd>
+</dl>
+<dl class="docutils">
+<dt>build host artifacts</dt>
+<dd>These are files required on the <em>host</em> system performing the build. This
+includes header files, <cite>*.h</cite> files, which define the C program <em>symbols</em>,
+i.e. variable and function names, for the native binary with which we want
+to integrate. This also usually includes the native binaries themselves,
+i.e. the executable or shared library. An important exception to this rule
+is <em>libpython</em>, which we do not need on some platforms due to <a class="reference external" href="https://scikit-build.readthedocs.io/en/latest/cmake-modules/targetLinkLibrariesWithDynamicLookup.html">weak linking
+rules</a>.</dd>
+</dl>
+<dl class="docutils">
+<dt>target system artifacts</dt>
+<dd>These are artifacts intended to be run on the <em>target</em> system, typically the
+shared library C-extension.</dd>
+</dl>
+<p>When the build <em>host</em> system is different from the <em>target</em> system, we are
+<strong>cross-compiling</strong>.</p>
+<p>Python packaging guide</p>
+<p>scikit-build C-runtime compatibility</p>
 </div>
 <div class="section" id="scientific-python-build-tools">
-<h2>Scientific Python Build Tools<a class="headerlink" href="#scientific-python-build-tools" title="Permalink to this headline">¶</a></h2>
+<h3>Scientific Python Build Tools<a class="headerlink" href="#scientific-python-build-tools" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exercise-1-build-a-python-package-with-a-c-extension-module">
+<h3>Exercise 1: Build a Python Package with a C++ Extension Module<a class="headerlink" href="#exercise-1-build-a-python-package-with-a-c-extension-module" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="exercise-2-build-a-python-package-with-a-cython-extension-module">
+<h3>Exercise 2: Build a Python Package with a Cython Extension Module<a class="headerlink" href="#exercise-2-build-a-python-package-with-a-cython-extension-module" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 
@@ -70,11 +172,22 @@ different stages of the build process.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Binaries and Dependencies</a><ul>
+<li><a class="reference internal" href="#learning-objectives">Learning Objectives</a><ul>
+<li><a class="reference internal" href="#in-this-section-we-will">In this section we will …</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#motivation">Motivation</a></li>
-<li><a class="reference internal" href="#build-requirements">Build Requirements</a></li>
+<li><a class="reference internal" href="#build-components-and-requirements">Build Components and Requirements</a></li>
 <li><a class="reference internal" href="#scientific-python-build-tools">Scientific Python Build Tools</a></li>
-<li><a class="reference internal" href="#exercise">Exercise</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">Exercises</a><ul>
+<li><a class="reference internal" href="#exercise-1-build-a-python-package-with-a-c-extension-module">Exercise 1: Build a Python Package with a C++ Extension Module</a></li>
+<li><a class="reference internal" href="#exercise-2-build-a-python-package-with-a-cython-extension-module">Exercise 2: Build a Python Package with a Cython Extension Module</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
