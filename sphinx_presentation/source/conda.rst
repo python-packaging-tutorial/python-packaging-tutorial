@@ -243,8 +243,8 @@ build.sh: stuff to run on mac/linux
 * Several useful env vars for use in build.sh: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
 
 
-bld.bat: stuff to run on mac/linux
------------------------------------
+bld.bat: stuff to run on windows
+--------------------------------
 
 * It’s a batch script: do what you want
 * Snapshot files in %PREFIX% before running script; again after
@@ -516,7 +516,7 @@ Exercise: Limit a Recipe to Only Linux
 	  version: 1.0
 
 	  build:
-	  skip: True# [not linux]
+	  skip: True  # [not linux]
 
 
 Intro to Templating with Jinja2
