@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # simple script to build and push to gh-pages
 # designed to be run from master
