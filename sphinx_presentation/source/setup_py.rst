@@ -439,6 +439,7 @@ or use "Cookie Cutter":
 
 https://cookiecutter.readthedocs.io/en/latest/
 
+.. _setup_py_exercise_small_example_package:
 
 Exercise: A Small Example Package
 ---------------------------------
