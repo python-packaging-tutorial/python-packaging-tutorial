@@ -70,8 +70,8 @@ Clone that repo now -- so you can follow along.
 * Let's make a package!
 
 
-0:45-1:00 Building and uploading to PyPI:
------------------------------------------
+0:45-1:00 Building and uploading to PyPI
+----------------------------------------
 
 .. ifnotslides::
 
@@ -84,16 +84,16 @@ Clone that repo now -- so you can follow along.
 1:00-1:10 Break
 ---------------
 
-1:10-1:30 Exercises:
-----------------------------------
+1:10-1:30 Exercises
+-------------------
 
 * Prepare environment.
 * Build source distribution and wheel.
 * Publish artifacts on PyPI.
 
 
-1:30-2:00 Binaries and dependencies:
-------------------------------------
+1:30-2:00 Binaries and dependencies
+-----------------------------------
 
 .. ifnotslides::
 
@@ -109,7 +109,7 @@ Clone that repo now -- so you can follow along.
 * Joyous tools: **scikit-build**'s role in coordinating components of the binary
   build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
-2:00-2:45 Exercise:
+2:00-2:45 Exercises
 -------------------
 
 * Build a Python package with a C++-based C-extension.
@@ -129,7 +129,7 @@ Clone that repo now -- so you can follow along.
   :ref:`conda_build`
 
 
-3:15-3:30 Exercise:
+3:15-3:30 Exercises
 -------------------
 
 * Write a conda recipe for the sample package from previous exercises (pure python)
@@ -137,7 +137,7 @@ Clone that repo now -- so you can follow along.
 * Upload to anaconda cloud
 
 
-3:30-3:45 Exercise:
+3:30-3:45 Exercises
 -------------------
 
 * Recipe for package with compiled extensions
@@ -150,8 +150,8 @@ Clone that repo now -- so you can follow along.
 * Interoperation with scikit-build
 
 
-3:45-4:00 Automated building with cloud-based CI services:
-----------------------------------------------------------
+3:45-4:00 Automated building with cloud-based CI services
+---------------------------------------------------------
 
 
 **conda-forge** (optional; as time allows)
