@@ -17,11 +17,19 @@ Packaging from start to finish for both PyPI and conda
 .. slide::
    :level: 3
 
-.. warning::
+   .. warning::
 
-    The list of changes integrated in the tutorial after it was first
-    given at the SciPy 2018 conference can be found in the
-    :ref:`tutorial_content_updates` document.
+       The list of changes integrated in the tutorial after it was first
+       given at the SciPy 2018 conference can be found in the
+       :ref:`tutorial_content_updates` document.
+
+.. ifnotslides::
+
+   .. warning::
+
+       The list of changes integrated in the tutorial after it was first
+       given at the SciPy 2018 conference can be found in the
+       :ref:`tutorial_content_updates` document.
 
 Topics
 ------
