@@ -262,6 +262,18 @@ Installing a wheel
 
 .. nextslide::
 
+.. _install_wheel_from_testpypi:
+
+* Install a package from TestPyPI:
+
+.. code-block:: bash
+
+    $ pip install -i https://test.pypi.org/simple SomePackage
+    [...]
+    Successfully installed SomePackage
+
+.. nextslide::
+
 * Install a package file:
 
 .. code-block:: bash
