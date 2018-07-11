@@ -14,6 +14,23 @@ Packaging
 
 Packaging from start to finish for both PyPI and conda
 
+.. slide::
+   :level: 3
+
+   .. warning::
+
+       The list of changes integrated in the tutorial after it was first
+       given at the SciPy 2018 conference can be found in the
+       :ref:`tutorial_content_updates` document.
+
+.. ifnotslides::
+
+   .. warning::
+
+       The list of changes integrated in the tutorial after it was first
+       given at the SciPy 2018 conference can be found in the
+       :ref:`tutorial_content_updates` document.
+
 Topics
 ------
 
@@ -28,6 +45,11 @@ Topics
    conda
 
 If we have time: `conda-forge <https://ocefpaf.github.io/2018-SciPy-python-packaging-tutorial/>`_
+
+.. toctree::
+   :hidden:
+
+   changes
 
 
 Your Guides
