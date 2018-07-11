@@ -14,6 +14,9 @@ Packaging
 
 Packaging from start to finish for both PyPI and conda
 
+.. slide::
+   :level: 3
+
 .. warning::
 
     The list of changes integrated in the tutorial after it was first
