@@ -425,4 +425,4 @@ Bonus Exercise 4: Setting up continuous integration
     to help drive CI.
 
   * On CircleCI, use manylinux dockcross images including `scikit-build <https://pypi.python.org/pypi/scikit-build>`_,
-    `cmake <https://pypi.python.org/pypi/cmake>`_ and `ninja <https://pypi.python.org/pypi/ninja>`_ packages.
+    `cmake <https://pypi.python.org/pypi/cmake>`__ and `ninja <https://pypi.python.org/pypi/ninja>`_ packages.
