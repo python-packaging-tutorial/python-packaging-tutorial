@@ -5,10 +5,8 @@ Website and Presentation Slides
 Overview
 --------
 
-This directory provides the infrastructure allowing to build the `website <https://python-packaging-tutorial.github.io/python-packaging-tutorial>`_ and set of slides associated the Python Packaging Tutorial.
-
-Both are generated from the source files found in `sphinx_presentation/source <https://github.com/python-packaging-tutorial/python-packaging-tutorial/tree/master/sphinx_presentation/source>`_ directory.
-
+This directory provides the infrastructure allowing to locally build the website
+and slides associated with the tutorial.
 
 Prerequisites
 -------------
@@ -33,10 +31,11 @@ Then, open ``build/html/index.html``.
 Publishing the website
 ----------------------
 
-::
+Thanks to the integration of this GitHub project with readthedocs, this happens
+automatically after the ``master`` branch is updated.
 
-    ./build_gh_pages.sh
-
+Historically, the website was only updated if a contributor was locally generating
+the associated web pages and commiting them on the `gh-pages` branch.
 
 
 Building the slides
