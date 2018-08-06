@@ -18,9 +18,9 @@ The sections are ordered from most recent to the oldest.
 Better handling data file
 -------------------------
 
-* Put package data in `data` direcotry.
-* Reflect this cahnge in the code.
-* Add `package_data` to setup function
+* Put package data in `data` directory.
+* Reflect this change in the code.
+* Add `package_data` to setup function.
 
 
 2018-07
