@@ -636,7 +636,7 @@ Let’s Write a ``setup.py``
 	      packages=['capitalize',
 	                'capitalize.test'],
 	      scripts=['capitalize/bin/cap_script.py'],
-          package_data={'capitalize': ['data/cap_data.txt']},
+              package_data={'capitalize': ['data/cap_data.txt']},
 	      )
 
 
@@ -708,7 +708,7 @@ And try it::
   FileNotFoundError: [Errno 2] No such file or directory: '.../capitalize/cap_data.txt'
 
 Our script cannot find the data file. We changed it's location but not the path
-in the capital_mod.py.
+in the `capital_mod.py`.
 
 Let's fix this. On line 32 replace::
 
