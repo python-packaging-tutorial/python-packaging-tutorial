@@ -20,7 +20,7 @@ Better handling data file
 
 * Put package data in `data` direcotry.
 * Reflect this cahnge in the code.
-* add `package_data` to setup function
+* Add `package_data` to setup function
 
 
 2018-07
