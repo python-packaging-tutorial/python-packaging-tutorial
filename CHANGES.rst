@@ -15,8 +15,8 @@ The sections are ordered from most recent to the oldest.
 2018-08
 =======
 
-Better handling data file
--------------------------
+Better handling data file in :ref:`setup_py_exercise_small_example_package` section
+-----------------------------------------------------------------------------------
 
 * Put package data in `data` directory.
 * Reflect this change in the code.
