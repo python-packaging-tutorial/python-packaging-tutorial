@@ -12,6 +12,16 @@ the year and month when the related changes were done.
 
 The sections are ordered from most recent to the oldest.
 
+2018-08
+=======
+
+Better handling data file
+-------------------------
+
+* Put package data in `data` direcotry.
+* Reflect this cahnge in the code.
+* add `package_data` to setup function
+
 
 2018-07
 =======
