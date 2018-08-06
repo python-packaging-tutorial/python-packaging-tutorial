@@ -12,6 +12,16 @@ the year and month when the related changes were done.
 
 The sections are ordered from most recent to the oldest.
 
+2018-08
+=======
+
+Better handling data file in :ref:`setup_py_exercise_small_example_package` section
+-----------------------------------------------------------------------------------
+
+* Put package data in `data` directory.
+* Reflect this change in the code.
+* Add `package_data` to setup function.
+
 
 2018-07
 =======

@@ -561,7 +561,6 @@ Move the code into it:
 
  	$ mv ../capital_mod.py ./
     $ mv ../main.py ./
-    $ mv ../cap_data.txt ./
 
 .. nextslide::
 
@@ -591,6 +590,18 @@ Move the script into that:
 .. code-block:: bash
 
     $ mv ../cap_script.py bin
+
+Create directory for data:
+
+.. code-block:: bash
+
+    $ mkdir data
+
+Move data into that:
+
+.. code-block:: bash
+
+    $ mv ../cap_data.txt data
 
 Now we have a package!
 
@@ -625,6 +636,7 @@ Let’s Write a ``setup.py``
 	      packages=['capitalize',
 	                'capitalize.test'],
 	      scripts=['capitalize/bin/cap_script.py'],
+              package_data={'capitalize': ['data/cap_data.txt']},
 	      )
 
 
@@ -667,10 +679,12 @@ We need to update some imports.
 in cap_script.py::
 
   import main
+  import capital_mod
 
 should be::
 
   from capitalize import main
+  from capitalize import capital_mod
 
 and similarly in main.py::
 
@@ -680,12 +694,29 @@ and similarly in main.py::
 
 And try it::
 
-	$ cap_script.py sample_text_file.txt
+  $ cap_script.py sample_text_file.txt
 
-	Capitalizing: sample_text_file.txt and storing it in
-	sample_text_file_cap.txt
+	Traceback (most recent call last):
+  File ".../cap_script.py", line 6, in <module>
+    exec(compile(open(__file__).read(), __file__, 'exec'))
+  File ".../cap_script.py", line 8, in <module>
+    from capitalize import capital_mod
+  File "/.../capital_mod.py", line 35, in <module>
+    special_words = load_special_words(get_datafile_name())
+  File ".../capital_mod.py", line 21, in load_special_words
+    with open(data_file_name) as data_file:
+  FileNotFoundError: [Errno 2] No such file or directory: '.../capitalize/cap_data.txt'
 
-	I'm done
+Our script cannot find the data file. We changed it's location but not the path
+in the `capital_mod.py`.
+
+Let's fix this. On line 32 replace::
+
+    return Path(__file__).parent / "cap_data.txt"
+
+with::
+
+    return Path(__file__).parent / "data/cap_data.txt"
 
 
 Running the tests:
