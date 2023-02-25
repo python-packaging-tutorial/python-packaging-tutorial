@@ -35,7 +35,7 @@ Thanks to the integration of this GitHub project with readthedocs, this happens
 automatically after the ``master`` branch is updated.
 
 Historically, the website was only updated if a contributor was locally generating
-the associated web pages and commiting them on the `gh-pages` branch.
+the associated web pages and committing them on the ``gh-pages`` branch.
 
 
 Building the slides

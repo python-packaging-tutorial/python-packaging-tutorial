@@ -485,4 +485,3 @@ And one written by the author of the opinionated blog post above:
 https://github.com/ionelmc/cookiecutter-pylibrary
 
 Either are great starting points.
-

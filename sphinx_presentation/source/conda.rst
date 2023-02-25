@@ -47,7 +47,7 @@ Introducing conda-build
   https://github.com/conda/conda-build
 
 
-Excercise: let’s use ``conda-build``
+Exercise: let’s use ``conda-build``
 ------------------------------------
 
 .. code-block:: bash

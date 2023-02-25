@@ -105,7 +105,7 @@ Clone that repo now -- so you can follow along.
   *headers, libraries, compilers, linkers, build systems, system introspection
   tools, package managers*
 * Basic requirements for binary compatibility: a) **C-runtime library
-  compatibility** and b) **shared library compatibilty**
+  compatibility** and b) **shared library compatibility**
 * Joyous tools: **scikit-build**'s role in coordinating components of the binary
   build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
@@ -171,4 +171,3 @@ CI service overview & Conda-forge -- what are the pieces and how do they fit tog
 * Example to go from the conda-skeleton to a PR on staged-recipes
 * Comment on some special cases: cython extensions,  non-python pkgs, the use of the CIs, etc.
 * Exercise: put a package on staged-recipes
-

@@ -18,9 +18,9 @@ The sections are ordered from most recent to the oldest.
 Better handling data file in :ref:`setup_py_exercise_small_example_package` section
 -----------------------------------------------------------------------------------
 
-* Put package data in `data` directory.
+* Put package data in ``data`` directory.
 * Reflect this change in the code.
-* Add `package_data` to setup function.
+* Add ``package_data`` to setup function.
 
 
 2018-07
@@ -38,6 +38,4 @@ Making a Python Package
 Building and Uploading to PyPI
 ------------------------------
 
-* Update `Installing a wheel` tutorial adding :ref:`Install a package from TestPyPI <install_wheel_from_testpypi>` section.
-
-
+* Update ``Installing a wheel`` tutorial adding :ref:`Install a package from TestPyPI <install_wheel_from_testpypi>` section.

@@ -16,7 +16,7 @@ In this section we will ...
   *headers, libraries, compilers, linkers, build systems, system introspection
   tools, package managers*
 * Understand basic requirements for binary compatibility: a) **C-runtime library
-  compatibility** and b) **shared library compatibilty**
+  compatibility** and b) **shared library compatibility**
 * Understand **scikit-build**'s role in coordinating components of the binary
   build process and **conda**'s role in resolving dependencies and creating compatible platform binaries
 
@@ -39,7 +39,7 @@ Tutorial
     Within this the context, we explain how *scikit-build* and *conda-build* make
     life easier when we want to satisfy these requirements.
 
-    Finally, run an exercise where we build a native Python wth native binaries
+    Finally, run an exercise where we build a native Python with native binaries
     package and analyze the different stages of the build process.
 
 Motivation
@@ -55,7 +55,7 @@ domains because of the:
 
 In order to achieve **high performance**, programs can:
 
-1. **Minimized the number of operations** on the CPU required to acheive a certain
+1. **Minimized the number of operations** on the CPU required to achieve a certain
    task
 2. **Execute in parallel** to leverage multi-core, many-core, and GPGPU system
    architectures
@@ -179,7 +179,7 @@ available for the build.*
 
 build host artifacts
   These are files required on the *host* system performing the build. This
-  includes **header files**, `*.h` files, which define the C program **symbols**,
+  includes **header files**, ``*.h`` files, which define the C program **symbols**,
   i.e. variable and function names, for the native binary with which we want
   to integrate. This also usually includes the native binaries themselves,
   i.e. the **executable or shared library**. An important exception to this rule
@@ -248,15 +248,15 @@ packages.
 .. nextslide::
 
 The C-runtime on macOS is determined by a build time option, the *osx
-deployment target*, which defines the minmum version of macOS to support, e.g.
-`10.9`.
+deployment target*, which defines the minimum version of macOS to support, e.g.
+``10.9``.
 
 A macOS system comes with support for running building binaries for its version of
 OSX and older versions of OSX.
 
 The XCode toolchain comes with SDK's that support multiple target versions of OSX.
 
-When building a wheel, this can be specified with `--plat-name`::
+When building a wheel, this can be specified with ``--plat-name``::
 
     python setup.py bdist_wheel --plat-name macosx-10.6-x86_64
 
@@ -303,7 +303,7 @@ build requirements.
 .. nextslide::
 
 The **scikit-build** package is fundamentally just glue between
-the `setuptools` Python module and `CMake <https://cmake.org/>`_.
+the ``setuptools`` Python module and `CMake <https://cmake.org/>`_.
 
 .. nextslide::
 

@@ -71,7 +71,7 @@ anaconda upload /Users/msarahan/miniconda3/conda-bld/osx-64/bitarray-0.8.1-py36h
 
 anaconda_upload is not set.  Not uploading wheels: []
 ####################################################################################
-Resoource usage summary:
+Resource usage summary:
 
 Total time: 0:00:36.9
 CPU usage: sys=0:00:00.2, user=0:00:00.2
