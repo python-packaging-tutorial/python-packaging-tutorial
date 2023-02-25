@@ -17,7 +17,7 @@ rst.append("#" * len(title))
 rst.append("")
 # find end of title page:
 line = inlines.pop(0)
-while line.strip() != '1':
+while line.strip() != "1":
     rst.append(line)
     line = inlines.pop(0)
 
@@ -44,22 +44,17 @@ while inlines:
     rst.append("-" * len(header))
 
     # content is the stuff above it
-    for line in inlines[:start_ind - 1]:
+    for line in inlines[: start_ind - 1]:
         rst.append(line)
     # footer is the stuff in between
     rst.append("")
-    for line in inlines[start_ind + 1:end_ind]:
+    for line in inlines[start_ind + 1 : end_ind]:
         rst.append(line)
     # clear it all out:
-    del inlines[:end_ind + 1]
+    del inlines[: end_ind + 1]
     # and clear out any empty lines
     while inlines and (not inlines[0].strip()):
         del inlines[0]
 
 
-
-
-
-
-open(outfilename, 'w').write("\n".join(rst))
-
+open(outfilename, "w").write("\n".join(rst))

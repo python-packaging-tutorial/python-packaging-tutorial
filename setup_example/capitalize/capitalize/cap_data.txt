@@ -1,6 +1,6 @@
 # list of words that don't get capitalized
 is
-or 
+or
 a
 the
 it

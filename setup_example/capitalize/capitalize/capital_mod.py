@@ -14,13 +14,13 @@ def load_special_words(data_file_name, words=None):
     from the data file in the package
 
     data file is a text file with one work per line
-    the # charactor is a comment -- everything after it will be ignored
+    the # character is a comment -- everything after it will be ignored
 
     """
     words = set() if words is None else words
     with open(data_file_name) as data_file:
         for line in data_file:
-            word = line.split('#')[0].strip()
+            word = line.split("#")[0].strip()
             if word:
                 words.add(word.lower())
     return words
@@ -45,7 +45,7 @@ def capitalize_line(instr, special_words=special_words):
     :type instr: string
 
     :param special_words: set of words that should not be capitalized
-                          defaults to the words in the encosed data file
+                          defaults to the words in the enclosed data file
     :type special_words: set of str
 
     :returns: a capitalized version of instr
@@ -83,8 +83,8 @@ def capitalize(infilename, outfilename):
 
     :raises: IOError if infilename doesn't exist.
     """
-    infile = open(infilename, 'U')
-    outfile = open(outfilename, 'w')
+    infile = open(infilename, "U")
+    outfile = open(outfilename, "w")
 
     for line in infile:
         outfile.write(capitalize_line(line))

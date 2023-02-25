@@ -4,4 +4,4 @@ package:
 
 build:
   run_exports:
-    - {{ pin_subpackage("has_run_exports") }}
+    - '{{ pin_subpackage("has_run_exports") }}'
