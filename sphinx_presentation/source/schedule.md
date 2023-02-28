@@ -7,15 +7,15 @@
   - PyPI / anaconda.org
   - Links packaging documentation such as PyPA, Packaging Native
 
-0:20: Exercise
+0:15: Exercise
 : - Identify platforms supported for the xxx packages on PyPI and anaconda.org
 
-0:25: Virtual environments
+0:20: Virtual environments
 : - Setting up a virtual environment
   - Setting up a conda environment
   - Using a task runner (nox)
 
-0:45: Exercise writing a noxfile
+0:30: Exercise writing a noxfile
 : - Take existing working package and add a simple noxfile
 
 0:50: Break & catch up
@@ -43,39 +43,44 @@
   - Discuss use of delocate/Auditwheel/…
   - Difference between linux & manylinux wheels (internalize dependencies, glibc compatibility, …)
 
-1:45: Worked example/exercise: building a package and uploading to pypi
+1:35: Worked example/exercise: building a package and uploading to pypi
 : - Continuing from the the previous exercise, build a wheel for the package
   - Register the package on the pypi testing server
   - Upload the built distributions using twine
   - Delete one of the uploaded files on pypi and try re-uploading (will fail)
   - Introduce the idea of .post releases (it will happen to everyone who uploads)
 
-1:55: Coffee break
+1:45: Coffee break
 
-2:15: Binaries and dependencies: how scikit-build can make life easier
+2:05: Binaries and dependencies: how scikit-build can make life easier
 : - Scikit-build overview & motivation
+  - Adding a minimal CMakeLists.txt
+  - Building the extension
+  - Adding options and controlling the build
 
-2:40: Exercise: add CMake project that generates python extension.
+2:30: Exercise: add CMake project that generates python extension.
 : - Tie it into previous python project.
+  - Setup build caching
 
-3:00: Break & catch up
+2:50: Break & catch up
 
-3:10: Automated building with cloud-based CI services
+3:00: Automated building with cloud-based CI services
 : - GitHub action
   - Pre-commit.yml
-  - Ruff
-  - Static analysis
+      - Ruff
   - https://cibuildwheel.readthedocs.io/en/stable/
 
-3:30: Exercise: (10 min)
+3:15: Exercise:
 : - Update previous example adding cibuildwheel support
-  - Linting using pre-commit + ruff
+  - Linting using pre-commit + Ruff
   - Automated PyPI release
 
 
-3:40: Handling dependencies
-: - "In-project" compilation (pybind11)
-  - External: see https://github.com/pypa/cibuildwheel/issues/1251#issuecomment-1236364876 for example
+3:30: Handling dependencies
+: - "In-project" compilation
+  - External
 
-3:50: Exercise
+3:45: Exercise
 : - Add a dependency to the project
+    - pybind11 (in-project)
+    - lz4 (external)
