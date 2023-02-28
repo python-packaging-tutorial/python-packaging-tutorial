@@ -4,10 +4,12 @@ Continuous Integration (CI) allows you to perform tasks on a server
 for various events on your repository (called triggers). For example,
 you can use GitHub Actions (GHA) to run a test suite on every pull request.
 
+## GitHub Actions
+
 GHA is made up of workflows which consist of actions. Workflows are files
 in the `.github/workflows` folder ending in `.yml`.
 
-## Triggers
+### Triggers
 
 Workflows start with triggers, which define when things run. Here are three
 triggers:
@@ -24,7 +26,7 @@ This will run on all pull requests and pushes to main. You can also specify
 specific branches for pull requests instead of running on all PRs (will run on
 PRs targeting those branches only).
 
-## Running unit tests
+### Running unit tests
 
 Let's set up a basic test. We will define a jobs dict, with a single job named
 "tests". For all jobs, you need to select an image to run on - there are images
@@ -58,7 +60,7 @@ This has five steps:
 By default, if any step fails, the run immediately quits and fails.
 
 
-## Running in a matrix
+### Running in a matrix
 
 You can parametrize values, such as Python version or operating system. Do do
 this, make a `strategy: matrix:` dict. Every key in that dict (except `include:`
@@ -122,7 +124,7 @@ parametrization; this will add a key to an existing job.
 
 The `exclude:` key does the opposite, and lets you remove jobs from the matrix.
 
-## Other actions
+### Other actions
 
 GitHub Actions has the concept of actions, which are just GitHub repositories of the form `org/name@tag`, and there are lots of useful actions to choose from (and you can write your own by composing other actions, or you can also create them with JavaScript or Dockerfiles). Here are a few:
 
@@ -144,6 +146,11 @@ And many other useful ones:
 - [conda-incubator/setup-miniconda](https://github.com/conda-incubator/setup-miniconda): Setup conda or mamba on GitHub Actions.
 - [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages): Deploy built files to to GitHub Pages
 - [ruby/setup-miniconda](https://github.com/ruby/setup-ruby) Setup Ruby if you need it for something.
+
+
+## Pre-commit
+
+## Building wheels with cibuildwheel
 
 
 ## Exercise

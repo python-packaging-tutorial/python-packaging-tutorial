@@ -13,16 +13,14 @@ Packaging from start to finish including binary extensions using modern tools.
 :maxdepth: 1
 
 schedule
+1_overview
 2_env
 3_pyproject
-6_ci
-```
-<!--
-1_overview
 4_tools
 5_binary
+6_ci
 7_dependencies
--->
+```
 
 ```{toctree}
 :hidden:

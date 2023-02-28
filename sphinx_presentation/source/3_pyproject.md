@@ -1,4 +1,4 @@
-# The pyproject.toml
+# The pyproject.toml file
 
 Much research software is initially developed by hacking away in an interactive
 setting, such as in a [Jupyter Notebook](https://jupyter.org) or a Python shell.

@@ -38,7 +38,6 @@
   - For consolidated experience & dependency management
     - Pdm  (https://pdm.fming.dev/latest/)
     - May be Hatch (https://hatch.pypa.io) (more like a replacement for tox and nox)
-    - flit: great for simple packages
   - Building a source distribution
   - Building a wheel
   - Discuss use of delocate/Auditwheel/…
